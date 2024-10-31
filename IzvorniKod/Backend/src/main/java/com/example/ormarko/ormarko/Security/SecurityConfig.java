@@ -20,11 +20,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .formLogin(l -> l.defaultSuccessUrl("/user").permitAll())
+                .formLogin(l -> l.defaultSuccessUrl("/profile").loginPage("/login").permitAll())
                 .authorizeHttpRequests(registry ->{
-                    registry.requestMatchers("/",  "home").permitAll();
-                    registry.requestMatchers("/user/**").authenticated();
-                    registry.requestMatchers("/profile").authenticated();
+                    registry.requestMatchers("home", "/signup").permitAll();
+                    registry.requestMatchers("/user/**", "profile").authenticated();
                     registry.anyRequest().authenticated();
                 })
                 .logout(l -> l.logoutSuccessUrl("/"))
