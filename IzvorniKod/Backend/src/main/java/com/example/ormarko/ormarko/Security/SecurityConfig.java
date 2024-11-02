@@ -1,6 +1,6 @@
 package com.example.ormarko.ormarko.Security;
 
-import com.example.ormarko.ormarko.Service.MyRegisteredUserService;
+import com.example.ormarko.ormarko.Service.UserService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +21,17 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Autowired
-    private final MyRegisteredUserService registeredUserService;
+    private final UserService userService;
 
     @Bean
     public UserDetailsService userDetailsService(){
-        return registeredUserService;
+        return userService;
     }
 
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(registeredUserService);
+        provider.setUserDetailsService(userService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
@@ -43,8 +43,7 @@ public class SecurityConfig {
                 .formLogin(l -> l.defaultSuccessUrl("/user").loginPage("/login").permitAll())
                 .authorizeHttpRequests(registry ->{
                     registry.requestMatchers("/",  "home", "/advertiser/**", "/signup", "/register/**").permitAll();
-                    registry.requestMatchers("/user/**").authenticated();
-                    registry.requestMatchers("/profile").authenticated();
+                    registry.requestMatchers("/user/**", "/profile").authenticated();
                     registry.anyRequest().authenticated();
                 })
                 .logout(l -> l.logoutSuccessUrl("/"))

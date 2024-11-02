@@ -1,10 +1,10 @@
 package com.example.ormarko.ormarko.Service;
 
-import com.example.ormarko.ormarko.Model.MyRegisteredUser;
-import com.example.ormarko.ormarko.Repository.MyRegisteredUserRepository;
+import com.example.ormarko.ormarko.CustomUser;
+import com.example.ormarko.ormarko.Model.User;
+import com.example.ormarko.ormarko.Repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,19 +14,19 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class MyRegisteredUserService implements UserDetailsService{
+public class UserService implements UserDetailsService{
 
     @Autowired
-    private MyRegisteredUserRepository repository;
+    private UserRepository repository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<MyRegisteredUser> user = repository.findByUsername(username);
+        Optional<User> user = repository.findByUsername(username);
         if (user.isPresent()){
             var userObject = user.get();
-            return User.builder()
+            return CustomUser.builder()
                     .username(userObject.getUsername())
-                    .password(userObject.getPassword())
+                    .password(userObject.getPass())
                     .build();
         }
         else{
