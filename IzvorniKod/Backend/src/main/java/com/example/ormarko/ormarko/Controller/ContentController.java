@@ -25,10 +25,15 @@ public class ContentController {
     public String home(){
         return "home";
     }
-    @GetMapping("/user")
-    public String user(){
-        return "user";
-    }
+
+//    @GetMapping("/user")
+//    public String user(Authentication authentication){
+//        String username = authentication.getName();
+//        String display = "Hi, " + username + " !";
+//
+//        return display;
+//    }
+
     @GetMapping("/signup")
     public String signup(){
         return "signup";

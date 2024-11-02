@@ -1,6 +1,6 @@
 package com.example.ormarko.ormarko.Security;
 
-import com.example.ormarko.ormarko.Model.MyRegisteredUserService;
+import com.example.ormarko.ormarko.Service.MyRegisteredUserService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

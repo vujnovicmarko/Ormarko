@@ -1,5 +1,6 @@
-package com.example.ormarko.ormarko.Model;
+package com.example.ormarko.ormarko.Repository;
 
+import com.example.ormarko.ormarko.Model.MyRegisteredUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

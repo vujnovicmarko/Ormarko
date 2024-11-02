@@ -1,0 +1,24 @@
+{
+  "locations": [
+    {
+      "locationId": 1,
+      "closetId": 1,
+      "typeLoc": "POLICA"
+    },
+    {
+      "locationId": 2,
+      "closetId": 2,
+      "typeLoc": "LADICA"
+    },
+    {
+      "locationId": 3,
+      "closetId": 3,
+      "typeLoc": "ŠIPKA_ZA_ODJEĆU"
+    },
+    {
+      "locationId": 4,
+      "closetId": 4,
+      "typeLoc": "POLICA"
+    }
+  ]
+}

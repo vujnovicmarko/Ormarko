@@ -1,5 +1,7 @@
-package com.example.ormarko.ormarko.Model;
+package com.example.ormarko.ormarko.Service;
 
+import com.example.ormarko.ormarko.Model.MyRegisteredUser;
+import com.example.ormarko.ormarko.Repository.MyRegisteredUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;

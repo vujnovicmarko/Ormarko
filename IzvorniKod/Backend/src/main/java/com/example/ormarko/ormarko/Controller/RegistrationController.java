@@ -1,7 +1,7 @@
 package com.example.ormarko.ormarko.Controller;
 
 import com.example.ormarko.ormarko.Model.MyRegisteredUser;
-import com.example.ormarko.ormarko.Model.MyRegisteredUserRepository;
+import com.example.ormarko.ormarko.Repository.MyRegisteredUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +22,5 @@ public class RegistrationController {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return myRegisteredUserRepository.save(user);
     }
-
 
 }

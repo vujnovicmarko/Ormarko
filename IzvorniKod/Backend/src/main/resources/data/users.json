@@ -1,0 +1,32 @@
+{
+  "users": [
+    {
+      "username": "john_doe",
+      "pass": "123",
+      "city": "Zagreb",
+      "country": "Croatia",
+      "e_mail": "john.doe@example.com"
+    },
+    {
+      "username": "jane_smith",
+      "pass": "janeSecure987",
+      "city": "Split",
+      "country": "Croatia",
+      "e_mail": "js@example.com"
+    },
+    {
+      "username": "marko_polo",
+      "pass": "traveler2024",
+      "city": "Dubrovnik",
+      "country": "Croatia",
+      "e_mail": "mp@example.com"
+    },
+    {
+      "username": "ana_kovac",
+      "pass": "anaPass@123",
+      "city": "Rijeka",
+      "country": "Croatia",
+      "e_mail": "ana.kovac@gmail.com"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "closets": [
+    {
+      "closetId": 1,
+      "closetOwner": "john_doe"
+    },
+    {
+      "closetId": 2,
+      "closetOwner": "jane_smith"
+    },
+    {
+      "closetId": 3,
+      "closetOwner": "marko_polo"
+    },
+    {
+      "closetId": 4,
+      "closetOwner": "ana_kovac"
+    }
+  ]
+}
