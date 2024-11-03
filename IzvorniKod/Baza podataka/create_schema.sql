@@ -1,6 +1,6 @@
 CREATE TABLE users (
 	username			VARCHAR(20) PRIMARY KEY,
-	pass				VARCHAR(20) NOT NULL,
+	pass				VARCHAR(200) NOT NULL,
 	city				VARCHAR(20) NOT NULL,
 	country				VARCHAR(20) NOT NULL,
 	e_mail				VARCHAR(20) NOT NULL UNIQUE
@@ -8,8 +8,8 @@ CREATE TABLE users (
 
 CREATE TABLE marketers (
 	username			VARCHAR(20) PRIMARY KEY,
-	pass				VARCHAR(20) NOT NULL,
-	e_mail				VARCHAR(20) NOT NULL UNIQUE,
+	pass				VARCHAR(200) NOT NULL,
+	e_mail				VARCHAR(50) NOT NULL UNIQUE,
 	logo				BYTEA NOT NULL UNIQUE
 );
 
