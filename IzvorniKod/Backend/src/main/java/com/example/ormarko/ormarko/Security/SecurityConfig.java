@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(l -> l.defaultSuccessUrl("/user").loginPage("/login").permitAll())
                 .authorizeHttpRequests(registry ->{
-                    registry.requestMatchers("/",  "home", "/advertiser/**", "/signup", "/register/**").permitAll();
+                    registry.requestMatchers("/",  "home", "/advertiser/**", "/signup/**").permitAll();
                     registry.requestMatchers("/user/**", "/profile").authenticated();
                     registry.anyRequest().authenticated();
                 })

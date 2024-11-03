@@ -1,5 +1,9 @@
 package com.example.ormarko.ormarko.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -10,9 +14,13 @@ public class User {
 
     @Id
     private String username;
+    @NotBlank(message = "Password cannot be empty")
+    @JsonProperty("password")
     private String pass;
     private String city;
     private String country;
+    @Email(message = "Please provide a valid email address")
+    @JsonProperty("email")
     private String e_mail;
 
     // Default constructor

@@ -84,7 +84,7 @@ const submitButton = document.getElementById("submit");
 
     if(password == confirmPassword){
       const jsonData = JSON.stringify(data);
-      fetch('/register/user', {
+      fetch('/signup/user', {
         method: 'POST',
         headers:{
           'Content-Type': 'application/json'

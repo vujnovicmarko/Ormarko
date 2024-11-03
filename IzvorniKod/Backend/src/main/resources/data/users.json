@@ -2,31 +2,31 @@
   "users": [
     {
       "username": "john_doe",
-      "pass": "123",
+      "password": "$2a$12$Q93TzeQw.HAmHu00AUfxIuz6euTGpVgQEe9bSPS4NPgMdTA/9s0PC",
       "city": "Zagreb",
       "country": "Croatia",
-      "e_mail": "john.doe@example.com"
+      "email": "john.doe@example.com"
     },
     {
       "username": "jane_smith",
-      "pass": "janeSecure987",
+      "password": "$2a$12$z78bnTmB.3qwxFl7Qk8T3.JwS.XL2Iv3nuHXB6CU4BwA3JFODRz6a",
       "city": "Split",
       "country": "Croatia",
-      "e_mail": "js@example.com"
+      "email": "js@example.com"
     },
     {
       "username": "marko_polo",
-      "pass": "traveler2024",
+      "password": "$2a$12$i7ljuYTJFHjqxPm/RFGBKOqtkY04lmIQ7wDkniM7KBleimO.RK4sm",
       "city": "Dubrovnik",
       "country": "Croatia",
-      "e_mail": "mp@example.com"
+      "email": "mp@example.com"
     },
     {
       "username": "ana_kovac",
-      "pass": "anaPass@123",
+      "password": "$2a$12$LgXiFeXXQZ.i6Ik1Mr2ezuTt5wqwCxmxUpyS78Xf0orjdNi8L6rRa",
       "city": "Rijeka",
       "country": "Croatia",
-      "e_mail": "ana.kovac@gmail.com"
+      "email": "ana.kovac@gmail.com"
     }
   ]
 }

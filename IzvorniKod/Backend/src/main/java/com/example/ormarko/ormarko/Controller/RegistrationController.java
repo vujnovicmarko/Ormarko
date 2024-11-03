@@ -15,7 +15,7 @@ public class RegistrationController {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @PostMapping(value = "/register/user")
+    @PostMapping(value = "/signup/user")
     public User createUser(@RequestBody User user){
         user.setCity("Zagreb");
         user.setCountry("Croatia");
