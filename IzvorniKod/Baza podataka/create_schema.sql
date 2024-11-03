@@ -3,7 +3,7 @@ CREATE TABLE users (
 	pass				VARCHAR(200) NOT NULL,
 	city				VARCHAR(20) NOT NULL,
 	country				VARCHAR(20) NOT NULL,
-	e_mail				VARCHAR(20) NOT NULL UNIQUE
+	e_mail				VARCHAR(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE marketers (
@@ -31,7 +31,7 @@ CREATE TABLE articles_user (
 	location_id			INT NOT NULL,
 	sharing				BOOL DEFAULT FALSE,
 	title				VARCHAR(50) NOT NULL,
-	image				BYTEA NOT NULL,
+	img					BYTEA NOT NULL,
 	category			VARCHAR(20) NOT NULL,
 	season				VARCHAR(20) NOT NULL,
 	openess				VARCHAR(20),
