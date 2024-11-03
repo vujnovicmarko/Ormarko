@@ -38,16 +38,16 @@ CREATE TABLE articles_user (
 	how_casual			VARCHAR(20) NOT NULL,
 	main_color			VARCHAR(20) NOT NULL,
 	side_color			VARCHAR(20) NOT NULL,
-	description			VARCHAR(500),
+	descript			VARCHAR(500),
 	FOREIGN KEY (location_id) REFERENCES locations(location_id) ON DELETE CASCADE
 );
 
 CREATE TABLE articles_marketing (
 	article_id			SERIAL PRIMARY KEY,
 	article_marketer	VARCHAR(20) NOT NULL,
-	title				VARCHAR(20) NOT NULL,
+	title				VARCHAR(50) NOT NULL,
 	category			VARCHAR(20) NOT NULL,
-	image				BYTEA NOT NULL,
+	img					BYTEA NOT NULL,
 	price				REAL NOT NULL,
 	FOREIGN KEY (article_marketer) REFERENCES marketers(username) ON DELETE CASCADE
 );
