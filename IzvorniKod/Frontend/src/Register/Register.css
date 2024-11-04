@@ -1,11 +1,11 @@
-
 .form-container {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 80px); /* Adjust for header height */
+    min-height: calc(100vh - 80px);
+    /* Adjust for header height */
     padding: 20px;
     margin-top: 80px;
 }

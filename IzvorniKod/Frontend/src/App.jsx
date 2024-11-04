@@ -41,12 +41,12 @@ const items = [
 export default function App() {
   return (
     <Router>
-          <Toolbar />
-          <Routes>
-            <Route path="/" element={<ItemDisplay items={items} />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-        </Router>
+      <Toolbar />
+      <Routes>
+        <Route path="/" element={<ItemDisplay items={items} />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </Router>
   )
 }
