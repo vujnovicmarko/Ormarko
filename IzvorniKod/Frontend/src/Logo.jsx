@@ -1,5 +1,9 @@
+import { Link } from 'react-router-dom';
+
 export default function Logo() {
   return (
-    <img className="logo" src="../public/OrmarkoLogo.png" />
-  )
+    <Link to="/">
+      <img className="logo" src="../public/OrmarkoLogo.png" alt="Logo" />
+    </Link>
+  );
 }

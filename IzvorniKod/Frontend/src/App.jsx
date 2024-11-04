@@ -1,6 +1,9 @@
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import "./App.css"
 import ItemDisplay from "./ItemDisplay"
 import Toolbar from "./Toolbar"
+import Login from "./Login/Login";
+import Register from "./Register/Register";
 
 const items = [
   ["Naziv1", "kategorija1", "../public/OrmarkoIcon.png"],
@@ -37,9 +40,13 @@ const items = [
 
 export default function App() {
   return (
-    <>
-      <Toolbar></Toolbar>
-      <ItemDisplay items={items}></ItemDisplay>
-    </>
+    <Router>
+          <Toolbar />
+          <Routes>
+            <Route path="/" element={<ItemDisplay items={items} />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </Router>
   )
 }
