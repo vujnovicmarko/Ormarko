@@ -40,7 +40,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .formLogin(l -> l.defaultSuccessUrl("/user").loginPage("/login").permitAll())
+                .formLogin(l -> l.defaultSuccessUrl("/profile",true).loginPage("/login").permitAll())
                 .authorizeHttpRequests(registry ->{
                     registry.requestMatchers("/",  "home", "/advertiser/**", "/signup/**").permitAll();
                     registry.requestMatchers("/user/**", "/profile").authenticated();

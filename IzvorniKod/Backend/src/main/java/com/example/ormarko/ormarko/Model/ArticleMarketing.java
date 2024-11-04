@@ -12,8 +12,8 @@ public class ArticleMarketing {
         private String title;
         @Enumerated(EnumType.STRING)
         private ArticleCategory category;
-        @Column(name = "image")
-        private byte[] image;
+        @Column(name = "img")
+        private byte[] img;
         private float price;
 
         // Default constructor
@@ -21,11 +21,11 @@ public class ArticleMarketing {
         }
 
         // Parameterized constructor
-        public ArticleMarketing(String articleMarketer, String title, ArticleCategory category, byte[] image, float price) {
+        public ArticleMarketing(String articleMarketer, String title, ArticleCategory category, byte[] img, float price) {
                 this.articleMarketer = articleMarketer;
                 this.title = title;
                 this.category = category;
-                this.image = image;
+                this.img = img;
                 this.price = price;
         }
 
@@ -62,12 +62,12 @@ public class ArticleMarketing {
                 this.category = category;
         }
 
-        public byte[] getImage() {
-                return image;
+        public byte[] getimg() {
+                return img;
         }
 
-        public void setImage(byte[] image) {
-                this.image = image;
+        public void setimg(byte[] img) {
+                this.img = img;
         }
 
         public float getPrice() {

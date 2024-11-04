@@ -16,8 +16,8 @@ public class ArticleUser {
         private String title;
 
         //@Lob // For larger binary data
-        @Column(name = "image")
-        private byte[] image;
+        @Column(name = "img")
+        private byte[] img;
 
         @Enumerated(EnumType.STRING)
         private ArticleCategory category;
@@ -37,28 +37,28 @@ public class ArticleUser {
         @Enumerated(EnumType.STRING)
         private ArticleColor sideColor;
 
-        private String description;
+        private String descript;
 
         // Default constructor
         public ArticleUser() {
         }
 
         // Parameterized constructor
-        public ArticleUser(int locationId, boolean sharing, String title, byte[] image,
+        public ArticleUser(int locationId, boolean sharing, String title, byte[] img,
                            ArticleCategory category, ArticleSeason season, ArticleOpen openess,
                            ArticleCasual howCasual, ArticleColor mainColor, ArticleColor sideColor,
-                           String description) {
+                           String descript) {
                 this.locationId = locationId;
                 this.sharing = sharing;
                 this.title = title;
-                this.image = image;
+                this.img = img;
                 this.category = category;
                 this.season = season;
                 this.openess = openess;
                 this.howCasual = howCasual;
                 this.mainColor = mainColor;
                 this.sideColor = sideColor;
-                this.description = description;
+                this.descript = descript;
         }
 
         public int getArticleId() {
@@ -93,12 +93,12 @@ public class ArticleUser {
                 this.title = title;
         }
 
-        public byte[] getImage() {
-                return image;
+        public byte[] getimg() {
+                return img;
         }
 
-        public void setImage(byte[] image) {
-                this.image = image;
+        public void setimg(byte[] img) {
+                this.img = img;
         }
 
         public ArticleCategory getCategory() {
@@ -149,12 +149,12 @@ public class ArticleUser {
                 this.sideColor = sideColor;
         }
 
-        public String getDescription() {
-                return description;
+        public String getdescript() {
+                return descript;
         }
 
-        public void setDescription(String description) {
-                this.description = description;
+        public void setdescript(String descript) {
+                this.descript = descript;
         }
 }
 

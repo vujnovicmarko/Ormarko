@@ -5,98 +5,98 @@
       "locationId": 1,
       "sharing": true,
       "title": "Summer T-Shirt",
-      "image": "AQIDBAU=" ,
+      "img": "AQIDBAU=" ,
       "category": "MAJICA",
       "season": "LJETO",
       "openess": null,
       "howCasual": "LEŽERNO",
       "mainColor": "BIJELA",
       "sideColor": "PLAVA",
-      "description": "A comfortable white and blue summer t-shirt."
+      "descript": "A comfortable white and blue summer t-shirt."
     },
     {
       "articleId": 2,
       "locationId": 1,
       "sharing": false,
       "title": "Winter Boots",
-      "image": "AQIDBAU=" ,
+      "img": "AQIDBAU=" ,
       "category": "CIPELE",
       "season": "ZIMA",
       "openess": "KIŠA_SNIJEG",
       "howCasual": "SPORTSKO",
       "mainColor": "CRNA",
       "sideColor": "SIVA",
-      "description": "Waterproof winter boots suitable for snow and rain."
+      "descript": "Waterproof winter boots suitable for snow and rain."
     },
     {
       "articleId": 3,
       "locationId": 2,
       "sharing": false,
       "title": "Casual Spring Shirt",
-      "image": "AQIDBAU=",
+      "img": "AQIDBAU=",
       "category": "KOŠULJA",
       "season": "PROLJEĆE",
       "openess": null,
       "howCasual": "LEŽERNO",
       "mainColor": "PLAVA",
       "sideColor": "BIJELA",
-      "description": "A light blue shirt perfect for spring."
+      "descript": "A light blue shirt perfect for spring."
     },
     {
       "articleId": 4,
       "locationId": 3,
       "sharing": true,
       "title": "Warm Winter Coat",
-      "image": "AQIDBAU=" ,
+      "img": "AQIDBAU=" ,
       "category": "KAPUT",
       "season": "ZIMA",
       "openess": null,
       "howCasual": "RADNO",
       "mainColor": "CRNA",
       "sideColor": "SIVA",
-      "description": "A cozy coat suitable for winter workdays."
+      "descript": "A cozy coat suitable for winter workdays."
     },
     {
       "articleId": 5,
       "locationId": 4,
       "sharing": false,
       "title": "Summer Sneakers",
-      "image": "AQIDBAU=" ,
+      "img": "AQIDBAU=" ,
       "category": "TENISICE",
       "season": "LJETO",
       "openess": "OTVORENO",
       "howCasual": "SPORTSKO",
       "mainColor": "BIJELA",
       "sideColor": "PLAVA",
-      "description": "Breathable sneakers ideal for summer sports."
+      "descript": "Breathable sneakers ideal for summer sports."
     },
     {
       "articleId": 6,
       "locationId": 3,
       "sharing": true,
       "title": "Elegant Dress",
-      "image": "AQIDBAU=" ,
+      "img": "AQIDBAU=" ,
       "category": "HALJINA",
       "season": "JESEN",
       "openess": null,
       "howCasual": "SVEČANO",
       "mainColor": "CRVENA",
       "sideColor": "CRNA",
-      "description": "An elegant red and black dress for special occasions."
+      "descript": "An elegant red and black dress for special occasions."
     },
     {
       "articleId": 7,
       "locationId": 2,
       "sharing": false,
       "title": "Rain Boots",
-      "image": "AQIDBAU=",
+      "img": "AQIDBAU=",
       "category": "CIPELE",
       "season": "JESEN",
       "openess": "KIŠA_SNIJEG",
       "howCasual": "SPORTSKO",
       "mainColor": "SMEĐA",
       "sideColor": "CRNA",
-      "description": "Durable boots for rainy and snowy weather."
+      "descript": "Durable boots for rainy and snowy weather."
     }
   ]
 }

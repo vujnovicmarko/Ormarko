@@ -92,10 +92,9 @@ const submitButton = document.getElementById("submit");
         body: jsonData
       })
       .then(response =>{
-        //alert('succesfull');
-        //if(response.status == 200){
-          //alert('succesfull');
-        //xs}
+        if(response.status == 200){
+          navigate("/profile");
+        }
       })
     }
 
