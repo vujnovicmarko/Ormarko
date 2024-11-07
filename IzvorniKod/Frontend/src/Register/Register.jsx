@@ -17,11 +17,28 @@ export default function Register() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here you would typically handle form submission, such as sending data to your backend
-    console.log('Form submitted:', formData);
-  };
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      try {
+        const response = await fetch('http://localhost:8080/api/signup/user', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          console.log('Registration successful:', result);
+          alert("Registration successful!");
+        } else {
+          console.error('Registration failed:', response.statusText);
+          alert("Registration failed. Please try again.");
+        }
+      } catch (error) {
+        console.error('Error during registration:', error);
+      }
+    };
 
   return (
     <div className="form-container">
