@@ -3,11 +3,9 @@ package com.example.ormarko.ormarko.Security;
 import com.example.ormarko.ormarko.Model.User;
 import com.example.ormarko.ormarko.Repository.UserRepository;
 import com.example.ormarko.ormarko.Service.UserService;
-import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -16,6 +14,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Objects;
 
 @Component
 public class CustomSuccesHandler implements AuthenticationSuccessHandler {
@@ -29,10 +28,13 @@ public class CustomSuccesHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-        String redirectURL = null;
+        String redirectURL;
         if (authentication.getPrincipal() instanceof DefaultOAuth2User) {
             DefaultOAuth2User userDetails = (DefaultOAuth2User) authentication.getPrincipal();
-            String username = userDetails.getAttribute("name") != null ? userDetails.getAttribute("name"):userDetails.getAttribute("email");
+            System.out.println("OAuth2 user details: " + userDetails.getAttributes()); // Debug line
+            String username = userDetails.getAttribute("given_name") != null ? userDetails.getAttribute("given_name") :
+                    userDetails.getAttribute("name") != null ? userDetails.getAttribute("name") :
+                            Objects.requireNonNull(userDetails.getAttribute("email")).toString().split("@")[0];
             String email = userDetails.getAttribute("email");
             if (userRepository.findByEmail(email).isEmpty()){
                 User newUser = new User();

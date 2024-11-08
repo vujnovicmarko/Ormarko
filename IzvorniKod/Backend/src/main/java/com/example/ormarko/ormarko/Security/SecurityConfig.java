@@ -13,11 +13,16 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
@@ -76,6 +81,26 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+    @Bean
+    public ClientRegistrationRepository clientRegistrationRepository(){
+        List<ClientRegistration> registrations = new ArrayList<>();
+        registrations.add(googleClientRegistration());
+        return new InMemoryClientRegistrationRepository(registrations);
+    }
+
+    private ClientRegistration googleClientRegistration(){
+        return ClientRegistration.withRegistrationId("google")
+                .clientId("1081883435015-2ujbp1k9v81q86qg68gnfvkb55vjpcot.apps.googleusercontent.com")
+                .clientSecret("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")
+                .scope("email", "profile")
+                .authorizationUri("https://accounts.google.com/o/oauth2/auth")
+                .tokenUri("https://oauth2.googleapis.com/token")
+                .userInfoUri("https://www.googleapis.com/oauth2/v3/userinfo")
+                .userNameAttributeName("sub")
+                .redirectUri("{baseUrl}/login/oauth2/code/google")
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .build();
     }
 
 }
