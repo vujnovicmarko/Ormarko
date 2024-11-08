@@ -28,6 +28,8 @@ public class SecurityConfig {
     @Autowired
     private final UserService userService;
 
+    @Autowired
+    CustomSuccesHandler succesHandler;
     @Bean
     public UserDetailsService userDetailsService(){
         return userService;
@@ -54,6 +56,7 @@ public class SecurityConfig {
                     registry.anyRequest().authenticated();
                 })
                 .logout(l -> l.logoutSuccessUrl("/"))
+                .oauth2Login().loginPage("/login").successHandler(succesHandler)
                 .build();
     }
 
