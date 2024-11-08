@@ -20,4 +20,8 @@ public class ArticleService {
     public List<ArticleUser> findAllArticlesForLocation(Integer locationId) {
         return articleRepository.findAllArticlesForLocation(locationId);
     }
+
+    public List<ArticleUser> findAllArticlesBySharing(Boolean sharing) {
+        return articleRepository.findBySharing(sharing);
+    }
 }
