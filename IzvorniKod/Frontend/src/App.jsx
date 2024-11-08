@@ -1,9 +1,11 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import "./App.css"
 import ItemDisplay from "./ItemDisplay"
-import Toolbar from "./Toolbar"
+import Toolbar from "./Toolbar/Toolbar"
 import Login from "./Login/Login";
 import Register from "./Register/Register";
+import Home from "./Home/Home";
+
 
 const items = [
   ["Naziv1", "kategorija1", "../public/OrmarkoIcon.png"],
@@ -40,13 +42,13 @@ const items = [
 
 export default function App() {
   return (
-    <Router>
-      <Toolbar />
+    <BrowserRouter>
+      <Toolbar></Toolbar>
       <Routes>
-        <Route path="/" element={<ItemDisplay items={items} />} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
-    </Router>
+    </BrowserRouter>
   )
 }

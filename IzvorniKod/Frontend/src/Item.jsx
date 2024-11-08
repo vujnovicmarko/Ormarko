@@ -1,7 +1,5 @@
 export default function Item({ content }) {
-  var maintext = content[0]
-  var subtext = content[1]
-  var image = content[2]
+  const [title, category, image] = content;
 
   return (
     <div className="item">

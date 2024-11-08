@@ -29,7 +29,7 @@ export default function Login() {
 
           if (response.ok) {
               alert('Login successful!');
-              navigate('/profile');
+              navigate('/Profile');
           } else {
               alert('Login failed. Please check your credentials.');
           }
