@@ -56,7 +56,7 @@ public class SecurityConfig {
                     registry.anyRequest().authenticated();
                 })
                 .logout(l -> l.logoutSuccessUrl("/"))
-                .oauth2Login().loginPage("/login").successHandler(succesHandler)
+                .oauth2Login(o -> o.loginPage("/login").successHandler(succesHandler))
                 .build();
     }
 
