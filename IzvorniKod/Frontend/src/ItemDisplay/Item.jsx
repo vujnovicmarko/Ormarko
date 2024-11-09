@@ -1,3 +1,5 @@
+import "./ItemDisplay.css";
+
 export default function Item({ content }) {
   const {
     title,

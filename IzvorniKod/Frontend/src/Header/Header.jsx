@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import LoginRegisterButtons from "./LoginRegisterButtons";
 import SearchBar from "./SearchBar";
+import "./Header.css";
 
 export default function Header() {
   return (

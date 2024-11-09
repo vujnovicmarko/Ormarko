@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Item from "./Item";
+import "./ItemDisplay.css";
 
 export default function ItemDisplay() {
   const [items, setItems] = useState([]);

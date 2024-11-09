@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import "./Header.css";
 
 export default function LoggedInHeader() {
   return (
