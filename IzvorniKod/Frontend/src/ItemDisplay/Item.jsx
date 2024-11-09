@@ -1,42 +1,20 @@
 import "./ItemDisplay.css";
 
-export default function Item({ content }) {
-  const {
-    title,
-    img,
-    category,
-    season,
-    howCasual,
-    mainColor,
-    sideColor,
-    descript,
-  } = content || {};
+export default function Item({ content, onItemClick }) {
+  const { title, img } = content || {};
 
   if (!content) {
     return <div>Invalid item data</div>;
   }
+
   return (
-    <div className="item">
-      <img src={`data:image/png;base64,${img}`} alt={title} />
-      <h3>{title}</h3>
-      <p>
-        <strong>Category:</strong> {category}
-      </p>
-      <p>
-        <strong>Season:</strong> {season}
-      </p>
-      <p>
-        <strong>Style:</strong> {howCasual}
-      </p>
-      <p>
-        <strong>Main Color:</strong> {mainColor}
-      </p>
-      <p>
-        <strong>Accent Color:</strong> {sideColor}
-      </p>
-      <p>
-        <strong>Description:</strong> {descript}
-      </p>
+    <div className="item" onClick={() => onItemClick(content)}>
+      <img
+        src={`data:image/png;base64,${img}`}
+        alt={title}
+        className="itemimg"
+      />
+      <h3 className="maintext">{title}</h3>
     </div>
   );
 }

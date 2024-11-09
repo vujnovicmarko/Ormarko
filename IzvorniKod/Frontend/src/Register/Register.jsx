@@ -88,11 +88,11 @@ export default function Register({ setIsLoggedIn }) {
           </div>
           <div>
             <label>
-              Lozinka:
+              E-mail:
               <input
-                type="password"
-                name="password"
-                value={formData.password}
+                type="email"
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
                 required
               />
@@ -100,11 +100,11 @@ export default function Register({ setIsLoggedIn }) {
           </div>
           <div>
             <label>
-              E-mail:
+              Lozinka:
               <input
-                type="email"
-                name="email"
-                value={formData.email}
+                type="password"
+                name="password"
+                value={formData.password}
                 onChange={handleChange}
                 required
               />
