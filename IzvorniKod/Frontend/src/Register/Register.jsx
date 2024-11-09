@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Register.css";
 import Header from "../Header/Header";
 
-export default function Register() {
+export default function Register({ setIsLoggedIn }) {
   const [formData, setFormData] = useState({
     username: "",
     city: "",
@@ -10,6 +11,7 @@ export default function Register() {
     password: "",
     email: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -32,6 +34,8 @@ export default function Register() {
         const result = await response.json();
         console.log("Registration successful:", result);
         alert("Registration successful!");
+        setIsLoggedIn(true);
+        navigate("/profile");
       } else {
         console.error("Registration failed:", response.statusText);
         alert("Registration failed. Please try again.");

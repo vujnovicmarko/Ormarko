@@ -11,7 +11,7 @@ export default function LoggedInHeader() {
       </div>
       <SearchBar></SearchBar>
       <div className="headerbtndiv">
-        <Link to="/profile" key={index}>
+        <Link to="/profile">
           <button className="headerbtn">Moj Profil</button>
         </Link>
       </div>

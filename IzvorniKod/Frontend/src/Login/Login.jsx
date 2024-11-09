@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"; //redirectanje nakon logina
 import "./Login.css";
 import Header from "../Header/Header";
 
-export default function Login() {
+export default function Login({ setIsLoggedIn }) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -37,6 +37,7 @@ export default function Login() {
 
       if (response.ok) {
         alert("Login successful!");
+        setIsLoggedIn(true);
         navigate("/profile");
       } else {
         const errorData = await response.json();

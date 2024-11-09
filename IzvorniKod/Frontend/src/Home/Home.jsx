@@ -1,10 +1,11 @@
 import Header from "../Header/Header";
+import LoggedInHeader from "../Header/LoggedInHeader";
 import ItemDisplay from "../ItemDisplay";
 
-export default function Home() {
+export default function Home({ isLoggedIn }) {
   return (
     <div>
-      <Header />
+      {isLoggedIn ? <LoggedInHeader /> : <Header />}
       <ItemDisplay />
     </div>
   );

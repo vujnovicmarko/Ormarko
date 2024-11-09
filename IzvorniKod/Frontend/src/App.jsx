@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import ItemDisplay from "./ItemDisplay";
 import Login from "./Login/Login";
@@ -40,13 +41,33 @@ import Profile from "./Profile/Profile";
 ];*/
 
 export default function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    const storedLoginStatus = localStorage.getItem("isLoggedIn");
+    return storedLoginStatus === "true";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("isLoggedIn", isLoggedIn);
+  }, [isLoggedIn]);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
+        <Route
+          path="/login"
+          element={<Login setIsLoggedIn={setIsLoggedIn} />}
+        />
+        <Route
+          path="/register"
+          element={<Register setIsLoggedIn={setIsLoggedIn} />}
+        />
+        <Route
+          path="/profile"
+          element={
+            <Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          }
+        />
         <Route path="/items" element={<ItemDisplay />} />
       </Routes>
     </BrowserRouter>
