@@ -17,8 +17,8 @@ public class RegistrationController {
     private PasswordEncoder passwordEncoder;
     @PostMapping(value = "/signup/user")
     public User createUser(@RequestBody User user){
-        user.setCity("Zagreb");
-        user.setCountry("Croatia");
+        //user.setCity("Zagreb");
+        //user.setCountry("Croatia");
         user.setPass(passwordEncoder.encode(user.getPass()));
         return userRepository.save(user);
     }

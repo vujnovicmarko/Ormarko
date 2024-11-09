@@ -46,7 +46,7 @@ public class CustomSuccesHandler implements AuthenticationSuccessHandler {
                 userRepository.save(newUser);
             }
         }
-        redirectURL = "/profile";
+        redirectURL = "http://localhost:5173/profile";
         new DefaultRedirectStrategy().sendRedirect(request, response, redirectURL);
     }
 }

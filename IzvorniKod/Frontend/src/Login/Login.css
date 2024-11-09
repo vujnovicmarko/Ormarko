@@ -64,8 +64,41 @@ h2 {
     cursor: pointer;
     transition: background-color 0.3s;
     font-family: inherit;
+
 }
 
-.login-form button[type="submit"]:hover {
+.login-form button[type="submit"]:hover,
+.googleBtn:hover {
+    background-color: #BBE9FF;
+}
+
+.google-login-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 400px;
+    width: 100%;
+    padding: 2rem;
+    background: #FFFED3;
+    border: solid 4px #B1AFFF;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.googleBtn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #B1AFFF;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: inherit;
+}
+
+.googleBtn:hover {
     background-color: #BBE9FF;
 }

@@ -1,0 +1,47 @@
+.profile-container {
+    font-family: Arial, sans-serif;
+    padding: 2rem;
+    padding-left: 3rem;
+    max-width: 600px;
+    margin: 20px auto;
+    background: #FFFED3;
+    border: solid 4px #B1AFFF;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-heading {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.welcome-text {
+    font-size: 1.1rem;
+    color: #555;
+    text-align: left;
+    margin-bottom: 1.5rem;
+    margin-left: 1rem;
+    margin-top: 2rem
+
+
+}
+
+.logout-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+    background-color: #B1AFFF;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: inherit;
+    margin-left: 1rem
+}
+
+.logout-button:hover {
+    background-color: #BBE9FF;
+}

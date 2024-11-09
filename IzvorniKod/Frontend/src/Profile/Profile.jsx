@@ -1,5 +1,6 @@
 import LoggedInHeader from "../Header/LoggedInHeader";
 import { useNavigate } from "react-router-dom";
+import "./Profile.css";
 
 export default function Profile({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -12,8 +13,8 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
     <div>
       <LoggedInHeader />
       <h1>Moj profil</h1>
-      <p>Welcome to your profile page!</p>
-      <button onClick={handleLogout}>Odjavi se</button>
+      <p className="welcome-text">Dobrodošli na vašu profilnu stranicu!</p>
+      <button className="logout-button" onClick={handleLogout}>Odjavi se</button>
     </div>
   );
 }
