@@ -1,6 +1,7 @@
 package com.example.ormarko.ormarko.Security;
 
 import com.example.ormarko.ormarko.Service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,18 @@ public class SecurityConfig {
                 //.cors(cors -> cors.configure(http))
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
-                .formLogin(l -> l.defaultSuccessUrl("/profile",true).loginPage("/login").permitAll())
+                .formLogin(l ->
+                        l.loginPage("/login").permitAll()
+                                .defaultSuccessUrl("/profile", true)
+                                .failureHandler((request, response, exception) -> {
+                                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                                    response.setContentType("application/json");
+                                    response.getWriter().write("{\"error\": \"Invalid credentials\"}");
+                                    response.getWriter().flush();
+                                })
+                )
+
+
                 .authorizeHttpRequests(registry ->{
                     registry.requestMatchers("/",  "/home", "/advertiser/**", "/signup/**", "api/signup/user","/login").permitAll();
                     registry.requestMatchers("/user/**", "/profile").authenticated();

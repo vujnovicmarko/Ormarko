@@ -20,21 +20,31 @@ export default function Login() {
       e.preventDefault();
 
       try {
-          const response = await fetch('http://localhost:8080/api/login', {
+          /*const response = await fetch('http://localhost:8080/login', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify(formData),
               credentials: 'include'
           });
+            */
+          const response = await fetch('http://localhost:8080/login', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                  body: new URLSearchParams(formData), // Use URLSearchParams to match form encoding
+                  credentials: 'include'
+                });
+
 
           if (response.ok) {
               alert('Login successful!');
-              navigate('/Profile');
+              navigate('/profile');
           } else {
-              alert('Login failed. Please check your credentials.');
+              const errorData = await response.json();
+              alert(errorData.error || 'Login failed. Please check your credentials.');
           }
       } catch (error) {
           console.error('Error during login:', error);
+          alert('Unexpected error during login.');
       }
   };
 
