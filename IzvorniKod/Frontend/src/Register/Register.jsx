@@ -33,7 +33,6 @@ export default function Register({ setIsLoggedIn }) {
       if (response.ok) {
         const result = await response.json();
         console.log("Registration successful:", result);
-        alert("Registration successful!");
         setIsLoggedIn(true);
         navigate("/profile");
       } else {

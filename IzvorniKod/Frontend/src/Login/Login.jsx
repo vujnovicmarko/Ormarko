@@ -36,7 +36,7 @@ export default function Login({ setIsLoggedIn }) {
       });
 
       if (response.ok) {
-        alert("Login successful!");
+        
         setIsLoggedIn(true);
         navigate("/profile");
       } else {
