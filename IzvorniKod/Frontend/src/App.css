@@ -27,7 +27,7 @@ body {
     background: #B1AFFF;
 }
 
-.toolbar {
+.header {
     background: #FFFED3;
     display: flex;
     justify-content: space-between;
@@ -46,7 +46,7 @@ body {
     margin: 10px;
 }
 
-.toolbarbtn {
+.headerbtn {
     height: 52px;
     border: none;
     background: #BBE9FF;
@@ -57,7 +57,7 @@ body {
     cursor: pointer;
 }
 
-.toolbarbtndiv {
+.headerbtndiv {
     display: flex;
     background: #B1AFFF;
     border-radius: 4px;

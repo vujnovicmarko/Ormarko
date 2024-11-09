@@ -1,13 +1,12 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import "./App.css"
-import ItemDisplay from "./ItemDisplay"
-import Toolbar from "./Toolbar/Toolbar"
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import "./App.css";
+import ItemDisplay from "./ItemDisplay";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
 import Home from "./Home/Home";
+import Profile from "./Profile/Profile";
 
-
-const items = [
+/*const items = [
   ["Naziv1", "kategorija1", "../public/OrmarkoIcon.png"],
   ["Naziv2", "kategorija2", "../public/OrmarkoIcon.png"],
   ["Naziv3", "kategorija3", "../public/OrmarkoIcon.png"],
@@ -38,17 +37,17 @@ const items = [
   ["Naziv28", "kategorija28", "../public/OrmarkoIcon.png"],
   ["Naziv29", "kategorija29", "../public/OrmarkoIcon.png"],
   ["Naziv30", "kategorija30", "../public/OrmarkoIcon.png"],
-];
+];*/
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Toolbar></Toolbar>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }

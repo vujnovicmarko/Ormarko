@@ -7,5 +7,5 @@ export default function Item({ content }) {
       <p className="maintext">{maintext}</p>
       <p className="subtext">{subtext}</p>
     </div>
-  )
+  );
 }

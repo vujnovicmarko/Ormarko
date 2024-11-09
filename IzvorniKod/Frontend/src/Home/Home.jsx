@@ -1,11 +1,11 @@
-import Toolbar from '../Toolbar/Toolbar';
-import ItemDisplay from '../ItemDisplay';
+import Header from "../Header/Header";
+import ItemDisplay from "../ItemDisplay";
 
 export default function Home() {
-    return (
-        <div>
-            <Toolbar />
-            <ItemDisplay />
-        </div>
-    )
+  return (
+    <div>
+      <Header />
+      <ItemDisplay />
+    </div>
+  );
 }

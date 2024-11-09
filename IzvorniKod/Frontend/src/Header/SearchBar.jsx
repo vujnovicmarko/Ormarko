@@ -6,5 +6,5 @@ export default function SearchBar() {
         <img src="../public/SearchIcon.svg" />
       </button>
     </form>
-  )
+  );
 }
