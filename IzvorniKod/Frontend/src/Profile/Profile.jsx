@@ -4,6 +4,7 @@ import "./Profile.css";
 
 export default function Profile({ isLoggedIn, setIsLoggedIn }) {
   const navigate = useNavigate();
+
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem("isLoggedIn");
@@ -14,7 +15,9 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
       <LoggedInHeader />
       <h1>Moj profil</h1>
       <p className="welcome-text">Dobrodošli na vašu profilnu stranicu!</p>
-      <button className="logout-button" onClick={handleLogout}>Odjavi se</button>
+      <button className="logout-button" onClick={handleLogout}>
+        Odjavi se
+      </button>
     </div>
   );
 }

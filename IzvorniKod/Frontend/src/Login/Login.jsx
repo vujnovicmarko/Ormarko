@@ -36,7 +36,6 @@ export default function Login({ setIsLoggedIn }) {
       });
 
       if (response.ok) {
-
         setIsLoggedIn(true);
         navigate("/profile");
       } else {
@@ -51,51 +50,49 @@ export default function Login({ setIsLoggedIn }) {
     }
   };
   const handleGoogleLogin = () => {
-      window.location.href = "http://localhost:8080/oauth2/authorization/google";
+    window.location.href = "http://localhost:8080/oauth2/authorization/google";
+    setIsLoggedIn(true);
   };
-
 
   return (
     <>
       <Header></Header>
       <div className="main-container">
-          <div className="form-container">
-            <h2>Prijava</h2>
-            <form className="login-form" onSubmit={handleSubmit}>
-              <div>
-                <label>
-                  Korisničko ime:
-                  <input
-                    type="text"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>
-              </div>
-              <div>
-                <label>
-                  Lozinka:
-                  <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>
-              </div>
-              <button type="submit">Prijavi se</button>
-            </form>
-            <div className="google-login-container">
-                <button className="googleBtn" onClick={handleGoogleLogin}>
-                Prijavi se s Google računom
-                </button>
+        <div className="form-container">
+          <h2>Prijava</h2>
+          <form className="login-form" onSubmit={handleSubmit}>
+            <div>
+              <label>
+                Korisničko ime:
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
             </div>
-
+            <div>
+              <label>
+                Lozinka:
+                <input
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+            </div>
+            <button type="submit">Prijavi se</button>
+          </form>
+          <div className="google-login-container">
+            <button className="googleBtn" onClick={handleGoogleLogin}>
+              Prijavi se s Google računom
+            </button>
           </div>
-
+        </div>
       </div>
     </>
   );
