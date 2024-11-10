@@ -3,9 +3,11 @@ package com.example.ormarko.ormarko.Controller;
 import com.example.ormarko.ormarko.Model.ArticleUser;
 import com.example.ormarko.ormarko.Model.Closet;
 import com.example.ormarko.ormarko.Model.Location;
+import com.example.ormarko.ormarko.Model.User;
 import com.example.ormarko.ormarko.Service.ArticleService;
 import com.example.ormarko.ormarko.Service.ClosetService;
 import com.example.ormarko.ormarko.Service.LocationService;
+import com.example.ormarko.ormarko.Service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,19 +25,26 @@ public class UserController {
     private final ClosetService closetService;
     private final LocationService locationService;
     private final ArticleService articleService;
+    private final UserService userService;
 
-    public UserController(ClosetService closetService, LocationService locationService, ArticleService articleService) {
+    public UserController(ClosetService closetService, LocationService locationService, ArticleService articleService, UserService userService) {
         this.closetService = closetService;
         this.locationService = locationService;
         this.articleService = articleService;
+        this.userService = userService;
     }
 
-    @GetMapping("{username}")
-    public List<Closet> getUser(@PathVariable String username){//Authentication authentication){
-        //String username = authentication.getName();
-        return closetService.findAllClosetsForUser(username);
+    @GetMapping("profile")
+    public User getUser(Authentication authentication){ //vraća podatke trenutno ulogiranog korisnika
+        String username = authentication.getName();
+
+        if(userService.findByUsername(username).isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+
+        return userService.findByUsername(username).get();
     }
 
+    //TODO
     @GetMapping("/{username}/closet{id}")
     public List<Location> getCloset(@PathVariable String username, @PathVariable Integer id){ //Authentication authentication){
 
@@ -46,6 +55,7 @@ public class UserController {
         return locationService.findAllLocationsForCloset(id);
     }
 
+    //TODO
     @GetMapping("/{username}/location{id}")
     public List<ArticleUser> getLocation(@PathVariable String username, @PathVariable Integer id){ //Authentication authentication){
 

@@ -25,8 +25,9 @@ public class ArticleUser {
         @Enumerated(EnumType.STRING)
         private ArticleSeason season;
 
+        @Column(name = "openess")
         @Enumerated(EnumType.STRING)
-        private ArticleOpen openess;
+        private ArticleOpen openness;
 
         @Enumerated(EnumType.STRING)
         private ArticleCasual howCasual;
@@ -54,7 +55,7 @@ public class ArticleUser {
                 this.img = img;
                 this.category = category;
                 this.season = season;
-                this.openess = openess;
+                this.openness = openess;
                 this.howCasual = howCasual;
                 this.mainColor = mainColor;
                 this.sideColor = sideColor;
@@ -117,12 +118,12 @@ public class ArticleUser {
                 this.season = season;
         }
 
-        public ArticleOpen getOpeness() {
-                return openess;
+        public ArticleOpen getOpenness() {
+                return openness;
         }
 
-        public void setOpeness(ArticleOpen openess) {
-                this.openess = openess;
+        public void setOpenness(ArticleOpen openess) {
+                this.openness = openess;
         }
 
         public ArticleCasual getHowCasual() {

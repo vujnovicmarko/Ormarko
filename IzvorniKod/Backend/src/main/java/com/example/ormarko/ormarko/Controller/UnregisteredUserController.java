@@ -31,7 +31,7 @@ public class UnregisteredUserController {
     }
 
     @GetMapping("getAll")
-    public List<ArticleUser> getUser(){
+    public List<ArticleUser> getUser(){ //vraća sve artikle dostupne neregistriranom korisniku
         return articleService.findAllArticlesBySharing(true);
     }
 
