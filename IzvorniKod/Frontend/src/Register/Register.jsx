@@ -26,15 +26,23 @@ export default function Register({ setIsLoggedIn }) {
     try {
       const response = await fetch("http://localhost:8080/api/signup/user", {
         method: "POST",
+
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
+
+        /*
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData),
+        */
+        credentials: "include",
       });
 
       if (response.ok) {
-        const result = await response.json();
-        console.log("Registration successful:", result);
         setIsLoggedIn(true);
         navigate("/profile");
+        const result = await response.json();
+        console.log("Registration successful:", result);
+
       } else {
         console.error("Registration failed:", response.statusText);
         alert("Registration failed. Please try again.");
