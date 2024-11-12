@@ -6,6 +6,7 @@ import java.util.Collection;
 public class CustomUser implements UserDetails {
     private String username;
     private String password;
+    private Collection<? extends GrantedAuthority> authorities;
 
 
     public static Builder builder() {
@@ -15,6 +16,7 @@ public class CustomUser implements UserDetails {
     public static class Builder {
         private String username;
         private String password;
+        private Collection<? extends GrantedAuthority> authorities;
 
         public Builder username(String username) {
             this.username = username;
@@ -26,19 +28,25 @@ public class CustomUser implements UserDetails {
             return this;
         }
 
+        public Builder authorities(Collection<? extends GrantedAuthority> authorities) {
+            this.authorities = authorities;
+            return this;
+        }
+
         public CustomUser build() {
-            return new CustomUser(username, password);
+            return new CustomUser(username, password,authorities);
         }
     }
 
-    private CustomUser(String username, String password) {
+    private CustomUser(String username, String password,  Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
         this.password = password;
+        this.authorities = authorities;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     @Override

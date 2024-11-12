@@ -5,11 +5,13 @@ import com.example.ormarko.ormarko.Model.User;
 import com.example.ormarko.ormarko.Repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -31,7 +33,9 @@ public class UserService implements UserDetailsService{
             return CustomUser.builder()
                     .username(userObject.getUsername())
                     .password(userObject.getPass())
+                    .authorities(Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")))
                     .build();
+
         }
         else{
             throw new UsernameNotFoundException(username);
