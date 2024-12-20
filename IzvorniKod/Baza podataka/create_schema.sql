@@ -51,3 +51,6 @@ CREATE TABLE articles_marketing (
 	price				REAL NOT NULL,
 	FOREIGN KEY (article_marketer) REFERENCES marketers(username) ON DELETE CASCADE
 );
+
+ALTER TABLE users
+ADD googleOauth BOOL DEFAULT FALSE;
