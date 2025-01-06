@@ -28,7 +28,7 @@ export default function Login({ setIsLoggedIn }) {
               credentials: 'include'
           });
             */
-      const response = await fetch("http://localhost:8080/login", {
+      const response = await fetch("/login", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData),
@@ -50,7 +50,7 @@ export default function Login({ setIsLoggedIn }) {
     }
   };
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:8080/oauth2/authorization/google";
+    window.location.href = "/oauth2/authorization/google";
     setIsLoggedIn(true);
   };
 
