@@ -13,7 +13,7 @@ export default function ItemDisplay() {
     async function fetchItems() {
       try {
         const response = await fetch(
-          "http://localhost:8080/api/default/getAll"
+          "/api/default/getAll"
         );
         if (response.ok) {
           const data = await response.json();

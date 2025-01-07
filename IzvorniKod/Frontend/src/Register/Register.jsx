@@ -24,7 +24,7 @@ export default function Register({ setIsLoggedIn }) {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/api/signup/user", {
+      const response = await fetch("/api/signup/user", {
         method: "POST",
 
         headers: { "Content-Type": "application/json" },

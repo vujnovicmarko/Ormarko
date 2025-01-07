@@ -3,7 +3,7 @@ export default function SearchBar() {
     <form className="searchbar" action="">
       <input className="searchinput" type="text" />
       <button className="searchbtn" type="submit">
-        <img src="../public/SearchIcon.svg" />
+        <img src="/SearchIcon.svg" />
       </button>
     </form>
   );

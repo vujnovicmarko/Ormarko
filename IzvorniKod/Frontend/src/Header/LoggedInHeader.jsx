@@ -7,7 +7,7 @@ export default function LoggedInHeader() {
     <div className="header">
       <div className="logo-container">
         <Link to="/">
-          <img className="logo" src="../public/OrmarkoLogo.png" alt="Logo" />
+          <img className="logo" src="/OrmarkoLogo.png" alt="Logo" />
         </Link>
       </div>
       <SearchBar></SearchBar>

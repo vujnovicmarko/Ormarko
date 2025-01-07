@@ -1,5 +1,9 @@
 # Ormarko: Virtualni Ormar i Aplikacija za Dijeljenje Odjeće
 
+## Opis projekta
+
+Ovaj projekt rezultat je timskog rada razvijenog u sklopu projektnog zadatka kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu.
+
 **Ormarko** je aplikacija koja pomaže korisnicima organizirati garderobu, kreirati odjevne kombinacije i dijeliti odjevne artikle s drugima. Korisnicima omogućava prilagodljiv virtualni ormar u kojem mogu razvrstati odjeću prema sezoni, stilu i prigodi. Aplikacija pruža opciju pretraživanja ormara prema preferencijama korisnika, prijedloge odjevnih kombinacija i društvene značajke za dijeljenje artikala, što pojednostavljuje upravljanje velikom kolekcijom odjeće i olakšava otkrivanje novih modnih predmeta.
 
 ## Ključne Značajke

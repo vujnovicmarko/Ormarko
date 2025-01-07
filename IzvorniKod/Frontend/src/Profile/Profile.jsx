@@ -10,7 +10,7 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
   useEffect(() => {
       const fetchUserInfo = async () => {
         try {
-          const response = await fetch(`http://localhost:8080/api/user/profile?t=${Date.now()}`, {
+          const response = await fetch(`/api/user/profile?t=${Date.now()}`, {
             credentials: "include",
             /*headers: {
                     "Content-Type": "application/json",
@@ -35,7 +35,7 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
     setIsLoggedIn(false);
     setUserInfo([]);  // razrješiti čuvanja podataka o prošlom logiranom korisniku
     localStorage.removeItem("isLoggedIn");
-    fetch("http://localhost:8080/logout", {
+    fetch("/logout", {
         method: "POST",
         credentials: "include",
     }).then(() => {
