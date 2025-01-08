@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("api/user")
-@CrossOrigin(origins = "https://ormarkodeploy-c46f4289b2cf.herokuapp.com", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class UserController {
 
     private final ClosetService closetService;

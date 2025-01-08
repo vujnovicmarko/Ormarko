@@ -73,9 +73,15 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
-                .formLogin(l -> l
-                        .loginPage("/login").permitAll()
-                        .defaultSuccessUrl("/profile", true)
+                .formLogin(login -> login
+                        .loginProcessingUrl("/api/login").permitAll()
+                        .successHandler((request, response, authentication) -> {
+                            // Return JSON to the front-end
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"success\":true}");
+                            response.getWriter().flush();
+                        })
+                        //.defaultSuccessUrl("/profile", true)
                         .failureHandler((request, response, exception) -> {
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                             response.setContentType("application/json");
@@ -84,8 +90,14 @@ public class SecurityConfig {
                         })
                 )
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/", "/home", "/advertiser/**", "/signup/**", "api/signup/user", "/login", "/api/default/getAll").permitAll();
-                    registry.requestMatchers("/user/**", "/profile", "/api/user/profile").authenticated();
+                    registry.requestMatchers("/api/login").permitAll();
+                    registry.requestMatchers("/api/signup/**").permitAll();
+                    registry.requestMatchers("/", "/home", "/advertiser/**", "/api/default/getAll").permitAll();
+                    registry.requestMatchers("/assets/**", "/static/**", "/api/**", "/index.html").permitAll();
+                    registry.requestMatchers("/**/*.css").permitAll();
+                    registry.requestMatchers("/**/*.js").permitAll();
+                    registry.requestMatchers("/**").permitAll();
+                    //registry.requestMatchers("/user/**", "/profile", "/api/user/profile").authenticated();
                     registry.anyRequest().authenticated();
                 })
                 .logout(l -> l
@@ -95,7 +107,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/")
                 )
                 .oauth2Login(o -> o
-                        .loginPage("/login")
+                        .loginPage("/api/login")
                         .successHandler(succesHandler)
                 )
                 .build();
@@ -109,7 +121,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("https://ormarkodeploy-c46f4289b2cf.herokuapp.com"));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);

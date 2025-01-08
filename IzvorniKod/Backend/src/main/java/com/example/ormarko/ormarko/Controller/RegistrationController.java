@@ -21,7 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "https://ormarkodeploy-c46f4289b2cf.herokuapp.com")
+@CrossOrigin(origins = "http://localhost:5173")
 public class RegistrationController {
 
     @Autowired
