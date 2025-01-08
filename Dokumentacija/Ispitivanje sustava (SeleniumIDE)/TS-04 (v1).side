@@ -1,0 +1,70 @@
+{
+  "id": "96b3a902-9877-481c-a851-07533d54366a",
+  "version": "2.0",
+  "name": "Ormarko",
+  "url": "https://ormarkodeploy-c46f4289b2cf.herokuapp.com",
+  "tests": [{
+    "id": "f99ad538-b248-4e4d-a9e3-8a23257ff17f",
+    "name": "TS-04",
+    "commands": [{
+      "id": "9fcd9737-e44f-408e-89be-bb739b30408f",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "60aa0378-f3a3-4a10-8003-6bff86ea5f49",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "784x864",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "5e1e0cea-13e5-4c37-8745-3170065888d5",
+      "comment": "",
+      "command": "click",
+      "target": "css=a:nth-child(2) > .headerbtn",
+      "targets": [
+        ["css=a:nth-child(2) > .headerbtn", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div[2]/a[2]/button", "xpath:idRelative"],
+        ["xpath=//a[2]/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Prijava')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "01bd7031-96a9-441a-89a1-c99435e25965",
+      "comment": "",
+      "command": "click",
+      "target": "css=.googleBtn",
+      "targets": [
+        ["css=.googleBtn", "css:finder"],
+        ["xpath=//div[@id='root']/div[2]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Prijavi se s Google računom')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8c600935-d2c0-4d84-9fd8-222c21316c6a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.aZvCDf:nth-child(1) .pGzURd",
+      "targets": [
+        ["css=.aZvCDf:nth-child(1) .pGzURd", "css:finder"],
+        ["xpath=//body[@id='yDmH0d']/div/div/div[2]/div/div/div[2]/div/div/div/form/span/section/div/div/div/div/ul/li/div/div/div/div[2]/div", "xpath:idRelative"],
+        ["xpath=//li/div/div/div/div[2]/div", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "3ac79ee3-0846-4aab-af22-d1220eed74ff",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["f99ad538-b248-4e4d-a9e3-8a23257ff17f"]
+  }],
+  "urls": ["https://ormarkodeploy-c46f4289b2cf.herokuapp.com/"],
+  "plugins": []
+}
