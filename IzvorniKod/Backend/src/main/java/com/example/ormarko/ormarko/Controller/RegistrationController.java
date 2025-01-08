@@ -6,6 +6,8 @@ import com.example.ormarko.ormarko.Service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,9 +17,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://ormarkodeploy-c46f4289b2cf.herokuapp.com")
 public class RegistrationController {
 
     @Autowired
@@ -31,9 +35,19 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
     @PostMapping(value = "/signup/user")
-    public User createUser(@RequestBody User user, HttpServletRequest request){
+    public ResponseEntity<?> createUser(@RequestBody User user, HttpServletRequest request){
         //user.setCity("Zagreb");
         //user.setCountry("Croatia");
+
+
+        if (userRepository.findByEmail(user.getE_mail()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "Email is already in use. Please use a different email."));
+        }
+        if (userRepository.findByUsername(user.getUsername()).isPresent()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("error", "Username is already in use. Please use a different username."));
+        }
 
         String rawPassword = user.getPass();
         user.setPass(passwordEncoder.encode(user.getPass()));
@@ -61,7 +75,7 @@ public class RegistrationController {
         session.setAttribute("SPRING_SECURITY_CONTEXT", context);
 
         System.out.println("Current Authentication: " + SecurityContextHolder.getContext().getAuthentication());
-        return savedUser;
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
 }

@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("api/user")
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(origins = "https://ormarkodeploy-c46f4289b2cf.herokuapp.com", allowCredentials = "true")
 public class UserController {
 
     private final ClosetService closetService;
@@ -47,13 +47,13 @@ public class UserController {
         if (authentication.getPrincipal() instanceof OAuth2User) {
             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
             String email = oAuth2User.getAttribute("email");
-            return Map.of("googleUser", true, "email", email);
+            return Map.of("googleoauth", true, "email", email);
         } else {
             String username = authentication.getName();
             User user = userService.findByUsername(username)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
             return Map.of(
-                    "googleUser", false,
+                    "googleoauth", false,
                     "username", user.getUsername(),
                     "email", user.getE_mail(),
                     "city", user.getCity(),
