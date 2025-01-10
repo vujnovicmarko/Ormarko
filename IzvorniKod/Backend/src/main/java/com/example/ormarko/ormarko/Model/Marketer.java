@@ -1,25 +1,40 @@
 package com.example.ormarko.ormarko.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
+@Table(name = "\"marketers\"")
 public class Marketer {
 
         @Id
-        private String username; // Unique identifier
-        private String pass;      // Password
-        private String eMail;     // Email address
+        private String username;
 
-        // Default constructor
+        @NotBlank(message = "Password cannot be empty")
+        private String pass;
+
+        @Column(name="e_mail")
+        @Email(message = "Please provide a valid email address")
+        private String eMail;
+
+        private byte[] logo;
+
+
+
         public Marketer() {
         }
 
-        // Parameterized constructor
-        public Marketer(String username, String pass, String eMail) {
+
+        public Marketer(String username, String pass, String eMail, byte[] logo) {
                 this.username = username;
                 this.pass = pass;
                 this.eMail = eMail;
+                this.logo = logo;
         }
 
         // Getters and Setters
@@ -46,4 +61,9 @@ public class Marketer {
         public void seteMail(String eMail) {
                 this.eMail = eMail;
         }
+
+        public byte[] getLogo(){ return logo; }
+
+        public void setLogo(byte[] logo){ this.logo=logo; }
+
 }
