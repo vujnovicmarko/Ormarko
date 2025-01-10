@@ -1,6 +1,7 @@
 package com.example.ormarko.ormarko.Controller;
 
 import com.example.ormarko.ormarko.Model.User;
+import com.example.ormarko.ormarko.Repository.MarketerRepository;
 import com.example.ormarko.ormarko.Repository.UserRepository;
 import com.example.ormarko.ormarko.Service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +28,8 @@ public class RegistrationController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private MarketerRepository marketerRepository;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     //rješavanje prikaza podataka za novog usera (inače čuvalo stare podatke)
@@ -40,14 +43,15 @@ public class RegistrationController {
         //user.setCountry("Croatia");
 
 
-        if (userRepository.findByEmail(user.getE_mail()).isPresent()) {
+        if (userRepository.findByEmail(user.getE_mail()).isPresent() || marketerRepository.findByEmail(user.getE_mail()).isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("error", "Email is already in use. Please use a different email."));
         }
-        if (userRepository.findByUsername(user.getUsername()).isPresent()){
+        if (userRepository.findByUsername(user.getUsername()).isPresent() || marketerRepository.findByUsername(user.getUsername()).isPresent()){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("error", "Username is already in use. Please use a different username."));
         }
+
 
         String rawPassword = user.getPass();
         user.setPass(passwordEncoder.encode(user.getPass()));

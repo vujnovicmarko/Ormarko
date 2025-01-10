@@ -3,6 +3,7 @@ package com.example.ormarko.ormarko.Service;
 import com.example.ormarko.ormarko.CustomUser;
 import com.example.ormarko.ormarko.Model.Marketer;
 import com.example.ormarko.ormarko.Repository.MarketerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Service
 public class MarketerService implements UserDetailsService {
 
+    @Autowired
     private final MarketerRepository repository;
 
     public MarketerService(MarketerRepository repository) {

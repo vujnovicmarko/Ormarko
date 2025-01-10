@@ -94,9 +94,9 @@ public class SecurityConfig {
                     registry.requestMatchers("/api/signup/**").permitAll();
                     registry.requestMatchers("/", "/home", "/advertiser/**", "/api/default/getAll").permitAll();
                     registry.requestMatchers("/assets/**", "/static/**", "/api/**", "/index.html").permitAll();
-                    registry.requestMatchers("/**/*.css").permitAll();
-                    registry.requestMatchers("/**/*.js").permitAll();
-                    registry.requestMatchers("/**").permitAll();
+                    //registry.requestMatchers("/**/*.css").permitAll();
+                    //registry.requestMatchers("/**/*.js").permitAll();
+                    //registry.requestMatchers("/**").permitAll();
                     //registry.requestMatchers("/user/**", "/profile", "/api/user/profile").authenticated();
                     registry.anyRequest().authenticated();
                 })
