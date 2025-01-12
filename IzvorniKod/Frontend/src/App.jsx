@@ -7,6 +7,7 @@ import Register from "./Register/Register";
 import Home from "./Home/Home";
 import Profile from "./Profile/Profile";
 import SearchPage from "./Search/SearchPage.jsx";
+import ClosetsPage from "./Closets/ClosetsPage.jsx"
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -42,14 +43,12 @@ export default function App() {
                  <SearchPage isLoggedIn={isLoggedIn}/>
                }
         />
+        <Route path="/closets"
+               element={
+                 <ClosetsPage isLoggedIn={isLoggedIn}/>
+               }
+        />
       </Routes>
     </BrowserRouter>
   );
-}
-
-import { useLocation } from "react-router-dom";
-function SearchPageWrapper() {
-  const location = useLocation();
-  const filters = location.state?.filters || {};
-  return <SearchPage filters={filters} />;
 }

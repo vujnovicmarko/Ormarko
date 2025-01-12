@@ -12,6 +12,9 @@ export default function LoggedInHeader() {
       </div>
       <SearchBar></SearchBar>
       <div className="headerbtndiv">
+          <Link to="/closets">
+              <button className="headerbtn">Moji Ormari</button>
+          </Link>
         <Link to="/profile">
           <button className="headerbtn">Moj Profil</button>
         </Link>

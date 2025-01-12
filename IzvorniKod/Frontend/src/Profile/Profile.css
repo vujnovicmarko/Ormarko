@@ -5,7 +5,6 @@
     max-width: 600px;
     margin: 20px auto;
     background: rgba(205, 182, 175, 0.5);
-    padding: 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(217, 164, 143, 0.4);
     border: solid 3px #d9a48f;
@@ -43,4 +42,20 @@
     transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
     box-shadow: 0 3px 6px rgba(185, 126, 105, 0.3);
 
+}
+
+@media (max-width: 600px) {
+    .profile-container {
+        padding: 1rem;
+        margin-top: 80px;
+    }
+
+    .profile-heading {
+        font-size: 1.5rem;
+    }
+
+    .welcome-text {
+        font-size: 1rem;
+        margin-left: 0.5rem;
+    }
 }
