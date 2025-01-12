@@ -24,4 +24,6 @@ public class ArticleService {
     public List<ArticleUser> findAllArticlesBySharing(Boolean sharing) {
         return articleRepository.findBySharing(sharing);
     }
+
+
 }

@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +26,10 @@ public class MarketerService implements UserDetailsService {
 
     public Optional<Marketer> findByUsername(String username) {
         return repository.findByUsername(username);
+    }
+
+    public List<Marketer> findAll() {
+        return repository.findAll();
     }
 
     @Override

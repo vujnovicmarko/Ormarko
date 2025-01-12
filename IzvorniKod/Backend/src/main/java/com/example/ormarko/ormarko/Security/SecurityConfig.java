@@ -93,7 +93,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/api/login").permitAll();
                     registry.requestMatchers("/api/signup/**").permitAll();
-                    registry.requestMatchers("/", "/home", "/advertiser/**", "/api/default/getAll").permitAll();
+                    registry.requestMatchers("/", "/home", "/api/marketers/**", "/api/default/getAll").permitAll();
                     registry.requestMatchers("/assets/**", "/static/**", "/api/**", "/index.html").permitAll();
                     //registry.requestMatchers("/**/*.css").permitAll();
                     //registry.requestMatchers("/**/*.js").permitAll();

@@ -17,7 +17,7 @@ public class ArticleMarketing {
         @Column(name = "category", nullable = false, length = 20)
         private ArticleCategory category;
         @Lob
-        @Column(name = "img",  nullable = false)
+        @Column(name = "img", columnDefinition = "BYTEA", nullable = false)
         private byte[] img;
         @Column(name = "price", nullable = false)
         private float price;

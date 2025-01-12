@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -19,8 +20,25 @@ public class ArticleMarketingService {
     }
 
     public List<ArticleMarketing> getArticlesByMarketer(String marketerUsername) {
-        return articleRepository.findByArticleMarketer(marketerUsername);
+        List<ArticleMarketing> articles = articleRepository.findByArticleMarketer(marketerUsername);
+        articles.forEach(article -> {
+            System.out.println("Article ID: " + article.getArticleId());
+            System.out.println("Binary Image Size: " + (article.getImg() != null ? article.getImg().length : 0));
+        });
+        return articles;
     }
+
+    //zbog problema sa slikom - bytea
+    public List<Map<String, Object>> getArticlesWithEncodedImages(String marketerUsername) {
+        List<Map<String, Object>> encodedArticles = articleRepository.findArticlesByMarketer(marketerUsername);
+        encodedArticles.forEach(article -> {
+            System.out.println("Article ID: " + article.get("articleId"));
+            System.out.println("Encoded Image: " + article.get("img"));
+        });
+        return encodedArticles;
+    }
+
+
 
     public ArticleMarketing saveArticle(ArticleMarketing article) {
         return articleRepository.save(article);
