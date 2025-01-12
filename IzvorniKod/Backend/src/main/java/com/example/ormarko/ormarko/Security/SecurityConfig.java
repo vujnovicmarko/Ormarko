@@ -129,7 +129,8 @@ public class SecurityConfig {
                     //registry.requestMatchers("/**/*.css").permitAll();
                     //registry.requestMatchers("/**/*.js").permitAll();
                     //registry.requestMatchers("/**").permitAll();
-                    //registry.requestMatchers("/user/**", "/profile", "/api/user/profile").authenticated();
+                    registry.requestMatchers("/user/**", "/profile", "/api/user/profile").authenticated();
+                    registry.requestMatchers("api/user/search").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .logout(l -> l

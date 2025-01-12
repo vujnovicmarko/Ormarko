@@ -54,7 +54,8 @@
     padding: 1rem;
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
     z-index: 2000;
-
+    max-height: 300px;
+    overflow-y: auto;
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -100,4 +101,27 @@
     height: fit-content;
     align-self: center;
     margin-top: 1rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+    .searchinput {
+        width: 200px;
+        padding: 0.3rem;
+        font-size: 0.8rem;
+    }
+
+    .searchbar {
+        gap: 4px;
+    }
+
+    .filter-dropdown {
+        flex-direction: column;
+        gap: 10px;
+        max-height: 60vh;
+    }
+
+    .pretrazi-btn {
+        margin-top: 0.5rem;
+    }
 }

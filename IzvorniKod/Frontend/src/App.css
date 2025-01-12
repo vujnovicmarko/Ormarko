@@ -34,3 +34,12 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #A0A5AF;
 }
+
+@media (max-width: 600px) {
+    html {
+        font-size: 14px;
+    }
+    body {
+        padding-top: 90px;
+    }
+}
