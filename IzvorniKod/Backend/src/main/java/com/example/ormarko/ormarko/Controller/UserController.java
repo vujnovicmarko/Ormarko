@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,21 +91,52 @@ public class UserController {
     }
 
     @PostMapping("/search")
-    public List<ArticleUser> search(Authentication authentication, @RequestBody Map<String, String> body){
+    public List<ArticleUser> search(@RequestBody Map<String, String[]> body){
 
         log.info("Received POST request to /search!");
+        log.info("Body: " + body);
 
-        String username = authentication.getName();
-        User user = userService.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-        ArticleCategory category = ArticleCategory.valueOf(body.get("kategorija"));
-        ArticleSeason season = ArticleSeason.valueOf(body.get("godisnjeDoba"));
-        ArticleOpen openness = ArticleOpen.valueOf(body.get("otvorenost"));
-        ArticleCasual casual = ArticleCasual.valueOf(body.get("lezernost"));
-        ArticleColor color = ArticleColor.valueOf(body.get("boja"));
+        //String username = authentication.getName();
+        //User user = userService.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+//        ArticleCategory category = ArticleCategory.valueOf(body.get("kategorija"));
+//        ArticleSeason season = ArticleSeason.valueOf(body.get("godisnjeDoba"));
+//        ArticleOpen openness = ArticleOpen.valueOf(body.get("otvorenost"));
+//        ArticleCasual casual = ArticleCasual.valueOf(body.get("lezernost"));
+//        ArticleColor color = ArticleColor.valueOf(body.get("boja"));
 
-        log.info("Finished parsing POST json!");
+        Set<ArticleUser> articles = new HashSet<>();
 
-        List<ArticleUser> articles = articleService.findAllArticlesByFilter(true, category, season, openness, casual, color);
+        if(body.containsKey("kategorija")){
+            for(String s : body.get("kategorija")){
+                articles.addAll(articleService.findAllArticlesByCategory(ArticleCategory.valueOf(s)));
+            }
+        }
+
+        if (body.containsKey("godisnjeDoba")) {
+            for (String s : body.get("godisnjeDoba")) {
+                articles.addAll(articleService.findAllArticlesBySeason(ArticleSeason.valueOf(s)));
+            }
+        }
+
+        if (body.containsKey("otvorenost")) {
+            for (String s : body.get("otvorenost")) {
+                articles.addAll(articleService.findAllArticlesByOpenness(ArticleOpen.valueOf(s)));
+            }
+        }
+
+        if (body.containsKey("lezernost")) {
+            for (String s : body.get("lezernost")) {
+                articles.addAll(articleService.findAllArticlesByCasual(ArticleCasual.valueOf(s)));
+            }
+        }
+
+        if (body.containsKey("boja")) {
+            for (String s : body.get("boja")) {
+                articles.addAll(articleService.findAllArticlesByColor(ArticleColor.valueOf(s)));
+            }
+        }
+
+        //List<ArticleUser> articles = articleService.findAllArticlesByFilter(true, category, season, openness, casual, color);
 
 //        return articles.stream().filter(article -> {                        //filtriranje po lokaciji korisnika i vlasnika artikla
 //                    Optional<User> ou = userService.findByUsername(
@@ -125,9 +154,11 @@ public class UserController {
 //        ).toList();
 
         log.info("Received data from filter!");
+        log.info("Logging articles");
+        articles.forEach(a -> log.info(a.toString()));
 
-        return articles;       //ako zelimo sve artikle neovisno o lokaciji korisnika
-
+        return articles.stream().toList();       //ako zelimo sve artikle neovisno o lokaciji korisnika
+        //return new ArrayList<>();
     }
 
 }

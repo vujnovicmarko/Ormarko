@@ -157,6 +157,15 @@ public class ArticleUser {
         public void setdescript(String descript) {
                 this.descript = descript;
         }
+
+        @Override
+        public String toString() {
+                return "ArticleUser{" +
+                        "articleId=" + articleId +
+                        ", title='" + title + '\'' +
+                        ", descript='" + descript + '\'' +
+                        '}';
+        }
 }
 
 
