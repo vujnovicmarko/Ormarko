@@ -3,17 +3,23 @@ package com.example.ormarko.ormarko.Model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "articles_marketing")
 public class ArticleMarketing {
 
         @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int articleId;
-
+        @Column(name = "article_marketer", nullable = false)
         private String articleMarketer;
+        @Column(name = "title", nullable = false, length = 50)
         private String title;
         @Enumerated(EnumType.STRING)
+        @Column(name = "category", nullable = false, length = 20)
         private ArticleCategory category;
-        @Column(name = "img")
+        @Lob
+        @Column(name = "img",  nullable = false)
         private byte[] img;
+        @Column(name = "price", nullable = false)
         private float price;
 
         // Default constructor
@@ -62,11 +68,11 @@ public class ArticleMarketing {
                 this.category = category;
         }
 
-        public byte[] getimg() {
+        public byte[] getImg() {
                 return img;
         }
 
-        public void setimg(byte[] img) {
+        public void setImg(byte[] img) {
                 this.img = img;
         }
 
