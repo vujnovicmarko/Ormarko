@@ -33,6 +33,7 @@ public class RegistrationController {
     private PasswordEncoder passwordEncoder;
 
     //rješavanje prikaza podataka za novog usera (inače čuvalo stare podatke)
+
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired

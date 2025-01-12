@@ -7,6 +7,7 @@ import com.example.ormarko.ormarko.Service.MarketerService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,10 +33,14 @@ public class MarketerRegistrationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+
+    private final AuthenticationManager marketerAuthenticationManager;
     @Autowired
     private MarketerService marketerService;
+
+    public MarketerRegistrationController(@Qualifier("marketerAuthenticationManager") AuthenticationManager marketerAuthenticationManager) {
+        this.marketerAuthenticationManager = marketerAuthenticationManager;
+    }
 
     @PostMapping(value = "/signup/marketer")
     public ResponseEntity<?> createUser(@RequestBody Marketer marketer, HttpServletRequest request) {
@@ -87,7 +92,7 @@ public class MarketerRegistrationController {
             UsernamePasswordAuthenticationToken authToken =
                     new UsernamePasswordAuthenticationToken(userDetails, rawPassword, userDetails.getAuthorities());
 
-            Authentication authentication = authenticationManager.authenticate(authToken);
+            Authentication authentication = marketerAuthenticationManager.authenticate(authToken);
             SecurityContext context = SecurityContextHolder.getContext();
             context.setAuthentication(authentication);
             HttpSession session = request.getSession(true);

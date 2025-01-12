@@ -1,6 +1,7 @@
 package com.example.ormarko.ormarko.Controller;
 
 import com.example.ormarko.ormarko.Service.MarketerService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,27 +17,33 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class MarketerLoginController {
 
-    private final AuthenticationManager authenticationManager;
+    private final AuthenticationManager marketerAuthenticationManager;
     private final MarketerService marketerService;
 
-    public MarketerLoginController(AuthenticationManager authenticationManager, MarketerService marketerService) {
-        this.authenticationManager = authenticationManager;
+    //ovdje krivi authentication inicijalizira - onaj za user
+    public MarketerLoginController(@Qualifier("marketerAuthenticationManager") AuthenticationManager marketerAuthenticationManager, MarketerService marketerService) {
+        this.marketerAuthenticationManager = marketerAuthenticationManager;
         this.marketerService = marketerService;
+        System.out.println("AuthenticationManager initialized:" + marketerAuthenticationManager);
     }
 
     @PostMapping("/marketer")
     public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
         String username = credentials.get("username");
-        String password = credentials.get("password");
+        String password = credentials.get("pass");
+        System.out.println("USERNAME:" + username);
 
         try {
             UsernamePasswordAuthenticationToken authToken =
                     new UsernamePasswordAuthenticationToken(username, password);
 
-            Authentication authentication = authenticationManager.authenticate(authToken);
+            //ovdje ode na krivi - koristi kao iz security config i onda trazi tog oglašivačau krivoj tablici - users
+            Authentication authentication = marketerAuthenticationManager.authenticate(authToken);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            System.out.println("AUTHENTICATION: " + authentication);
 
             if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_MARKETER"))) {
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+
                 return ResponseEntity.ok(Map.of(
                         "success", true,
                         "role", "marketer",

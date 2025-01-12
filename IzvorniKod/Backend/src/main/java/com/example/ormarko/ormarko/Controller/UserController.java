@@ -8,10 +8,12 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,20 +43,28 @@ public class UserController {
     public Map<String, Object> getUser(Authentication authentication) {
         System.out.println("Current Authentication on /profile: " + SecurityContextHolder.getContext().getAuthentication());
 
+        List<String> roles = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList());
+        System.out.println("ROLES: "+ roles);
+
         if (authentication.getPrincipal() instanceof OAuth2User) {
             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
             String email = oAuth2User.getAttribute("email");
             return Map.of("googleoauth", true, "email", email);
         } else {
             String username = authentication.getName();
+
             User user = userService.findByUsername(username)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
             return Map.of(
                     "googleoauth", false,
                     "username", user.getUsername(),
                     "email", user.getE_mail(),
                     "city", user.getCity(),
                     "country", user.getCountry()
+
             );
         }
     }
