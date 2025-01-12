@@ -1,7 +1,6 @@
 package com.example.ormarko.ormarko.Repository;
 
-import com.example.ormarko.ormarko.Model.ArticleUser;
-import com.example.ormarko.ormarko.Model.Closet;
+import com.example.ormarko.ormarko.Model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,5 +17,9 @@ public interface ArticleRepository extends JpaRepository<ArticleUser, Integer> {
 
     List<ArticleUser> findBySharing(Boolean sharing);
 
+    @Query("SELECT a FROM ArticleUser a WHERE a.sharing = :sharing AND a.category = :category" +
+            " AND a.season = :season AND a.openness = :openness AND a.howCasual = :casual AND (a.mainColor = :color OR a.sideColor = :color)")
+    List<ArticleUser> findAllArticlesByFilter(Boolean sharing, ArticleCategory category, ArticleSeason season, ArticleOpen openness,
+                                              ArticleCasual casual, ArticleColor color);
 
 }

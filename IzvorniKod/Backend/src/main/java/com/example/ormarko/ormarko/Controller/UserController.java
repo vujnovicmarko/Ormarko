@@ -1,14 +1,8 @@
 package com.example.ormarko.ormarko.Controller;
 
+import com.example.ormarko.ormarko.Model.*;
+import com.example.ormarko.ormarko.Service.*;
 import org.springframework.security.core.context.SecurityContextHolder;
-import com.example.ormarko.ormarko.Model.ArticleUser;
-import com.example.ormarko.ormarko.Model.Closet;
-import com.example.ormarko.ormarko.Model.Location;
-import com.example.ormarko.ormarko.Model.User;
-import com.example.ormarko.ormarko.Service.ArticleService;
-import com.example.ormarko.ormarko.Service.ClosetService;
-import com.example.ormarko.ormarko.Service.LocationService;
-import com.example.ormarko.ormarko.Service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +11,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +25,7 @@ public class UserController {
     private final LocationService locationService;
     private final ArticleService articleService;
     private final UserService userService;
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     public UserController(ClosetService closetService, LocationService locationService, ArticleService articleService, UserService userService) {
         this.closetService = closetService;
@@ -61,39 +58,76 @@ public class UserController {
             );
         }
     }
-/*
-    @GetMapping("/profile")
-    public User getUser(Authentication authentication) { //vraća podatke trenutno ulogiranog korisnika
-        String username = authentication.getName();
 
+    @GetMapping("/profile/allClosets")
+    public List<Closet> getUserContent(Authentication authentication) { //vraća podatke trenutno ulogiranog korisnika
+
+        String username = authentication.getName();
         if (userService.findByUsername(username).isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
 
-        return userService.findByUsername(username).get();
+        return closetService.findAllClosetsForUser(username);
     }
 
- */
 
-    //TODO
-    @GetMapping("/{username}/closet{id}")
-    public List<Location> getCloset(@PathVariable String username, @PathVariable Integer id){ //Authentication authentication){
 
-        //if(!authentication.getName().equals(closetService.findClosetById(id).getClosetOwner()))
+    @GetMapping("/profile/closet{id}/allLocations")
+    public List<Location> getCloset(Authentication authentication, @PathVariable Integer id){
+
+        String username = authentication.getName();
         if(!username.equals(closetService.findClosetById(id).getClosetOwner()))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Closet not found.");
 
         return locationService.findAllLocationsForCloset(id);
     }
 
-    //TODO
-    @GetMapping("/{username}/location{id}")
-    public List<ArticleUser> getLocation(@PathVariable String username, @PathVariable Integer id){ //Authentication authentication){
 
-//        if (!authentication.getName()
-//                .equals(closetService.findClosetById(locationService.findLocationById(id).getClosetId()).getClosetOwner()))
+    @GetMapping("/profile/location{id}/allArticles")
+    public List<ArticleUser> getLocation(Authentication authentication, @PathVariable Integer id){
+
+        String username = authentication.getName();
         if (!username.equals(closetService.findClosetById(locationService.findLocationById(id).getClosetId()).getClosetOwner()))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Location not found.");
 
         return articleService.findAllArticlesForLocation(id);
     }
+
+    @PostMapping("/search")
+    public List<ArticleUser> search(Authentication authentication, @RequestBody Map<String, String> body){
+
+        log.info("Received POST request to /search!");
+
+        String username = authentication.getName();
+        User user = userService.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        ArticleCategory category = ArticleCategory.valueOf(body.get("kategorija"));
+        ArticleSeason season = ArticleSeason.valueOf(body.get("godisnjeDoba"));
+        ArticleOpen openness = ArticleOpen.valueOf(body.get("otvorenost"));
+        ArticleCasual casual = ArticleCasual.valueOf(body.get("lezernost"));
+        ArticleColor color = ArticleColor.valueOf(body.get("boja"));
+
+        log.info("Finished parsing POST json!");
+
+        List<ArticleUser> articles = articleService.findAllArticlesByFilter(true, category, season, openness, casual, color);
+
+//        return articles.stream().filter(article -> {                        //filtriranje po lokaciji korisnika i vlasnika artikla
+//                    Optional<User> ou = userService.findByUsername(
+//                            closetService.findClosetById(
+//                                    locationService.findLocationById(
+//                                            article.getLocationId()
+//                                    ).getClosetId()
+//                            ).getClosetOwner()
+//                    );
+//
+//                    if (ou.isEmpty()) return false;
+//
+//                    return ou.get().getCountry().equals(user.getCountry());
+//                }
+//        ).toList();
+
+        log.info("Received data from filter!");
+
+        return articles;       //ako zelimo sve artikle neovisno o lokaciji korisnika
+
+    }
+
 }

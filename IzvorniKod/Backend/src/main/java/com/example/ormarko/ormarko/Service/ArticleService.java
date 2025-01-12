@@ -1,7 +1,6 @@
 package com.example.ormarko.ormarko.Service;
 
-import com.example.ormarko.ormarko.Model.ArticleUser;
-import com.example.ormarko.ormarko.Model.Closet;
+import com.example.ormarko.ormarko.Model.*;
 import com.example.ormarko.ormarko.Repository.ArticleRepository;
 import com.example.ormarko.ormarko.Repository.LocationRepository;
 import org.springframework.stereotype.Service;
@@ -23,6 +22,11 @@ public class ArticleService {
 
     public List<ArticleUser> findAllArticlesBySharing(Boolean sharing) {
         return articleRepository.findBySharing(sharing);
+    }
+
+    public List<ArticleUser> findAllArticlesByFilter(Boolean sharing, ArticleCategory category, ArticleSeason season, ArticleOpen openness,
+                                                     ArticleCasual casual, ArticleColor color) {
+        return articleRepository.findAllArticlesByFilter(sharing, category, season, openness, casual, color);
     }
 
 
