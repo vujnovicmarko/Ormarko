@@ -1,11 +1,12 @@
-// SearchPage.jsx
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../Header/Header.jsx";
 import LoggedInHeader from "../Header/LoggedInHeader";
-import ItemDisplay from "../ItemDisplay/ItemDisplay"; // You can reuse this or create a specialized one
+import SearchItemDisplay from "./SearchItemDisplay.jsx"; // New dedicated component
 
-export default function SearchPage({ filters, onClearFilters, isLoggedIn }) {
+export default function SearchPage({ isLoggedIn }) {
+    const location = useLocation();
+    const filters = location.state?.filters || {};
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -20,13 +21,14 @@ export default function SearchPage({ filters, onClearFilters, isLoggedIn }) {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(filters),
+                    credentials: "include",
                 });
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
                 const data = await response.json();
-                // Assume that the returned object has a "products" array.
-                setProducts(data.products || []);
+                // data is an array of articles returned by the backend
+                setProducts(data || []);
             } catch (err) {
                 console.error("Error searching products:", err);
                 setError("Error loading search results.");
@@ -45,15 +47,7 @@ export default function SearchPage({ filters, onClearFilters, isLoggedIn }) {
                 <h2>Search Results</h2>
                 {loading && <p>Loading products...</p>}
                 {error && <p className="error-message">{error}</p>}
-                {!loading && !error && (
-                    <>
-                        {products.length > 0 ? (
-                            <ItemDisplay products={products} />
-                        ) : (
-                            <p>No products found matching your filters.</p>
-                        )}
-                    </>
-                )}
+                {!loading && !error && <SearchItemDisplay products={products} />}
             </div>
         </div>
     );

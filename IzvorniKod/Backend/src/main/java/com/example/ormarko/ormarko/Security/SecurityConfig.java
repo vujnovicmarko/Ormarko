@@ -124,13 +124,13 @@ public class SecurityConfig {
                     registry.requestMatchers("/api/signup/**","api/login/**").permitAll();
                     registry.requestMatchers("/", "/home", "/api/marketers/**", "/api/default/getAll").permitAll();
                     registry.requestMatchers("/assets/**", "/static/**", "/index.html").permitAll();
+                    registry.requestMatchers("/api/user/search").permitAll();
                     registry.requestMatchers("/api/user/profile").hasRole("USER");
                     registry.requestMatchers("/api/marketer/**").hasRole("MARKETER");
                     //registry.requestMatchers("/**/*.css").permitAll();
                     //registry.requestMatchers("/**/*.js").permitAll();
                     //registry.requestMatchers("/**").permitAll();
                     registry.requestMatchers("/user/**", "/profile", "/api/user/profile").authenticated();
-                    registry.requestMatchers("api/user/search").permitAll();
                     registry.anyRequest().authenticated();
                 })
                 .logout(l -> l
