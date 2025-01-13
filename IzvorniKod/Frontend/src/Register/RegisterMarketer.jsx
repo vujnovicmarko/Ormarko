@@ -37,7 +37,7 @@ export default function RegisterMarketer() {
             });
 
             if (response.ok) {
-                alert("Registracija kao oglašivač je uspješna!");
+
                 navigate("/marketer-profile"); // Redirekt na profil oglašivača
             } else {
                 const errorData = await response.json();
