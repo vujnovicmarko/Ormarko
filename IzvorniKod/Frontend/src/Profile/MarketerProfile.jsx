@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import MarketerLoggedHeader from "../Header/MarketerLoggedHeader"; // Ispravan naziv komponente
+import MarketerLoggedHeader from "../Header/MarketerLoggedHeader";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
@@ -50,12 +50,7 @@ export default function MarketerProfile({ setIsLoggedIn }) {
                 <p>
                     <strong>Email:</strong> {marketerInfo.email}
                 </p>
-                <p>
-                    <strong>Grad:</strong> {marketerInfo.city}
-                </p>
-                <p>
-                    <strong>Država:</strong> {marketerInfo.country}
-                </p>
+
 
 
             </div>

@@ -1,77 +1,44 @@
 .gallery-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: "Poppins", sans-serif;
-}
-
-h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-.add-item-form {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.add-item-form input,
-.add-item-form textarea {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.add-item-form button {
-    padding: 10px;
-    background-color: #b97e69;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.add-item-form button:hover {
-    background-color: #a06754;
-}
-
-.items-list {
-    display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
+    margin-top: 20px;
 }
 
-.item-card {
+.gallery-item {
+    background: #fff;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
     padding: 15px;
-    width: calc(33% - 20px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.item-card h3 {
-    margin-top: 0;
-    color: #333;
+.gallery-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
-.item-card p {
-    color: #555;
+.gallery-item h3 {
+    margin: 10px 0;
+    font-size: 1.2rem;
 }
 
-.item-card button {
-    padding: 5px 10px;
-    background-color: #d9534f;
-    color: white;
+.gallery-item .delete-btn {
+    background: none;
     border: none;
-    border-radius: 5px;
+    color: red;
+    font-size: 1.2rem;
     cursor: pointer;
+    margin-top: 10px;
 }
 
-.item-card button:hover {
-    background-color: #c9302c;
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
