@@ -1,0 +1,83 @@
+{
+  "id": "2f217cfc-bf73-4df7-9970-97c5d5d2ef18",
+  "version": "2.0",
+  "name": "Ormarko",
+  "url": "https://ormarkodeploy-c46f4289b2cf.herokuapp.com",
+  "tests": [{
+    "id": "2076d95a-f052-4bf2-b5a5-764f80faa112",
+    "name": "TS-08 (v1)",
+    "commands": [{
+      "id": "1b91bfed-fbd2-4584-aa53-1c687275b4b9",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d3df12e9-e27b-454a-b7c8-ec2bcd79a899",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "786x864",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "d2626666-d5f2-47ea-8a13-c2b7029728db",
+      "comment": "",
+      "command": "click",
+      "target": "css=.searchinput",
+      "targets": [
+        ["css=.searchinput", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[2]/form/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "947bf2b0-1483-4ec0-a1cc-69390a523cc8",
+      "comment": "",
+      "command": "click",
+      "target": "css=.filter-category:nth-child(1) > .filter-option:nth-child(2)",
+      "targets": [
+        ["css=.filter-category:nth-child(1) > .filter-option:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/div/label", "xpath:idRelative"],
+        ["xpath=//label", "xpath:position"],
+        ["xpath=//label[contains(.,'MAJICA')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "5a380b29-50bd-4035-adb9-08be77aa433f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.filter-category:nth-child(2) > .filter-option:nth-child(3)",
+      "targets": [
+        ["css=.filter-category:nth-child(2) > .filter-option:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/div[2]/label[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/label[2]", "xpath:position"],
+        ["xpath=//label[contains(.,'LJETO')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "a88f4629-dd02-4cbf-8cb5-744abc8a229e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.searchbtn > img",
+      "targets": [
+        ["css=.searchbtn > img", "css:finder"],
+        ["xpath=//img[@alt='Search']", "xpath:img"],
+        ["xpath=//div[@id='root']/div/div/div[2]/form/button/img", "xpath:idRelative"],
+        ["xpath=//button/img", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "8a478e3f-8af8-4e6f-9cc5-2edbcda15129",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["2076d95a-f052-4bf2-b5a5-764f80faa112"]
+  }],
+  "urls": ["https://ormarkodeploy-c46f4289b2cf.herokuapp.com/"],
+  "plugins": []
+}

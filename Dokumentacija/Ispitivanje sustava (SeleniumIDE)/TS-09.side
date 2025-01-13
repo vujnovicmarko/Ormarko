@@ -1,0 +1,59 @@
+{
+  "id": "09bee25f-9df7-4583-a852-931b0fe530db",
+  "version": "2.0",
+  "name": "Ormarko",
+  "url": "https://ormarkodeploy-c46f4289b2cf.herokuapp.com",
+  "tests": [{
+    "id": "3c92eac0-4c34-446c-baa4-ad2e8b59670a",
+    "name": "TS-09",
+    "commands": [{
+      "id": "88084f44-8e00-4d51-aa32-b47b7da90980",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f075259f-9e77-41d6-8430-dd9fe86d5690",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "786x864",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "fb87da89-84df-4194-81c7-544fe01e2b67",
+      "comment": "",
+      "command": "click",
+      "target": "css=.searchinput",
+      "targets": [
+        ["css=.searchinput", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[2]/form/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0ad8d1f6-f58a-40fc-b8ba-5a00b7bfe5d0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.searchbtn > img",
+      "targets": [
+        ["css=.searchbtn > img", "css:finder"],
+        ["xpath=//img[@alt='Search']", "xpath:img"],
+        ["xpath=//div[@id='root']/div/div/div[2]/form/button/img", "xpath:idRelative"],
+        ["xpath=//button/img", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "446f345a-cd92-4286-8963-b373a1dc21f3",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["3c92eac0-4c34-446c-baa4-ad2e8b59670a"]
+  }],
+  "urls": ["https://ormarkodeploy-c46f4289b2cf.herokuapp.com/"],
+  "plugins": []
+}

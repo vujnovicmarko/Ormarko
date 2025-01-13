@@ -1,0 +1,71 @@
+{
+  "id": "0d3a2958-2926-4d9e-b3fb-1533bb32cde9",
+  "version": "2.0",
+  "name": "Ormarko",
+  "url": "https://ormarkodeploy-c46f4289b2cf.herokuapp.com",
+  "tests": [{
+    "id": "dd07e18b-f3f5-469a-87dc-f5a26ac15a1f",
+    "name": "TS-07",
+    "commands": [{
+      "id": "4fd87e25-226b-4100-965b-61e236af9067",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "282784fc-3f51-42ca-91a0-8ec95426e1ab",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "786x864",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f1e9882b-a798-48bf-a3fe-219677325386",
+      "comment": "",
+      "command": "click",
+      "target": "css=.searchinput",
+      "targets": [
+        ["css=.searchinput", "css:finder"],
+        ["xpath=//input[@type='text']", "xpath:attributes"],
+        ["xpath=//div[@id='root']/div/div/div[2]/form/input", "xpath:idRelative"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "85742525-7e13-450f-8e14-879946d180da",
+      "comment": "",
+      "command": "click",
+      "target": "css=.filter-category:nth-child(1) > .filter-option:nth-child(2)",
+      "targets": [
+        ["css=.filter-category:nth-child(1) > .filter-option:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div[2]/div/div/label", "xpath:idRelative"],
+        ["xpath=//label", "xpath:position"],
+        ["xpath=//label[contains(.,'MAJICA')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "8a138cf5-da33-4822-811b-2172281be824",
+      "comment": "",
+      "command": "click",
+      "target": "css=.searchbtn > img",
+      "targets": [
+        ["css=.searchbtn > img", "css:finder"],
+        ["xpath=//img[@alt='Search']", "xpath:img"],
+        ["xpath=//div[@id='root']/div/div/div[2]/form/button/img", "xpath:idRelative"],
+        ["xpath=//button/img", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "b82823f9-8346-496b-bfce-de7650d2d651",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["dd07e18b-f3f5-469a-87dc-f5a26ac15a1f"]
+  }],
+  "urls": ["https://ormarkodeploy-c46f4289b2cf.herokuapp.com/"],
+  "plugins": []
+}
