@@ -14,5 +14,6 @@ public interface ClosetRepository extends JpaRepository<Closet, Integer> {
     List<Closet> findAllClosetsForUser(String username);
 
     Closet findClosetByClosetId(Integer closetId);
+
 }
 

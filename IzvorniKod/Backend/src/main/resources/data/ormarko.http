@@ -11,7 +11,7 @@ Content-Type: application/json
 }
 
 ### Create new Run
-POST http://localhost:8080/api/user/search
+POST http://localhost:8080/api/user/profile/addCloset
 Content-Type: application/json
 
 {

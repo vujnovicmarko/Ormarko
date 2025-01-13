@@ -83,12 +83,16 @@ public class UserController {
         return closetService.findAllClosetsForUser(username);
     }
 
-
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/profile/addCloset")
     void addCloset(Authentication authentication) {
         String username = authentication.getName();
-        List<Closet> allClosets = closetService.findAllClosetsForUser(username);
+
         Closet closet = new Closet();
+        closet.setClosetOwner(username);
+
+       if(closetService.saveCloset(closet) == null) throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Closet not created");
+
     }
 
 
