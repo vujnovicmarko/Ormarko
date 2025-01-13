@@ -21,3 +21,30 @@ Content-Type: application/json
 "lezernost": [],
 "boja": []
 }
+
+### Create new Location
+POST http://localhost:8080/api/user/profile/closet1/addLocation
+Content-Type: application/json
+
+{
+  "tipLokacije": "POLICA"
+}
+
+### Create new Article
+POST http://localhost:8080/api/user/profile/location1/addArticle
+Content-Type: application/json
+
+{
+  "articleId": 3,
+  "locationId": 2,
+  "sharing": false,
+  "title": "Casual Spring Shirt",
+  "img": "AQIDBAU=",
+  "category": "KOŠULJA",
+  "season": "PROLJEĆE",
+  "openness": null,
+  "howCasual": "LEŽERNO",
+  "mainColor": "PLAVA",
+  "sideColor": "BIJELA",
+  "descript": "A light blue shirt perfect for spring."
+}
