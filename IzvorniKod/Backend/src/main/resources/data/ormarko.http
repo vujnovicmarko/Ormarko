@@ -1,0 +1,23 @@
+### Create new Run
+POST http://localhost:8080/api/user/search
+Content-Type: application/json
+
+{
+  "kategorija": ["MAJICA"],
+  "godisnjeDoba": ["LJETO"],
+  "otvorenost": [],
+  "lezernost": [],
+  "boja": []
+}
+
+### Create new Run
+POST http://localhost:8080/api/user/search
+Content-Type: application/json
+
+{
+"kategorija": [],
+"godisnjeDoba": [],
+"otvorenost": [],
+"lezernost": [],
+"boja": []
+}
