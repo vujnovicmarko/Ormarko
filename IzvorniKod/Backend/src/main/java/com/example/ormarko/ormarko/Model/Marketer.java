@@ -20,6 +20,7 @@ public class Marketer {
 
         @Column(name="e_mail")
         @Email(message = "Please provide a valid email address")
+        @JsonProperty("email")
         private String eMail;
 
         private byte[] logo;

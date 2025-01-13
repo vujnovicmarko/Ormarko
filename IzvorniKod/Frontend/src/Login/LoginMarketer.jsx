@@ -74,6 +74,7 @@ export default function LoginMarketer({ setIsLoggedIn }) {
                                     required
                                 />
                             </label>
+
                         </div>
                         <button type="submit">Prijavi se kao oglašivač</button>
                     </form>

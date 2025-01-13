@@ -8,6 +8,7 @@ export default function RegisterMarketer() {
         username: "",
         email: "",
         password: "",
+        logo: ""
     });
     const navigate = useNavigate();
 
@@ -20,6 +21,12 @@ export default function RegisterMarketer() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const dataToSend = {
+              username: formData.username,
+              eMail: formData.email, // Backend očekuje "eMail"
+              pass: formData.password, // Backend očekuje "pass"
+              logo: formData.logo
+            };
 
         try {
             const response = await fetch("/api/signup/marketer", {
@@ -77,8 +84,20 @@ export default function RegisterMarketer() {
                             Lozinka:
                             <input
                                 type="password"
-                                name="password"
-                                value={formData.password}
+                                name="pass"
+                                value={formData.pass}
+                                onChange={handleChange}
+                                required
+                            />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            Logo:
+                            <input
+                                type="logo"
+                                name="logo"
+                                value={formData.logo}
                                 onChange={handleChange}
                                 required
                             />

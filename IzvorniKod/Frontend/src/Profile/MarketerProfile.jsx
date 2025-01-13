@@ -46,8 +46,7 @@ export default function MarketerProfile({ isLoggedIn, setIsLoggedIn }) {
             <div className="profile-details">
                 <p><strong>Korisničko ime:</strong> {marketerInfo.username}</p>
                 <p><strong>Email:</strong> {marketerInfo.email}</p>
-                <p><strong>Grad:</strong> {marketerInfo.city}</p>
-                <p><strong>Država:</strong> {marketerInfo.country}</p>
+
                 <p><strong>Galerija artikala:</strong></p>
                 <ul>
                     {marketerInfo.items && marketerInfo.items.length > 0 ? (
