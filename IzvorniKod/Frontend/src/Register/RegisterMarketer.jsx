@@ -41,7 +41,8 @@ export default function RegisterMarketer() {
                 navigate("/marketer-profile"); // Redirekt na profil oglašivača
             } else {
                 const errorData = await response.json();
-                alert(errorData.error || "Registracija nije uspjela. Pokušajte ponovo.");
+                const errorMessage = errorData.error || "Registration failed. Please try again.";
+                alert(errorMessage);
             }
         } catch (error) {
             console.error("Greška pri registraciji:", error);
