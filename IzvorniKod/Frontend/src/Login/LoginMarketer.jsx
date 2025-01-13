@@ -24,9 +24,10 @@ export default function LoginMarketer({ setIsLoggedIn }) {
             const response = await fetch("/api/login/marketer", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData),
+                body: JSON.stringify(formData),
                 credentials: "include",
             });
+
 
             if (response.ok) {
                 setIsLoggedIn(true);

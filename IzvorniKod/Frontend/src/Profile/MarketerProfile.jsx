@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import LoggedInHeader from "../Header/LoggedInHeader";
+import MarketerLoggedHeader from "../Header/MarketerLoggedHeader"; // Ispravan naziv komponente
 import { useNavigate } from "react-router-dom";
-import "./MarketerProfile.css";
+import "./Profile.css";
 
-export default function MarketerProfile({ isLoggedIn, setIsLoggedIn }) {
+export default function MarketerProfile({ setIsLoggedIn }) {
     const [marketerInfo, setMarketerInfo] = useState([]);
     const navigate = useNavigate();
 
@@ -15,13 +15,13 @@ export default function MarketerProfile({ isLoggedIn, setIsLoggedIn }) {
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    console.log("Marketer Data fetched:", data); // Debugging
+                    console.log("Data fetched:", data); // Debugging
                     setMarketerInfo(data);
                 } else {
                     console.error("Failed to fetch marketer info");
                 }
             } catch (error) {
-                console.error("Error fetching marketer info:", error);
+                console.error("Error when fetching marketer info:", error);
             }
         };
         fetchMarketerInfo();
@@ -29,7 +29,7 @@ export default function MarketerProfile({ isLoggedIn, setIsLoggedIn }) {
 
     const handleLogout = () => {
         setIsLoggedIn(false);
-        setMarketerInfo([]); // Reset marketer data
+        setMarketerInfo([]); // Reset marketer info
         localStorage.removeItem("isLoggedIn");
         fetch("/logout", {
             method: "POST",
@@ -41,26 +41,24 @@ export default function MarketerProfile({ isLoggedIn, setIsLoggedIn }) {
 
     return (
         <div className="profile-container">
-            <LoggedInHeader />
+            <MarketerLoggedHeader /> {/* Header specifičan za marketera */}
             <h1 className="profile-heading">Moj profil oglašivača</h1>
             <div className="profile-details">
-                <p><strong>Korisničko ime:</strong> {marketerInfo.username}</p>
-                <p><strong>Email:</strong> {marketerInfo.email}</p>
+                <p>
+                    <strong>Korisničko ime:</strong> {marketerInfo.username}
+                </p>
+                <p>
+                    <strong>Email:</strong> {marketerInfo.email}
+                </p>
+                <p>
+                    <strong>Grad:</strong> {marketerInfo.city}
+                </p>
+                <p>
+                    <strong>Država:</strong> {marketerInfo.country}
+                </p>
 
-                <p><strong>Galerija artikala:</strong></p>
-                <ul>
-                    {marketerInfo.items && marketerInfo.items.length > 0 ? (
-                        marketerInfo.items.map((item, index) => (
-                            <li key={index}>{item.name} - {item.description}</li>
-                        ))
-                    ) : (
-                        <p>Trenutno nema artikala u galeriji.</p>
-                    )}
-                </ul>
+
             </div>
-            <button className="logout-button" onClick={handleLogout}>
-                Odjavi se
-            </button>
         </div>
     );
 }
