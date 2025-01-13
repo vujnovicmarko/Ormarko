@@ -19,12 +19,17 @@ export default function LoginMarketer({ setIsLoggedIn }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const dataToSend = {
+          username: formData.username,
+          pass: formData.password // Backend očekuje "pass"
+
+        };
 
         try {
             const response = await fetch("/api/login/marketer", {
                 method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData),
+                headers: { "Content-Type": "application/json"  },
+                body: JSON.stringify(dataToSend),
                 credentials: "include",
             });
 
@@ -65,15 +70,15 @@ export default function LoginMarketer({ setIsLoggedIn }) {
                         </div>
                         <div>
                             <label>
-                                Lozinka:
-                                <input
-                                    type="password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </label>
+                                   Lozinka:
+                                   <input
+                                        type="password"
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        required
+                                   />
+                                </label>
 
                         </div>
                         <button type="submit">Prijavi se kao oglašivač</button>
