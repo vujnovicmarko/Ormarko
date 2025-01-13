@@ -12,6 +12,7 @@ import RegisterMarketer from "./Register/RegisterMarketer";
 import LoginMarketer from "./Login/LoginMarketer";
 import MarketerProfile from "./Profile/MarketerProfile";
 import MarketerGallery from "./Closets/MarketerGallery";
+import AddArticle from "./Closets/AddArticle";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -70,6 +71,10 @@ export default function App() {
             path="/marketer-gallery"
             element={<MarketerGallery />}
         />
+          <Route
+              path="/add-article"
+              element={<AddArticle />}
+          />
       </Routes>
     </BrowserRouter>
   );

@@ -1,103 +1,68 @@
 import React, { useState, useEffect } from "react";
+import MarketerGalleryHeader from "../Header/MarketerGalleryHeader";
 import "./MarketerGallery.css";
 
 export default function MarketerGallery() {
-    const [items, setItems] = useState([]);
-    const [newItem, setNewItem] = useState({ name: "", description: "" });
+    const [articles, setArticles] = useState([]);
 
-    // Fetch items on component mount
     useEffect(() => {
-        const fetchItems = async () => {
+        // Dohvat artikala
+        const fetchArticles = async () => {
             try {
-                const response = await fetch("/api/marketer/items", {
+                const response = await fetch("/api/marketer/articles", {
                     credentials: "include",
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    setItems(data);
+                    setArticles(data);
                 } else {
-                    console.error("Failed to fetch items");
+                    console.error("Failed to fetch articles");
                 }
             } catch (error) {
-                console.error("Error fetching items:", error);
+                console.error("Error fetching articles:", error);
             }
         };
-        fetchItems();
+
+        fetchArticles();
     }, []);
 
-    // Handle input change for new item
-    const handleInputChange = (e) => {
-        setNewItem({ ...newItem, [e.target.name]: e.target.value });
-    };
-
-    // Add a new item
-    const handleAddItem = async () => {
+    const handleDeleteArticle = async (articleId) => {
         try {
-            const response = await fetch("/api/marketer/items", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newItem),
-                credentials: "include",
-            });
-            if (response.ok) {
-                const addedItem = await response.json();
-                setItems([...items, addedItem]);
-                setNewItem({ name: "", description: "" });
-            } else {
-                console.error("Failed to add item");
-            }
-        } catch (error) {
-            console.error("Error adding item:", error);
-        }
-    };
-
-    // Delete an item
-    const handleDeleteItem = async (id) => {
-        try {
-            const response = await fetch(`/api/marketer/items/${id}`, {
+            const response = await fetch(`/api/marketer/articles/${articleId}`, {
                 method: "DELETE",
                 credentials: "include",
             });
             if (response.ok) {
-                setItems(items.filter((item) => item.id !== id));
+                setArticles((prevArticles) =>
+                    prevArticles.filter((article) => article.id !== articleId)
+                );
             } else {
-                console.error("Failed to delete item");
+                console.error("Failed to delete article");
             }
         } catch (error) {
-            console.error("Error deleting item:", error);
+            console.error("Error deleting article:", error);
         }
     };
 
     return (
-        <div className="gallery-container">
-            <h2>Galerija artikala</h2>
-            <div className="add-item-form">
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Naziv artikla"
-                    value={newItem.name}
-                    onChange={handleInputChange}
-                />
-                <textarea
-                    name="description"
-                    placeholder="Opis artikla"
-                    value={newItem.description}
-                    onChange={handleInputChange}
-                />
-                <button onClick={handleAddItem}>Dodaj artikl</button>
-            </div>
-            <div className="items-list">
-                {items.length > 0 ? (
-                    items.map((item) => (
-                        <div key={item.id} className="item-card">
-                            <h3>{item.name}</h3>
-                            <p>{item.description}</p>
-                            <button onClick={() => handleDeleteItem(item.id)}>Obriši</button>
+        <div>
+            <MarketerGalleryHeader />
+            <div className="gallery-container">
+                {articles.length > 0 ? (
+                    articles.map((article) => (
+                        <div className="gallery-item" key={article.id}>
+                            <img src={`data:image/jpeg;base64,${article.img}`} alt={article.title} />
+                            <h3>{article.title}</h3>
+                            <button
+                                className="delete-btn"
+                                onClick={() => handleDeleteArticle(article.id)}
+                            >
+                                &#x2716; {/* Unicode za X */}
+                            </button>
                         </div>
                     ))
                 ) : (
-                    <p>Trenutno nema artikala.</p>
+                    <p>Trenutno nema artikala u galeriji.</p>
                 )}
             </div>
         </div>
