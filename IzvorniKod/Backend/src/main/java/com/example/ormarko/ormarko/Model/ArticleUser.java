@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class ArticleUser {
 
         @Id
-        private int articleId;
+        private Integer articleId;
 
         private int locationId;
 
@@ -66,7 +66,7 @@ public class ArticleUser {
                 return articleId;
         }
 
-        public void setArticleId(int articleId) {
+        public void setArticleId(Integer articleId) {
                 this.articleId = articleId;
         }
 

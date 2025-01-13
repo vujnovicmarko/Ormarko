@@ -2,6 +2,7 @@ package com.example.ormarko.ormarko.Controller;
 
 import com.example.ormarko.ormarko.Model.*;
 import com.example.ormarko.ormarko.Service.*;
+import jakarta.validation.Valid;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -107,6 +108,20 @@ public class UserController {
     }
 
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/profile/closet{id}/addLocation")
+    void addLocation(Authentication authentication, @PathVariable Integer id, @RequestBody Map<String, String> body) {
+        //String username = authentication.getName();
+        LocationType locationType = LocationType.valueOf(body.get("tipLokacije"));
+        Location location = new Location();
+        location.setClosetId(id);
+        location.setTypeLoc(locationType);
+
+        if(locationService.saveLocation(location) == null) throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Location not created");
+
+    }
+
+
     @GetMapping("/profile/location{id}/allArticles")
     public List<ArticleUser> getLocation(Authentication authentication, @PathVariable Integer id){
 
@@ -115,6 +130,19 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Location not found.");
 
         return articleService.findAllArticlesForLocation(id);
+    }
+
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/profile/location{id}/addArticle")
+    void addLocation(Authentication authentication, @PathVariable Integer id, @RequestBody @Valid ArticleUser article) {
+        //String username = authentication.getName();
+
+        //
+        article.setArticleId(null);
+
+        if(articleService.save(article) == null) throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Article not created");
+
     }
 
     @PostMapping("/search")

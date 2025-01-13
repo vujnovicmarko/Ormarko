@@ -46,6 +46,10 @@ public class ArticleService {
         return l;
     }
 
+    public ArticleUser save(ArticleUser articleUser) {
+        return articleRepository.save(articleUser);
+    }
+
 
     public List<ArticleUser> findAllArticlesByFilter(Boolean sharing, ArticleCategory category, ArticleSeason season, ArticleOpen openness,
                                                      ArticleCasual casual, ArticleColor color) {

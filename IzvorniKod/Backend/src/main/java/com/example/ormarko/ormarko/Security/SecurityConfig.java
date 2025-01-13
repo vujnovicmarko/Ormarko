@@ -125,6 +125,7 @@ public class SecurityConfig {
                     registry.requestMatchers("/", "/home", "/api/marketers/**", "/api/default/getAll").permitAll();
                     registry.requestMatchers("/assets/**", "/static/**", "/index.html").permitAll();
                     registry.requestMatchers("/api/user/search").permitAll();
+                    registry.requestMatchers("/api/user/profile/**").permitAll();
                     registry.requestMatchers("/api/user/profile").hasRole("USER");
                     registry.requestMatchers("/api/marketer/**").hasRole("MARKETER");
 
