@@ -65,11 +65,11 @@ export default function Login({ setIsLoggedIn }) {
               <label>
                 Korisničko ime:
                 <input
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    required
                 />
               </label>
             </div>
@@ -77,20 +77,28 @@ export default function Login({ setIsLoggedIn }) {
               <label>
                 Lozinka:
                 <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
                 />
               </label>
             </div>
             <button type="submit">Prijavi se</button>
           </form>
-          <div className="google-login-container">
-            <button className="googleBtn" onClick={handleGoogleLogin}>
-              Prijavi se s Google računom
-            </button>
+          <div className="additional-login-container">
+            <div className="additional-buttons">
+              <button
+                  className="marketer-login-btn"
+                  onClick={() => navigate("/login-marketer")}
+              >
+                Prijavi se kao oglašivač
+              </button>
+              <button className="googleBtn" onClick={handleGoogleLogin}>
+                Prijavi se s Google računom
+              </button>
+            </div>
           </div>
         </div>
       </div>

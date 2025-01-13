@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+.profile-container {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 80px);
+    margin-top: 80px;
+}
+
+h2 {
+    color: #333;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.profile-card {
+    background: rgba(205, 182, 175, 0.5);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(217, 164, 143, 0.4);
+    max-width: 400px;
+    width: 100%;
+    border: solid 3px #d9a48f;
+}
+
+.profile-card p {
+    color: #4B5563;
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+}
+
+.profile-card strong {
+    font-weight: 600;
+    color: #333;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    background: linear-gradient(135deg, #d9a48f, #b97e69);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+    box-shadow: 0 3px 6px rgba(185, 126, 105, 0.3);
+}
+
+.logout-btn:hover {
+    background: linear-gradient(135deg, #b97e69, #a06754);
+    box-shadow: 0 4px 10px rgba(185, 126, 105, 0.4);
+    transform: translateY(-2px);
+}
+
+.logout-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(185, 126, 105, 0.3);
+}
+
+@media (max-width: 600px) {
+    .profile-card {
+        padding: 1.5rem;
+        margin: 0 1rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}

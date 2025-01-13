@@ -8,6 +8,10 @@ import Home from "./Home/Home";
 import Profile from "./Profile/Profile";
 import SearchPage from "./Search/SearchPage.jsx";
 import ClosetsPage from "./Closets/ClosetsPage.jsx"
+import RegisterMarketer from "./Register/RegisterMarketer";
+import LoginMarketer from "./Login/LoginMarketer";
+import MarketerProfile from "./Profile/MarketerProfile";
+import MarketerGallery from "./Closets/MarketerGallery";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -47,6 +51,24 @@ export default function App() {
                element={
                  <ClosetsPage isLoggedIn={isLoggedIn}/>
                }
+        />
+        <Route
+            path="/register-marketer"
+            element={<RegisterMarketer setIsLoggedIn={setIsLoggedIn} />}
+        />
+        <Route
+            path="/login-marketer"
+            element={<LoginMarketer setIsLoggedIn={setIsLoggedIn} />}
+        />
+        <Route
+            path="/marketer-profile"
+            element={
+                <MarketerProfile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+            }
+        />
+        <Route
+            path="/marketer-gallery"
+            element={<MarketerGallery />}
         />
       </Routes>
     </BrowserRouter>

@@ -23,6 +23,15 @@ export default function Register({ setIsLoggedIn }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Mapiramo formData na backend očekivana polja
+    const dataToSend = {
+      username: formData.username,
+      e_mail: formData.email, // Backend očekuje "e_mail"
+      pass: formData.password, // Backend očekuje "pass"
+      city: formData.city,
+      country: formData.country,
+    };
+
     try {
       const response = await fetch("/api/signup/user", {
         method: "POST",
@@ -62,11 +71,11 @@ export default function Register({ setIsLoggedIn }) {
             <label>
               Korisničko ime:
               <input
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                required
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
               />
             </label>
           </div>
@@ -74,11 +83,11 @@ export default function Register({ setIsLoggedIn }) {
             <label>
               Grad:
               <input
-                type="text"
-                name="city"
-                value={formData.city}
-                onChange={handleChange}
-                required
+                  type="text"
+                  name="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  required
               />
             </label>
           </div>
@@ -86,11 +95,11 @@ export default function Register({ setIsLoggedIn }) {
             <label>
               Država:
               <input
-                type="text"
-                name="country"
-                value={formData.country}
-                onChange={handleChange}
-                required
+                  type="text"
+                  name="country"
+                  value={formData.country}
+                  onChange={handleChange}
+                  required
               />
             </label>
           </div>
@@ -98,11 +107,11 @@ export default function Register({ setIsLoggedIn }) {
             <label>
               E-mail:
               <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
               />
             </label>
           </div>
@@ -110,17 +119,26 @@ export default function Register({ setIsLoggedIn }) {
             <label>
               Lozinka:
               <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
               />
             </label>
           </div>
           <button type="submit">Registriraj se</button>
+          <div className="additional-buttons">
+            <button
+                className="marketer-register-btn"
+                onClick={() => navigate("/register-marketer")}
+            >
+              Registriraj se kao oglašivač
+            </button>
+          </div>
         </form>
       </div>
+
     </>
   );
 }

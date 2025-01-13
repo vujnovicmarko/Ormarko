@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
 .form-container {
     font-family: 'Poppins', sans-serif;
     display: flex;
@@ -8,9 +6,8 @@
     align-items: center;
     min-height: calc(100vh - 80px);
     padding: 20px;
-    margin: 0 auto;
+    margin-top: 80px;
 }
-
 
 h2 {
     color: #333;
@@ -38,8 +35,8 @@ h2 {
 }
 
 .registration-form input[type="text"],
-.registration-form input[type="password"],
-.registration-form input[type="email"] {
+.registration-form input[type="email"],
+.registration-form input[type="password"] {
     width: 100%;
     padding: 0.75rem;
     margin-bottom: 1rem;
@@ -52,8 +49,8 @@ h2 {
 }
 
 .registration-form input[type="text"]:focus,
-.registration-form input[type="password"]:focus,
-.registration-form input[type="email"]:focus {
+.registration-form input[type="email"]:focus,
+.registration-form input[type="password"]:focus {
     border: 2px solid #b97e69;
     box-shadow: 0 0 5px rgba(185, 126, 105, 0.5);
 }
@@ -81,47 +78,4 @@ h2 {
 .registration-form button[type="submit"]:active {
     transform: translateY(0);
     box-shadow: 0 2px 5px rgba(185, 126, 105, 0.3);
-}
-
-/* Stilovi za dodatni gumb za registraciju oglašivača */
-.additional-buttons {
-    margin-top: 10px;
-    text-align: center;
-}
-
-.additional-buttons .marketer-register-btn {
-    padding: 0.75rem;
-    background: linear-gradient(135deg, #a06754, #b97e69);
-    color: #FFFFFF;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
-    box-shadow: 0 3px 6px rgba(185, 126, 105, 0.3);
-    width: 100%;
-}
-
-.additional-buttons .marketer-register-btn:hover {
-    background: linear-gradient(135deg, #b97e69, #d9a48f);
-    box-shadow: 0 4px 10px rgba(185, 126, 105, 0.4);
-    transform: translateY(-2px);
-}
-
-.additional-buttons .marketer-register-btn:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 5px rgba(185, 126, 105, 0.3);
-}
-
-@media (max-width: 600px) {
-    .registration-form {
-        max-width: 90%;
-        padding: 1.5rem;
-        margin: 0 1rem;
-    }
-
-    h2 {
-        font-size: 1.2rem;
-    }
 }
