@@ -84,6 +84,13 @@ public class UserController {
     }
 
 
+    @PostMapping("/profile/addCloset")
+    void addCloset(Authentication authentication) {
+        String username = authentication.getName();
+        List<Closet> allClosets = closetService.findAllClosetsForUser(username);
+        Closet closet = new Closet();
+    }
+
 
     @GetMapping("/profile/closet{id}/allLocations")
     public List<Location> getCloset(Authentication authentication, @PathVariable Integer id){
@@ -120,36 +127,59 @@ public class UserController {
 //        ArticleCasual casual = ArticleCasual.valueOf(body.get("lezernost"));
 //        ArticleColor color = ArticleColor.valueOf(body.get("boja"));
 
-        Set<ArticleUser> articles = new HashSet<>();
+        //Set<ArticleUser> articles = new HashSet<>();
+        List<ArticleUser> articles = articleService.findAllArticlesBySharing(true);
 
-        if(body.containsKey("kategorija")){
-            for(String s : body.get("kategorija")){
-                articles.addAll(articleService.findAllArticlesByCategory(ArticleCategory.valueOf(s)));
-            }
+        boolean isEmpty = true;
+
+        if(body.containsKey("kategorija") && body.get("kategorija").length > 0){
+            isEmpty = false;
+            articles = articles.stream().filter(a -> {
+                for(String s : body.get("kategorija")){
+                    if (a.getCategory().toString().equals(s)) return true;
+                }
+                return false;
+            }).toList();
         }
 
-        if (body.containsKey("godisnjeDoba")) {
-            for (String s : body.get("godisnjeDoba")) {
-                articles.addAll(articleService.findAllArticlesBySeason(ArticleSeason.valueOf(s)));
-            }
+        if (body.containsKey("godisnjeDoba") && body.get("godisnjeDoba").length > 0) {
+            isEmpty = false;
+            articles = articles.stream().filter(a -> {
+                for(String s : body.get("godisnjeDoba")){
+                    if (a.getSeason().toString().equals(s)) return true;
+                }
+                return false;
+            }).toList();
         }
 
-        if (body.containsKey("otvorenost")) {
-            for (String s : body.get("otvorenost")) {
-                articles.addAll(articleService.findAllArticlesByOpenness(ArticleOpen.valueOf(s)));
-            }
+        if (body.containsKey("otvorenost") && body.get("otvorenost").length > 0) {
+            isEmpty = false;
+            articles = articles.stream().filter(a -> {
+                for(String s : body.get("otvorenost")){
+                    if (a.getOpenness().toString().equals(s)) return true;
+                }
+                return false;
+            }).toList();
         }
 
-        if (body.containsKey("lezernost")) {
-            for (String s : body.get("lezernost")) {
-                articles.addAll(articleService.findAllArticlesByCasual(ArticleCasual.valueOf(s)));
-            }
+        if (body.containsKey("lezernost") && body.get("lezernost").length > 0) {
+            isEmpty = false;
+            articles = articles.stream().filter(a -> {
+                for(String s : body.get("lezernost")){
+                    if (a.getHowCasual().toString().equals(s)) return true;
+                }
+                return false;
+            }).toList();
         }
 
-        if (body.containsKey("boja")) {
-            for (String s : body.get("boja")) {
-                articles.addAll(articleService.findAllArticlesByColor(ArticleColor.valueOf(s)));
-            }
+        if (body.containsKey("boja") && body.get("boja").length > 0) {
+            isEmpty = false;
+            articles = articles.stream().filter(a -> {
+                for(String s : body.get("boja")){
+                    if (a.getMainColor().toString().equals(s) || a.getSideColor().toString().equals(s)) return true;
+                }
+                return false;
+            }).toList();
         }
 
         //List<ArticleUser> articles = articleService.findAllArticlesByFilter(true, category, season, openness, casual, color);
@@ -173,7 +203,9 @@ public class UserController {
         log.info("Logging articles");
         articles.forEach(a -> log.info(a.toString()));
 
-        return articles.stream().toList();       //ako zelimo sve artikle neovisno o lokaciji korisnika
+        if(isEmpty) return new ArrayList<>();
+
+        return articles;       //ako zelimo sve artikle neovisno o lokaciji korisnika
         //return new ArrayList<>();
     }
 

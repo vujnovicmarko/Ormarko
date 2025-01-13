@@ -45,6 +45,7 @@ public class RegistrationController {
 
 
         if (userRepository.findByEmail(user.getE_mail()).isPresent() || marketerRepository.findByEmail(user.getE_mail()).isPresent()) {
+
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("error", "Email is already in use. Please use a different email."));
         }

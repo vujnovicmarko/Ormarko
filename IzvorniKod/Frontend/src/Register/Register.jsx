@@ -54,7 +54,10 @@ export default function Register({ setIsLoggedIn }) {
 
       } else {
         console.error("Registration failed:", response.statusText);
-        alert("Registration failed. Please try again.");
+
+        const errorData = await response.json();
+        const errorMessage = errorData.error || "Registration failed. Please try again.";
+        alert(errorMessage);
       }
     } catch (error) {
       console.error("Error during registration:", error);
