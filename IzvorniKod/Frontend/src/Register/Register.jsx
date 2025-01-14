@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
-import Header from "../Header/Header";
+import Header from "../Header/MinimalHeaderReg";
 
 export default function Register({ setIsLoggedIn }) {
   const [formData, setFormData] = useState({

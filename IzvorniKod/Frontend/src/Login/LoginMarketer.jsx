@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginMarketer.css";
-import Header from "../Header/Header";
+import Header from "../Header/MinimalHeaderLog";
 
 export default function LoginMarketer({ setIsLoggedIn }) {
     const [formData, setFormData] = useState({

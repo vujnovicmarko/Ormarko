@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RegisterMarketer.css"; // Dodajte stilove za ovu komponentu
-import Header from "../Header/Header";
+import Header from "../Header/MinimalHeaderReg";
 
 export default function RegisterMarketer() {
     const [formData, setFormData] = useState({

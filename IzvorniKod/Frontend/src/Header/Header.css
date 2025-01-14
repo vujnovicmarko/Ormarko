@@ -1,4 +1,4 @@
-/* General styling */
+/* General Styling */
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -16,23 +16,38 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    transition: background 0.3s;
+    transition: background 0.3s, box-shadow 0.3s;
 }
 
 .header:hover {
     background: #F9FAFB;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .logo {
-    height: 40px;
-    margin: auto;
+    height: 50px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
+.logo:hover {
+    transform: scale(1.1);
+}
+
+.header-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* Header Button Styling */
 .headerbtn {
-    padding: 0.4rem 1rem;
+    padding: 0.5rem 1rem;
     background: linear-gradient(135deg, #d9a48f, #b97e69);
     color: #FFFFFF;
     font-family: 'Poppins', sans-serif;
@@ -56,163 +71,109 @@ body {
     box-shadow: 0 2px 5px rgba(185, 126, 105, 0.2);
 }
 
+/* Button Container */
 .headerbtndiv {
     display: flex;
-    gap: 8px;
-    padding: 3px;
-    background: rgba(255, 255, 255, 0.6);
+    gap: 1rem;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.8);
     border-radius: 20px;
     align-items: center;
 }
 
-@media (max-width: 600px) {
+/* Responsive Header Styling */
+@media (max-width: 768px) {
     .header {
         flex-direction: column;
         padding: 1rem;
     }
 
+    .header-title {
+        font-size: 1.5rem;
+        margin: 1rem 0;
+    }
+
     .logo {
-        height: 35px;
+        height: 40px;
     }
 
     .headerbtndiv {
         margin-top: 0.5rem;
-        gap: 4px;
+        gap: 8px;
     }
 
     .headerbtn {
-        padding: 0.3rem 0.75rem;
+        padding: 0.4rem 0.8rem;
         font-size: 0.75rem;
     }
 }
 
-/* Gallery Styling */
-.gallery-container {
-    margin: 80px auto 20px;
-    padding: 20px;
+/* Navigation Styling */
+.navbar {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.gallery-item {
-    background: #FFFFFF;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(217, 164, 143, 0.4);
-    padding: 1rem;
-    text-align: center;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    position: relative;
+    gap: 1.5rem;
 }
 
-.gallery-item img {
-    max-width: 100%;
-    height: 150px;
-    border-radius: 8px;
-    object-fit: cover;
-}
-
-.gallery-item p {
-    font-size: 1rem;
-    font-weight: 600;
+.nav-item {
+    text-decoration: none;
     color: #333;
-}
-
-.delete-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #e63946;
-    border: none;
-    border-radius: 50%;
-    color: white;
-    width: 24px;
-    height: 24px;
-    font-size: 0.9rem;
     font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s, box-shadow 0.3s;
-}
-
-.delete-btn:hover {
-    background: #b71c1c;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-}
-
-/* Add Article Styling */
-.add-article-container {
-    margin: 100px auto;
-    max-width: 600px;
-    background: #FFFFFF;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(217, 164, 143, 0.4);
-    padding: 2rem;
     font-size: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    transition: color 0.3s ease;
 }
 
-.add-article-container h2 {
+.nav-item:hover {
+    color: #b97e69;
+}
+
+/* Sticky Header Shadow */
+.sticky-header {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s;
+}
+
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #FFFFFF;
+    min-width: 150px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-item {
     color: #333;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-}
-
-.add-article-container label {
-    font-weight: 600;
-    font-size: 1rem;
-    color: #4B5563;
-}
-
-.add-article-container input[type="text"],
-.add-article-container input[type="file"],
-.add-article-container input[type="number"],
-.add-article-container select {
-    width: 100%;
     padding: 0.75rem;
-    border: none;
-    background: #F3F4F6;
-    border-radius: 8px;
-    font-size: 1rem;
-    outline: none;
-    margin-bottom: 1rem;
-    transition: box-shadow 0.3s, border 0.3s;
+    text-decoration: none;
+    display: block;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
-.add-article-container input:focus,
-.add-article-container select:focus {
-    border: 2px solid #b97e69;
-    box-shadow: 0 0 5px rgba(185, 126, 105, 0.5);
+.dropdown-item:hover {
+    background: #F9FAFB;
+    color: #b97e69;
 }
 
-.add-article-container button {
-    padding: 0.75rem;
-    background: linear-gradient(135deg, #d9a48f, #b97e69);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
-    box-shadow: 0 3px 6px rgba(185, 126, 105, 0.3);
-}
+/* Additional Spacing for Large Screens */
+@media (min-width: 1024px) {
+    .header {
+        padding: 1rem 3rem;
+    }
 
-.add-article-container button:hover {
-    background: linear-gradient(135deg, #b97e69, #a06754);
-    box-shadow: 0 4px 10px rgba(185, 126, 105, 0.4);
-    transform: translateY(-2px);
-}
-
-.add-article-container button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 5px rgba(185, 126, 105, 0.3);
+    .header-title {
+        font-size: 2rem;
+    }
 }

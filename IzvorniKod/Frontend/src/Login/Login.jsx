@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; //redirectanje nakon logina
 import "./Login.css";
-import Header from "../Header/Header";
+import Header from "../Header/MinimalHeaderLog";
 
 export default function Login({ setIsLoggedIn }) {
   const [formData, setFormData] = useState({

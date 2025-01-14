@@ -13,6 +13,8 @@ import LoginMarketer from "./Login/LoginMarketer";
 import MarketerProfile from "./Profile/MarketerProfile";
 import MarketerGallery from "./Closets/MarketerGallery";
 import AddArticle from "./Closets/AddArticle";
+import AdvertiserGallery from "./Home/AdvertiserGallery.jsx";
+import AdvertisersList from "./Home/AdvertisersList.jsx";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -75,7 +77,11 @@ export default function App() {
               path="/add-article"
               element={<AddArticle />}
           />
-
+          <Route path="/advertisers" element={<AdvertisersList />} />
+          <Route
+              path="/advertisers/:username/gallery"
+              element={<AdvertiserGallery />}
+          />
       </Routes>
     </BrowserRouter>
   );
