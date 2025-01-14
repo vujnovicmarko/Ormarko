@@ -75,6 +75,7 @@ export default function App() {
               path="/add-article"
               element={<AddArticle />}
           />
+
       </Routes>
     </BrowserRouter>
   );

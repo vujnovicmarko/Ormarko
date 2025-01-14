@@ -15,7 +15,7 @@ export default function MarketerProfile({ setIsLoggedIn }) {
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    console.log("Data fetched:", data); // Debugging
+                    console.log("Data fetched:", data);
                     setMarketerInfo(data);
                 } else {
                     console.error("Failed to fetch marketer info");
@@ -29,7 +29,7 @@ export default function MarketerProfile({ setIsLoggedIn }) {
 
     const handleLogout = () => {
         setIsLoggedIn(false);
-        setMarketerInfo([]); // Reset marketer info
+        setMarketerInfo([]);
         localStorage.removeItem("isLoggedIn");
         fetch("/logout", {
             method: "POST",
@@ -41,7 +41,7 @@ export default function MarketerProfile({ setIsLoggedIn }) {
 
     return (
         <div className="profile-container">
-            <MarketerLoggedHeader /> {/* Header specifičan za marketera */}
+            <MarketerLoggedHeader setIsLoggedIn={setIsLoggedIn} />
             <h1 className="profile-heading">Moj profil oglašivača</h1>
             <div className="profile-details">
                 <p>
@@ -50,9 +50,6 @@ export default function MarketerProfile({ setIsLoggedIn }) {
                 <p>
                     <strong>Email:</strong> {marketerInfo.email}
                 </p>
-
-
-
             </div>
         </div>
     );

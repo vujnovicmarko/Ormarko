@@ -1,13 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
-
-export default function MarketerLoggedHeader() {
+import { useEffect, useState } from "react";
+export default function MarketerLoggedHeader({setIsLoggedIn}) {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        fetch("/logout", { method: "POST", credentials: "include" }).then(() => {
-            navigate("/"); // Povratak na početnu stranicu
-        });
-    };
+            setIsLoggedIn(false);
+            fetch("/logout", { method: "POST", credentials: "include" }).then(() => {
+                navigate("/");
+            }).catch((error) => {
+                console.error("Logout failed:", error);
+            });
+        };
 
     return (
         <div className="header">
