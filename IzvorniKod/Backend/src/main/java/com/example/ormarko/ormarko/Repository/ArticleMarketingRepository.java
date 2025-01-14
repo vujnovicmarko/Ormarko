@@ -14,7 +14,7 @@ public interface ArticleMarketingRepository extends JpaRepository<ArticleMarketi
     //ako će biti opcija da oglašivač izbriše cijelu svoju galeriju
     void deleteByArticleMarketer(String articleMarketer);
 
-    @Query("SELECT new map(a.articleId as articleId, a.articleMarketer as articleMarketer, a.title as title, a.category as category, encode(a.img, 'base64') as img, a.price as price) FROM ArticleMarketing a WHERE a.articleMarketer = :articleMarketer")
+    @Query("SELECT new map(a.articleId as articleId, a.articleMarketer as articleMarketer, a.title as title, a.category as category, a.price as price) FROM ArticleMarketing a WHERE a.articleMarketer = :articleMarketer")
     List<Map<String, Object>> findArticlesByMarketer(@Param("articleMarketer") String articleMarketer);
 
 

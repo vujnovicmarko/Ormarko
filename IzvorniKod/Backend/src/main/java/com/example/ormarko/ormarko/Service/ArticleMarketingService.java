@@ -5,9 +5,7 @@ import com.example.ormarko.ormarko.Repository.ArticleMarketingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ArticleMarketingService {
@@ -19,13 +17,21 @@ public class ArticleMarketingService {
         this.articleRepository = articleRepository;
     }
 
-    public List<ArticleMarketing> getArticlesByMarketer(String marketerUsername) {
-        List<ArticleMarketing> articles = articleRepository.findByArticleMarketer(marketerUsername);
-        articles.forEach(article -> {
-            System.out.println("Article ID: " + article.getArticleId());
-            System.out.println("Binary Image Size: " + (article.getImg() != null ? article.getImg().length : 0));
-        });
-        return articles;
+
+
+    public List<Map<String, Object>> getArticlesByMarketer(String marketerUsername) {
+        return articleRepository.findByArticleMarketer(marketerUsername)
+                .stream()
+                .map(article -> {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("id", article.getArticleId());
+                    map.put("title", article.getTitle());
+                    map.put("category", article.getCategory());
+                    //map.put("img", article.getImg() != null ? Base64.getEncoder().encodeToString(article.getImg()) : null);
+                    map.put("price", article.getPrice());
+                    return map;
+                })
+                .toList();
     }
 
     //zbog problema sa slikom - bytea
@@ -33,7 +39,7 @@ public class ArticleMarketingService {
         List<Map<String, Object>> encodedArticles = articleRepository.findArticlesByMarketer(marketerUsername);
         encodedArticles.forEach(article -> {
             System.out.println("Article ID: " + article.get("articleId"));
-            System.out.println("Encoded Image: " + article.get("img"));
+            //System.out.println("Encoded Image: " + article.get("img"));
         });
         return encodedArticles;
     }
