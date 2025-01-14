@@ -16,9 +16,9 @@ public class ArticleMarketing {
         @Enumerated(EnumType.STRING)
         @Column(name = "category", nullable = false, length = 20)
         private ArticleCategory category;
-        @Lob
-        @Column(name = "img", columnDefinition = "BYTEA", nullable = false)
-        private byte[] img;
+        //@Lob
+        //@Column(name = "img", columnDefinition = "BYTEA", nullable = false)
+        //private byte[] img;
         @Column(name = "price", nullable = false)
         private float price;
 
@@ -31,7 +31,7 @@ public class ArticleMarketing {
                 this.articleMarketer = articleMarketer;
                 this.title = title;
                 this.category = category;
-                this.img = img;
+                //this.img = img;
                 this.price = price;
         }
 
@@ -68,6 +68,7 @@ public class ArticleMarketing {
                 this.category = category;
         }
 
+        /*
         public byte[] getImg() {
                 return img;
         }
@@ -75,6 +76,8 @@ public class ArticleMarketing {
         public void setImg(byte[] img) {
                 this.img = img;
         }
+
+         */
 
         public float getPrice() {
                 return price;

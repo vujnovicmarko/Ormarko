@@ -7,12 +7,12 @@ export default function AddArticle() {
     const [formData, setFormData] = useState({
         title: "",
         category: "",
-        price: "",
-        img: null,
+        price: ""
+        //img: null,
     });
 
     const navigate = useNavigate();
-
+/*
     const handleChange = (e) => {
         const { name, value, files } = e.target;
         if (name === "img") {
@@ -21,21 +21,31 @@ export default function AddArticle() {
             setFormData({ ...formData, [name]: value });
         }
     };
+*/
+
+
+const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const formDataToSend = new FormData();
-        formDataToSend.append("title", formData.title);
-        formDataToSend.append("category", formData.category);
-        formDataToSend.append("price", formData.price);
-        formDataToSend.append("img", formData.img);
+        //const formDataToSend = new FormData();
+       // formDataToSend.append("title", formData.title);
+        //formDataToSend.append("category", formData.category);
+       // formDataToSend.append("price", formData.price);
+       // formDataToSend.append("img", formData.img);
 
         try {
-            const response = await fetch("/api/marketer/add-article", {
+            const response = await fetch("/api/marketer/gallery/add-article", {
                 method: "POST",
-                credentials: "include",
-                body: formDataToSend,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData), 
+                credentials: "include"
             });
 
             if (response.ok) {
@@ -66,17 +76,27 @@ export default function AddArticle() {
                             required
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="category">Kategorija:</label>
-                        <input
-                            type="text"
-                            id="category"
-                            name="category"
-                            value={formData.category}
-                            onChange={handleChange}
-                            required
-                        />
-                    </div>
+                    <div>
+                            <label>
+                              Kategorija:
+                              <select name="category" value={formData.category} onChange={handleChange} required>
+                                <option value="">Select a category</option>
+                                <option value="MAJICA">MAJICA</option>
+                                <option value="KOŠULJA">KOŠULJA</option>
+                                <option value="TRENIRKA_GORNJI_DIO">TRENIRKA GORNJI DIO</option>
+                                <option value="TRENIRKA_DONJI_DIO">TRENIRKA DONJI DIO</option>
+                                <option value="TRAPERICE">TRAPERICE</option>
+                                <option value="CIPELE">CIPELE</option>
+                                <option value="TENISICE">TENISICE</option>
+                                <option value="ČIZME">ČIZME</option>
+                                <option value="ŠTIKLE">ŠTIKLE</option>
+                                <option value="HALJINA">HALJINA</option>
+                                <option value="SUKNJA">SUKNJA</option>
+                                <option value="JAKNA">JAKNA</option>
+                                <option value="KAPUT">KAPUT</option>
+                              </select>
+                            </label>
+                          </div>
                     <div className="form-group">
                         <label htmlFor="price">Cijena:</label>
                         <input
@@ -88,17 +108,19 @@ export default function AddArticle() {
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    {/*
+                   <div className="form-group">
                         <label htmlFor="img">Slika Artikla:</label>
                         <input
-                            type="file"
+                            type="text"
                             id="img"
                             name="img"
-                            accept="image/*"
                             onChange={handleChange}
                             required
                         />
                     </div>
+                    */}
+
                     <button type="submit" className="add-article-btn">
                         Dodaj Artikl
                     </button>

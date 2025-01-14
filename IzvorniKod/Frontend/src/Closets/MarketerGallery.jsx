@@ -9,7 +9,7 @@ export default function MarketerGallery() {
         // Dohvat artikala
         const fetchArticles = async () => {
             try {
-                const response = await fetch("/api/marketer/articles", {
+                const response = await fetch("/api/marketer/gallery", {
                     credentials: "include",
                 });
                 if (response.ok) {
@@ -28,7 +28,7 @@ export default function MarketerGallery() {
 
     const handleDeleteArticle = async (articleId) => {
         try {
-            const response = await fetch(`/api/marketer/articles/${articleId}`, {
+            const response = await fetch(`/api/marketer/gallery/${articleId}`, {
                 method: "DELETE",
                 credentials: "include",
             });
@@ -51,7 +51,7 @@ export default function MarketerGallery() {
                 {articles.length > 0 ? (
                     articles.map((article) => (
                         <div className="gallery-item" key={article.id}>
-                            <img src={`data:image/jpeg;base64,${article.img}`} alt={article.title} />
+                            {/*dok ne nađemo način prikazivanja slika  <img src={`data:image/jpeg;base64,${article.img}`} alt={article.title} />*/}
                             <h3>{article.title}</h3>
                             <button
                                 className="delete-btn"
