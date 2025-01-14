@@ -49,7 +49,7 @@ const handleChange = (e) => {
             });
 
             if (response.ok) {
-                alert("Artikl uspješno dodan!");
+                
                 navigate("/marketer-gallery"); // Redirekt na MarketerGallery
             } else {
                 alert("Greška prilikom dodavanja artikla.");
