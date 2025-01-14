@@ -21,7 +21,7 @@ export default function MarketerLoggedHeader({setIsLoggedIn}) {
             </div>
             <div className="headerbtndiv">
                 <Link to="/marketer-gallery">
-                    <button className="headerbtn">Moj Ormar</button>
+                    <button className="headerbtn">Moja galerija</button>
                 </Link>
                 <button className="headerbtn" onClick={handleLogout}>
                     Odjavi se
