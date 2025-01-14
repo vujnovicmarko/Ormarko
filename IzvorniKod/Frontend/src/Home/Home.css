@@ -11,13 +11,13 @@
     background: linear-gradient(135deg, #d9a48f, #b97e69);
     color: white;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bold;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-bottom: 2 rem;
+    margin-bottom: 1rem;
 }
 
 .advertisers-button:hover {

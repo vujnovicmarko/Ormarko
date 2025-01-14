@@ -81,32 +81,7 @@ body {
     align-items: center;
 }
 
-/* Responsive Header Styling */
-@media (max-width: 768px) {
-    .header {
-        flex-direction: column;
-        padding: 1rem;
-    }
 
-    .header-title {
-        font-size: 1.5rem;
-        margin: 1rem 0;
-    }
-
-    .logo {
-        height: 40px;
-    }
-
-    .headerbtndiv {
-        margin-top: 0.5rem;
-        gap: 8px;
-    }
-
-    .headerbtn {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.75rem;
-    }
-}
 
 /* Navigation Styling */
 .navbar {
@@ -167,13 +142,4 @@ body {
     color: #b97e69;
 }
 
-/* Additional Spacing for Large Screens */
-@media (min-width: 1024px) {
-    .header {
-        padding: 1rem 3rem;
-    }
 
-    .header-title {
-        font-size: 2rem;
-    }
-}
