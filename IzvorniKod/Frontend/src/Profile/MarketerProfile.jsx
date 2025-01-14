@@ -3,7 +3,7 @@ import MarketerLoggedHeader from "../Header/MarketerLoggedHeader";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
-export default function MarketerProfile({ setIsLoggedIn }) {
+export default function MarketerProfile({ isLoggedIn,setIsLoggedIn }) {
     const [marketerInfo, setMarketerInfo] = useState([]);
     const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ export default function MarketerProfile({ setIsLoggedIn }) {
 
     return (
         <div className="profile-container">
-            <MarketerLoggedHeader /> {/* Header specifičan za marketera */}
+            <MarketerLoggedHeader setIsLoggedIn={setIsLoggedIn}/> {/* Header specifičan za marketera */}
             <h1 className="profile-heading">Moj profil oglašivača</h1>
             <div className="profile-details">
                 <p>
