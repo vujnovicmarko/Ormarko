@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public class ArticleUser {
 
         @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer articleId;
 
         private int locationId;

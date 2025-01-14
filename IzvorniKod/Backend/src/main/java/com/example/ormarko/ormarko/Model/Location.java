@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public class Location {
 
         @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int locationId;
 
         private int closetId;

@@ -7,43 +7,48 @@ export default function ClosetsPage() {
     const [selectedCloset, setSelectedCloset] = useState(null);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        // Fetch existing closets from the backend when the page loads
-        async function fetchClosets() {
-            try {
-                const response = await fetch("/api/closets", {
-                    method: "GET",
-                    credentials: "include",
-                });
-                if (!response.ok) throw new Error("Failed to fetch closets");
-                const data = await response.json();
-                setClosets(data);
-            } catch (err) {
-                console.error(err);
-                setError("Failed to load closets.");
-            }
+    // Fetch closets on component mount
+    const fetchClosets = async () => {
+        try {
+            const response = await fetch("/api/user/profile/allClosets", {
+                method: "GET",
+                credentials: "include", // Include cookies for authentication
+            });
+            if (!response.ok) throw new Error("Failed to fetch closets");
+            const data = await response.json();
+            setClosets(data);
+        } catch (err) {
+            console.error("Error fetching closets:", err);
+            setError("Failed to load closets.");
         }
-        fetchClosets();
-    }, []);
+    };
 
+    // Add a new closet
     const handleAddCloset = async () => {
         try {
-            const response = await fetch("/api/closets", {
+            const response = await fetch("/api/user/profile/addCloset", {
                 method: "POST",
-                credentials: "include",
+                credentials: "include", // Include cookies for authentication
             });
             if (!response.ok) throw new Error("Failed to create a new closet");
-            const newCloset = await response.json();
-            setClosets((prev) => [...prev, newCloset]);
+
+            // Fetch updated closet list after successful addition
+            await fetchClosets();
         } catch (err) {
-            console.error(err);
+            console.error("Error creating closet:", err);
             setError("Failed to create a new closet.");
         }
     };
 
+    // Select a closet
     const handleSelectCloset = (closet) => {
         setSelectedCloset(closet);
     };
+
+    // Fetch closets on mount
+    useEffect(() => {
+        fetchClosets();
+    }, []);
 
     return (
         <div className="closets-page">
@@ -52,12 +57,13 @@ export default function ClosetsPage() {
                 {/* Navigation Bar */}
                 <div className="closets-nav">
                     <h3>Moji Ormari</h3>
+                    {error && <div className="error-message">{error}</div>}
                     {closets.length > 0 ? (
                         closets.map((closet, index) => (
                             <button
-                                key={closet.id}
+                                key={closet.closetId} // Use closetId from the backend
                                 className={`closet-btn ${
-                                    selectedCloset && selectedCloset.id === closet.id
+                                    selectedCloset && selectedCloset.closetId === closet.closetId
                                         ? "active"
                                         : ""
                                 }`}
@@ -86,7 +92,6 @@ export default function ClosetsPage() {
                     )}
                 </div>
             </div>
-            {error && <div className="error-message">{error}</div>}
         </div>
     );
 }
