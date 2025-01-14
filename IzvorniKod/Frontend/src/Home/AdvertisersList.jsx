@@ -27,9 +27,18 @@ export default function AdvertisersList() {
     return (
         <div className="advertisers-list-page">
             {/* Header Component */}
-            <AdvertisersListHeader />
+            <AdvertisersListHeader/>
+
+
 
             {/* Advertisers Grid */}
+            <div className="go-back">
+
+            <Link to="/" className="back-button">
+             Natrag
+
+             </Link>
+            </div>
             <div className="advertisers-list-container">
 
                 <div className="advertisers-grid">

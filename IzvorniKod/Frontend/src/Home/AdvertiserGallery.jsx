@@ -8,36 +8,23 @@ export default function AdvertiserGallery() {
     const [advertiserInfo, setAdvertiserInfo] = useState({ name: "", email: "" });
 
     useEffect(() => {
-        const fetchArticles = async () => {
+        const fetchGalleryData = async () => {
             try {
                 const response = await fetch(`/api/marketers/${username}/gallery`);
                 if (response.ok) {
                     const data = await response.json();
-                    setArticles(data);
+                    setArticles(data.articles);
+                    setAdvertiserInfo({ username: data.username, email: data.email });
                 } else {
-                    console.error("Failed to fetch articles");
+                    console.error("Failed to fetch gallery data for this advertiser.");
                 }
             } catch (error) {
-                console.error("Error fetching articles:", error);
+                console.error("Error fetching gallery data:", error);
             }
         };
 
-        const fetchAdvertiserInfo = async () => {
-            try {
-                const response = await fetch(`/api/marketers/${username}`);
-                if (response.ok) {
-                    const data = await response.json();
-                    setAdvertiserInfo({ name: data.name, email: data.email });
-                } else {
-                    console.error("Failed to fetch advertiser info");
-                }
-            } catch (error) {
-                console.error("Error fetching advertiser info:", error);
-            }
-        };
+        fetchGalleryData();
 
-        fetchArticles();
-        fetchAdvertiserInfo();
     }, [username]);
 
     return (
@@ -48,7 +35,7 @@ export default function AdvertiserGallery() {
                 </Link>
                 <h1 className="advertiser-name">{advertiserInfo.name || username}</h1>
             </header>
-            <p className="advertiser-email">Email: {advertiserInfo.email}</p>
+            <p className="advertiser-email">Kontakt: {advertiserInfo.email}</p>
             <div className="articles-grid">
                 {articles.map((article, index) => (
                     <div className="article-card" key={index}>
