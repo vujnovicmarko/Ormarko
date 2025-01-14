@@ -46,10 +46,15 @@ public class MarketingController {
 */
     //gornji ne radi za slike, pa za sad ova metoda za dohvat svih artikala pojedinog oglašivača
     @GetMapping("{username}/gallery")
-    public List<?> getAdvertiserGalleryRaw(@PathVariable String username) {
+    public Map<String, Object> getAdvertiserGalleryRaw(@PathVariable String username) {
         var marketer = marketerService.findByUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Advertiser not found"));
 
-        return articleService.getArticlesWithEncodedImages(username);
+        List<?> articles = articleService.getArticlesWithEncodedImages(username);
+        return Map.of(
+                "username", marketer.getUsername(),
+                "email", marketer.geteMail(),
+                "articles", articles
+        );
     }
 }

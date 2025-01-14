@@ -10,7 +10,7 @@ export default function AdvertisersListHeader() {
                     <img className="logo" src="/OrmarkoLogo.png" alt="Logo"/>
                 </Link>
             </div>
-            <h1 className="header-title">Svi Oglašivači</h1>
+            <h1 className="header-title">Galerija oglašivača</h1>
         </div>
     );
 }

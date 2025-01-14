@@ -15,7 +15,7 @@ export default function MarketerLoggedHeader({setIsLoggedIn}) {
     return (
         <div className="header">
             <div className="logo-container">
-                <Link to="/">
+                <Link to="/marketer-profile">
                     <img className="logo" src="../OrmarkoLogo.png" alt="Logo" />
                 </Link>
             </div>
