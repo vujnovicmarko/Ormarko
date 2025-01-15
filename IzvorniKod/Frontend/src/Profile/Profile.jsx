@@ -49,7 +49,7 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
       <div className="profile-container">
         <LoggedInHeader />
         <h1 className="profile-heading">Moj profil</h1>
-        {userInfo.googleUser ? (
+        {userInfo.googleoauth ? (
           <div className="profile-details">
             <p>You are logged in with your Google account.</p>
             <p><strong>Gmail:</strong> {userInfo.email}</p>

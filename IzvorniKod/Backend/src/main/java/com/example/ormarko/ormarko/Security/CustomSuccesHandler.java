@@ -28,6 +28,30 @@ public class CustomSuccesHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        String redirectURL; // slucaj koji se nikad nismije dogoditi
+        if (authentication.getPrincipal() instanceof DefaultOAuth2User) {
+            DefaultOAuth2User userDetails = (DefaultOAuth2User) authentication.getPrincipal();
+            System.out.println("OAuth2 user details: " + userDetails.getAttributes()); // Debug line
+            String username = userDetails.getAttribute("given_name") != null ? userDetails.getAttribute("given_name") :
+                    userDetails.getAttribute("name") != null ? userDetails.getAttribute("name") :
+                            Objects.requireNonNull(userDetails.getAttribute("email")).toString().split("@")[0];
+            String email = userDetails.getAttribute("email");
+            if (userRepository.findByEmail(email).isEmpty()){
+                User newUser = new User();
+                newUser.setPass("dummypassword");
+                newUser.setUsername(username);
+                newUser.setCity("Berlin");
+                newUser.setCountry("Germany");
+                newUser.setE_mail(email);
+                userRepository.save(newUser);
+            }
+        }
+        redirectURL = "http://localhost:5173/profile";
+        new DefaultRedirectStrategy().sendRedirect(request, response, redirectURL);
+
+    }
+    /*@Override
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         String redirectURL = "/profile"; // slucaj koji se nikad nismije dogoditi
         if (authentication.getPrincipal() instanceof DefaultOAuth2User) {
             DefaultOAuth2User userDetails = (DefaultOAuth2User) authentication.getPrincipal();
@@ -69,5 +93,5 @@ public class CustomSuccesHandler implements AuthenticationSuccessHandler {
             }
         }
         new DefaultRedirectStrategy().sendRedirect(request, response, redirectURL);
-    }
+    }*/
 }
