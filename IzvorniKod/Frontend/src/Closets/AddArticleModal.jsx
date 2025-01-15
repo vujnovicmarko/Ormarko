@@ -66,7 +66,7 @@ export default function AddArticleModal({
                             </option>
                         ))}
                     </select>
-                    <label>Godisnje Doba:</label>
+                    <label>Godišnje Doba:</label>
                     <select
                         value={newArticle.season}
                         onChange={(e) => setNewArticle({...newArticle, season: e.target.value})}

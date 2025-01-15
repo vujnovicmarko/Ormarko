@@ -15,7 +15,7 @@
 
 /* Navigation bar */
 .closets-nav {
-    width: 250px;
+    width: 350px;
     background: #ffffff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 1rem;
@@ -34,6 +34,13 @@
     color: #4b5563;
     margin-bottom: 1rem;
     text-align: center;
+}
+
+.location-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 
 /* Navigation buttons for closets */
@@ -69,7 +76,7 @@
 }
 
 /* Button to add a new closet or location */
-.add-closet-btn, .add-location-btn {
+.add-closet-btn, .add-location-btn, .location-select-btn, .add-article-btn {
     padding: 0.4rem 1rem;
     background: linear-gradient(135deg, #d9a48f, #b97e69);
     color: #FFFFFF;
@@ -83,13 +90,13 @@
     box-shadow: 0 2px 5px rgba(185, 126, 105, 0.2);
 }
 
-.add-closet-btn:hover, .add-location-btn:hover {
+.add-closet-btn:hover, .add-location-btn:hover, .location-select-btn:hover, .add-article-btn:hover{
     background: linear-gradient(135deg, #b97e69, #a06754);
     box-shadow: 0 3px 8px rgba(185, 126, 105, 0.3);
     transform: translateY(-2px);
 }
 
-.add-closet-btn:active, .add-location-btn:active {
+.add-closet-btn:active, .add-location-btn:active, .location-select-btn:active, .add-article-btn:active{
     transform: translateY(0);
     box-shadow: 0 2px 5px rgba(185, 126, 105, 0.2);
 }
@@ -107,7 +114,7 @@
 
 /* Location navigation bar */
 .locations-nav {
-    width: 250px;
+    width: 350px;
     background: #f9fafb;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 1rem;
@@ -116,6 +123,10 @@
     gap: 1rem;
     height: calc(100vh - 80px);
     overflow-y: auto;
+}
+
+.locations-nav h3{
+    text-align: center;
 }
 
 /* Article display section */
@@ -142,10 +153,11 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     width: 90%;
-    max-width: 500px;
+    max-width: 450px;
     z-index: 1000;
     padding: 2rem;
 }
+
 
 .modal-overlay {
     position: fixed;
@@ -210,6 +222,7 @@
 .closet-item {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 10px;
 }
 
@@ -228,38 +241,32 @@
     background: darkred;
 }
 
-/* Modal Overlay */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+
+.modal-content, .modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
 }
 
-/* Modal */
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-    width: 90%;
-    max-width: 400px;
-}
-
-.modal-header {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
+.modal-content h3 {
     text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #333;
 }
+
+.modal-content label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1rem;
+    color: #555;
+}
+.modal-content input[type="file"]{
+    margin-left: auto;
+}
+
 
 .modal-body {
     font-size: 1rem;

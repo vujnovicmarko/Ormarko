@@ -127,6 +127,12 @@ public class UserController {
 
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/profile/deleteLocation{id}")
+    void deleteLocation(@PathVariable Integer id) {
+        locationService.deleteLocation(locationService.findLocationById(id));
+    }
+
 
     @GetMapping("/profile/location{id}/allArticles")
     public List<ArticleUser> getLocation(Authentication authentication, @PathVariable Integer id){
@@ -136,12 +142,6 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Location not found.");
 
         return articleService.findAllArticlesForLocation(id);
-    }
-
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping("/profile/deleteLocation{id}")
-    void deleteLocation(@PathVariable Integer id) {
-        locationService.deleteLocation(locationService.findLocationById(id));
     }
 
 

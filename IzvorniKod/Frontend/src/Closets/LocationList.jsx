@@ -18,9 +18,9 @@ export default function LocationList({
     return (
         <div className="locations-nav">
             <h3>Lokacije</h3>
-            <button onClick={() => handleAddLocation("POLICA")}>Dodaj Policu</button>
-            <button onClick={() => handleAddLocation("LADICA")}>Dodaj Ladicu</button>
-            <button onClick={() => handleAddLocation("ŠIPKA_ZA_ODJEĆU")}>Dodaj Šipku</button>
+            <button className="location-select-btn" onClick={() => handleAddLocation("POLICA")}>Dodaj Policu</button>
+            <button className="location-select-btn" onClick={() => handleAddLocation("LADICA")}>Dodaj Ladicu</button>
+            <button className="location-select-btn" onClick={() => handleAddLocation("ŠIPKA_ZA_ODJEĆU")}>Dodaj Šipku</button>
             {locations.map((location) => (
                 <div key={location.locationId} className="location-item">
                     <button
