@@ -1,5 +1,5 @@
 import React from "react";
-import "./Header.css";
+import "../Header/Header.css";
 
 export default function AddArticleHeader() {
     return (

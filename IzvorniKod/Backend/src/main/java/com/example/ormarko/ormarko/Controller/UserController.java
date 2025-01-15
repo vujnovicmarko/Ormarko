@@ -151,7 +151,12 @@ public class UserController {
         //String username = authentication.getName();
 
         //
-        article.setArticleId(null);
+//        article.setArticleId(null);
+//        article.setLocationId(id);
+        Location location = locationService.findLocationById(id);
+        // Set the location ID
+        article.setLocationId(location.getLocationId());
+        log.info("Received location ID: {}", id);
 
         if(articleService.save(article) == null) throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Article not created");
 

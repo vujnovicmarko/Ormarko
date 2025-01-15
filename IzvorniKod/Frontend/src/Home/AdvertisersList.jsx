@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./AdvertisersList.css";
-import AdvertisersListHeader from "../Header/AdvertisersListHeader";
+import AdvertisersListHeader from "../MarketerHeader/AdvertisersListHeader.jsx";
 
 export default function AdvertisersList() {
     const [advertisers, setAdvertisers] = useState([]);

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
 import LoggedInHeader from "../Header/LoggedInHeader";
+import ClosetList from "./ClosetList";
+import LocationList from "./LocationList";
+import ArticleList from "./ArticleList";
+import AddArticleModal from "./AddArticleModal";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import "./ClosetsPage.css";
 
 export default function ClosetsPage() {
@@ -22,6 +27,9 @@ export default function ClosetsPage() {
         descript: "",
     });
     const [error, setError] = useState(null);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [closetToDelete, setClosetToDelete] = useState(null);
+    const [locationToDelete, setLocationToDelete] = useState(null);
 
     const categories = [
         "MAJICA", "KOŠULJA", "TRENIRKA_GORNJI_DIO", "TRENIRKA_DONJI_DIO", "TRAPERICE",
@@ -35,7 +43,6 @@ export default function ClosetsPage() {
         "LJUBIČASTA", "NARANČASTA", "SMEĐA", "ROZA", "BEŽ",
     ];
 
-    // Fetch closets on component mount
     const fetchClosets = async () => {
         try {
             const response = await fetch("/api/user/profile/allClosets", {
@@ -122,7 +129,7 @@ export default function ClosetsPage() {
             setError("Failed to add article.");
         }
     };
-    // Add a new closet
+
     const handleAddCloset = async () => {
         try {
             const response = await fetch("/api/user/profile/addCloset", {
@@ -139,7 +146,6 @@ export default function ClosetsPage() {
         }
     };
 
-    // Select a closet
     const handleSelectCloset = (closet) => {
         console.log("Selected Closet:", closet);
         setSelectedCloset(closet);
@@ -147,10 +153,51 @@ export default function ClosetsPage() {
         setArticles([]);
         fetchLocations(closet.closetId);
     };
+
     const handleSelectLocation = (location) => {
         console.log("Selected location:", location);
+        console.log("Selected Location ID:", selectedLocation?.locationId);
         setSelectedLocation(location);
         fetchArticles(location.locationId);
+    };
+
+    // Delete a closet
+    const handleDeleteCloset = async (closetId) => {
+        try {
+            const response = await fetch(`/api/user/profile/deleteCloset${closetId}`, {
+                method: "DELETE",
+                credentials: "include",
+            });
+            if (!response.ok) throw new Error("Failed to delete closet");
+
+            if (selectedCloset && selectedCloset.closetId === closetId) {
+                setSelectedCloset(null);
+                setLocations([]);
+                setArticles([]);
+                setSelectedLocation(null);
+            }
+            // Update the closets list after deletion
+            await fetchClosets();
+        } catch (err) {
+            console.error("Error deleting closet:", err);
+            setError("Failed to delete closet.");
+        }
+    };
+
+// Delete a location
+    const handleDeleteLocation = async (locationId) => {
+        try {
+            const response = await fetch(`/api/user/profile/deleteLocation${locationId}`, {
+                method: "DELETE",
+                credentials: "include",
+            });
+            if (!response.ok) throw new Error("Failed to delete location");
+            // Update the locations list after deletion
+            if (selectedCloset) await fetchLocations(selectedCloset.closetId);
+        } catch (err) {
+            console.error("Error deleting location:", err);
+            setError("Failed to delete location.");
+        }
     };
 
     // Fetch closets on mount
@@ -162,199 +209,50 @@ export default function ClosetsPage() {
         <div className="closets-page">
             <LoggedInHeader />
             <div className="closets-container">
-                {/* Navigation Bar */}
-                <div className="closets-nav">
-                    <h3>Moji Ormari</h3>
-                    {error && <div className="error-message">{error}</div>}
-                    {closets.length > 0 ? (
-                        closets.map((closet, index) => (
-                            <button
-                                key={closet.closetId} // Use closetId from the backend
-                                className={`closet-btn ${
-                                    selectedCloset && selectedCloset.closetId === closet.closetId
-                                        ? "active"
-                                        : ""
-                                }`}
-                                onClick={() => handleSelectCloset(closet)}
-                            >
-                                Ormar #{index + 1}
-                            </button>
-                        ))
-                    ) : (
-                        <p className="no-closets">Nema dodanih ormara</p>
-                    )}
-                    <button className="add-closet-btn" onClick={handleAddCloset}>
-                        + Dodaj novi ormar
-                    </button>
-                </div>
-
+                <ClosetList
+                    closets={closets}
+                    selectedCloset={selectedCloset}
+                    handleSelectCloset={handleSelectCloset}
+                    handleDeleteCloset={handleDeleteCloset}
+                    setClosetToDelete={setClosetToDelete}
+                    setShowDeleteModal={setShowDeleteModal}
+                    handleAddCloset={handleAddCloset}
+                />
                 {selectedCloset && (
-                    <div className="locations-articles">
-                        <div className="locations-nav">
-                            <h3>Lokacije</h3>
-                            <button onClick={() => handleAddLocation("POLICA")}>Dodaj Policu</button>
-                            <button onClick={() => handleAddLocation("LADICA")}>Dodaj Ladicu</button>
-                            <button onClick={() => handleAddLocation("ŠIPKA_ZA_ODJEĆU")}>Dodaj Šipku</button>
-                            {locations.map((location) => (
-                                <button
-                                    key={location.locationId}
-                                    className={`location-btn ${
-                                        selectedLocation?.locationId === location.locationId ? "active" : ""
-                                    }`}
-                                    onClick={() => handleSelectLocation(location)}
-                                >
-                                    {location.typeLoc}
-                                </button>
-                            ))}
-                        </div>
-
-                        <div className="articles-section">
-                            {selectedLocation ? (
-                                <>
-                                    <h3>Artikli</h3>
-                                    <button onClick={() => setShowArticleModal(true)}>Dodaj Artikl</button>
-                                    <ul>
-                                        {articles.map((article) => (
-                                            <li key={article.articleId}>{article.title}</li>
-                                        ))}
-                                    </ul>
-                                </>
-                            ) : (
-                                <p>Odaberite lokaciju</p>
-                            )}
-                        </div>
-                    </div>
+                    <LocationList
+                        locations={locations}
+                        selectedLocation={selectedLocation}
+                        handleAddLocation={handleAddLocation}
+                        handleSelectLocation={handleSelectLocation}
+                        handleDeleteLocation={handleDeleteLocation}
+                        setLocationToDelete={setLocationToDelete}
+                        setShowDeleteModal={setShowDeleteModal}
+                    />
+                )}
+                {selectedLocation && (
+                    <ArticleList articles={articles} setShowArticleModal={setShowArticleModal} />
                 )}
             </div>
             {showArticleModal && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <h3>Dodaj Artikl</h3>
-                        <form
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                handleAddArticle();
-                            }}
-                        >
-                            <label>
-                                Naslov:
-                                <input
-                                    type="text"
-                                    value={newArticle.title}
-                                    onChange={(e) => setNewArticle({...newArticle, title: e.target.value})}
-                                />
-                            </label>
-                            <label>
-                                Slika:
-                                <input
-                                    type="file"
-                                    onChange={(e) => {
-                                        const file = e.target.files[0];
-                                        if (file) {
-                                            const reader = new FileReader();
-                                            reader.onload = () => {
-                                                setNewArticle({ ...newArticle, img: reader.result.split(",")[1] }); // Extract Base64 data
-                                            };
-                                            reader.readAsDataURL(file);
-                                        }
-                                    }}
-                                />
-                            </label>
-                            <label>
-                                Dijeli:
-                                <input
-                                    type="checkbox"
-                                    checked={newArticle.sharing}
-                                    onChange={(e) => setNewArticle({...newArticle, sharing: e.target.checked})}
-                                />
-                            </label>
-
-                            <label>Kategorija:</label>
-                            <select
-                                value={newArticle.category}
-                                onChange={(e) => setNewArticle({...newArticle, category: e.target.value})}
-                            >
-                                <option value="">Odaberi kategoriju</option>
-                                {categories.map((category) => (
-                                    <option key={category} value={category}>
-                                        {category}
-                                    </option>
-                                ))}
-                            </select>
-                            <label>Godisnje Doba:</label>
-                            <select
-                                value={newArticle.season}
-                                onChange={(e) => setNewArticle({...newArticle, season: e.target.value})}
-                            >
-                                <option value="">Odaberi godišnje doba</option>
-                                {seasons.map((season) => (
-                                    <option key={season} value={season}>
-                                        {season}
-                                    </option>
-                                ))}
-                            </select>
-                            <label>Otvorenost:</label>
-                            <select
-                                value={newArticle.openness}
-                                onChange={(e) => setNewArticle({...newArticle, openness: e.target.value})}
-                            >
-                                <option value="">Odaberi otvorenost</option>
-                                {opennessOptions.map((option) => (
-                                    <option key={option} value={option}>
-                                        {option}
-                                    </option>
-                                ))}
-                            </select>
-                            <label>Ležernost:</label>
-                            <select
-                                value={newArticle.howCasual}
-                                onChange={(e) => setNewArticle({...newArticle, howCasual: e.target.value})}
-                            >
-                                <option value="">Odaberi ležernost</option>
-                                {casualnessOptions.map((option) => (
-                                    <option key={option} value={option}>
-                                        {option}
-                                    </option>
-                                ))}
-                            </select>
-                            <label>Glavna Boja:</label>
-                            <select
-                                value={newArticle.mainColor}
-                                onChange={(e) => setNewArticle({...newArticle, mainColor: e.target.value})}
-                            >
-                                <option value="">Odaberi glavnu boju</option>
-                                {colors.map((color) => (
-                                    <option key={color} value={color}>
-                                        {color}
-                                    </option>
-                                ))}
-                            </select>
-                            <label>Sporedna Boja:</label>
-                            <select
-                                value={newArticle.sideColor}
-                                onChange={(e) => setNewArticle({...newArticle, sideColor: e.target.value})}
-                            >
-                                <option value="">Odaberi sporednu boju</option>
-                                {colors.map((color) => (
-                                    <option key={color} value={color}>
-                                        {color}
-                                    </option>
-                                ))}
-                            </select>
-                            <label>
-                                Opis:
-                                <input
-                                    type="text"
-                                    value={newArticle.descript}
-                                    onChange={(e) => setNewArticle({...newArticle, descript: e.target.value})}
-                                />
-                            </label>
-                            {/* Add other dropdowns similarly */}
-                            <button type="submit">Dodaj</button>
-                            <button onClick={() => setShowArticleModal(false)}>Zatvori</button>
-                        </form>
-                    </div>
-                </div>
+                <AddArticleModal
+                    newArticle={newArticle}
+                    setNewArticle={setNewArticle}
+                    handleAddArticle={handleAddArticle}
+                    setShowArticleModal={setShowArticleModal}
+                    categories={categories}
+                    seasons={seasons}
+                    opennessOptions={opennessOptions}
+                    casualnessOptions={casualnessOptions}
+                    colors={colors}
+                />
+            )}
+            {showDeleteModal && (
+                <DeleteConfirmationModal
+                    closetToDelete={closetToDelete}
+                    closets={closets}
+                    handleDeleteCloset={handleDeleteCloset}
+                    setShowDeleteModal={setShowDeleteModal}
+                />
             )}
 
         </div>

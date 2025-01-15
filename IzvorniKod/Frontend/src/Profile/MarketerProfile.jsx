@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import MarketerLoggedHeader from "../Header/MarketerLoggedHeader";
+import MarketerLoggedHeader from "../MarketerHeader/MarketerLoggedHeader.jsx";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import MarketerGalleryHeader from "../Header/MarketerGalleryHeader";
+import MarketerGalleryHeader from "../MarketerHeader/MarketerGalleryHeader.jsx";
 import "./MarketerGallery.css";
 
 export default function MarketerGallery() {

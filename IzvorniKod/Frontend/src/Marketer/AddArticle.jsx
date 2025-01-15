@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AddArticle.css";
-import AddArticleHeader from "../Header/AddArticleHeader";
+import AddArticleHeader from "../MarketerHeader/AddArticleHeader.jsx";
 
 export default function AddArticle() {
     const [formData, setFormData] = useState({

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Header.css"; // Koristi postojeće stilove za header
+import "../Header/Header.css"; // Koristi postojeće stilove za header
 
 export default function MarketerGalleryHeader() {
     return (

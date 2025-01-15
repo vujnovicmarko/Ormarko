@@ -11,8 +11,8 @@ import ClosetsPage from "./Closets/ClosetsPage.jsx"
 import RegisterMarketer from "./Register/RegisterMarketer";
 import LoginMarketer from "./Login/LoginMarketer";
 import MarketerProfile from "./Profile/MarketerProfile";
-import MarketerGallery from "./Closets/MarketerGallery";
-import AddArticle from "./Closets/AddArticle";
+import MarketerGallery from "./Marketer/MarketerGallery.jsx";
+import AddArticle from "./Marketer/AddArticle.jsx";
 import AdvertiserGallery from "./Home/AdvertiserGallery.jsx";
 import AdvertisersList from "./Home/AdvertisersList.jsx";
 
