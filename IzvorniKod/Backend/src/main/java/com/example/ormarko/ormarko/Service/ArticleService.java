@@ -56,5 +56,11 @@ public class ArticleService {
         return articleRepository.findAllArticlesByFilter(sharing, category, season, openness, casual, color);
     }
 
+    public void delete(ArticleUser articleUser) {
+        articleRepository.delete(articleUser);
+    }
 
+    public ArticleUser findArticleById(Integer id) {
+        return articleRepository.findArticleByArticleId(id);
+    }
 }

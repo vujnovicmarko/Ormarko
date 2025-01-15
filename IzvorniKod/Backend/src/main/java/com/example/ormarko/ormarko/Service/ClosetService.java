@@ -25,4 +25,8 @@ public class ClosetService {
     public Closet saveCloset(Closet closet) {
         return closetRepository.save(closet);
     }
+
+    public void deleteCloset(Closet closet) {
+        closetRepository.delete(closet);
+    }
 }

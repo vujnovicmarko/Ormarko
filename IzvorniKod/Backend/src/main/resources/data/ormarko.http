@@ -48,3 +48,6 @@ Content-Type: application/json
   "sideColor": "BIJELA",
   "descript": "A light blue shirt perfect for spring."
 }
+
+### Delete closet 1
+DELETE http://localhost:8080/api/user/profile/deleteCloset1

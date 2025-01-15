@@ -96,6 +96,12 @@ public class UserController {
 
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/profile/deleteCloset{id}")
+    void deleteCloset(@PathVariable Integer id) {
+        closetService.deleteCloset(closetService.findClosetById(id));
+    }
+
 
     @GetMapping("/profile/closet{id}/allLocations")
     public List<Location> getCloset(Authentication authentication, @PathVariable Integer id){
@@ -132,6 +138,12 @@ public class UserController {
         return articleService.findAllArticlesForLocation(id);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/profile/deleteLocation{id}")
+    void deleteLocation(@PathVariable Integer id) {
+        locationService.deleteLocation(locationService.findLocationById(id));
+    }
+
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/profile/location{id}/addArticle")
@@ -143,6 +155,12 @@ public class UserController {
 
         if(articleService.save(article) == null) throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Article not created");
 
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/profile/deleteArticle{id}")
+    void deleteArticle(@PathVariable Integer id) {
+        articleService.delete(articleService.findArticleById(id));
     }
 
     @PostMapping("/search")

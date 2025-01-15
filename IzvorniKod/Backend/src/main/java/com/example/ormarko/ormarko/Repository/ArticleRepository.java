@@ -15,6 +15,7 @@ public interface ArticleRepository extends JpaRepository<ArticleUser, Integer> {
 
     @Query("SELECT DISTINCT a FROM ArticleUser a WHERE a.locationId = :locationId")
     List<ArticleUser> findAllArticlesForLocation(Integer locationId);
+    ArticleUser findArticleByArticleId(Integer articleId);
 
     List<ArticleUser> findBySharing(Boolean sharing);
     List<ArticleUser> findByCategory(ArticleCategory category);
