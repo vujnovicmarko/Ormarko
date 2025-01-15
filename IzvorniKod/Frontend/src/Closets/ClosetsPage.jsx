@@ -23,6 +23,18 @@ export default function ClosetsPage() {
     });
     const [error, setError] = useState(null);
 
+    const categories = [
+        "MAJICA", "KOŠULJA", "TRENIRKA_GORNJI_DIO", "TRENIRKA_DONJI_DIO", "TRAPERICE",
+        "CIPELE", "TENISICE", "ČIZME", "ŠTIKLE", "HALJINA", "SUKNJA", "JAKNA", "KAPUT",
+    ];
+    const seasons = ["PROLJEĆE", "LJETO", "JESEN", "ZIMA"];
+    const opennessOptions = ["OTVORENO", "ZATVORENO", "KIŠA_SNIJEG", null];
+    const casualnessOptions = ["ZA_DOMA", "SPORTSKO", "LEŽERNO", "RADNO", "SVEČANO"];
+    const colors = [
+        "BIJELA", "SIVA", "CRNA", "CRVENA", "PLAVA", "ŽUTA", "ZELENA",
+        "LJUBIČASTA", "NARANČASTA", "SMEĐA", "ROZA", "BEŽ",
+    ];
+
     // Fetch closets on component mount
     const fetchClosets = async () => {
         try {
@@ -229,7 +241,23 @@ export default function ClosetsPage() {
                                 <input
                                     type="text"
                                     value={newArticle.title}
-                                    onChange={(e) => setNewArticle({ ...newArticle, title: e.target.value })}
+                                    onChange={(e) => setNewArticle({...newArticle, title: e.target.value})}
+                                />
+                            </label>
+                            <label>
+                                Slika:
+                                <input
+                                    type="file"
+                                    onChange={(e) => {
+                                        const file = e.target.files[0];
+                                        if (file) {
+                                            const reader = new FileReader();
+                                            reader.onload = () => {
+                                                setNewArticle({ ...newArticle, img: reader.result.split(",")[1] }); // Extract Base64 data
+                                            };
+                                            reader.readAsDataURL(file);
+                                        }
+                                    }}
                                 />
                             </label>
                             <label>
@@ -237,20 +265,90 @@ export default function ClosetsPage() {
                                 <input
                                     type="checkbox"
                                     checked={newArticle.sharing}
-                                    onChange={(e) => setNewArticle({ ...newArticle, sharing: e.target.checked })}
+                                    onChange={(e) => setNewArticle({...newArticle, sharing: e.target.checked})}
                                 />
                             </label>
-                            {/* Dropdowns for categories */}
+
                             <label>Kategorija:</label>
                             <select
                                 value={newArticle.category}
-                                onChange={(e) => setNewArticle({ ...newArticle, category: e.target.value })}
+                                onChange={(e) => setNewArticle({...newArticle, category: e.target.value})}
                             >
-                                {/* Populate with backend options */}
                                 <option value="">Odaberi kategoriju</option>
-                                <option value="KATEGORIJA1">KATEGORIJA1</option>
-                                <option value="KATEGORIJA2">KATEGORIJA2</option>
+                                {categories.map((category) => (
+                                    <option key={category} value={category}>
+                                        {category}
+                                    </option>
+                                ))}
                             </select>
+                            <label>Godisnje Doba:</label>
+                            <select
+                                value={newArticle.season}
+                                onChange={(e) => setNewArticle({...newArticle, season: e.target.value})}
+                            >
+                                <option value="">Odaberi godišnje doba</option>
+                                {seasons.map((season) => (
+                                    <option key={season} value={season}>
+                                        {season}
+                                    </option>
+                                ))}
+                            </select>
+                            <label>Otvorenost:</label>
+                            <select
+                                value={newArticle.openness}
+                                onChange={(e) => setNewArticle({...newArticle, openness: e.target.value})}
+                            >
+                                <option value="">Odaberi otvorenost</option>
+                                {opennessOptions.map((option) => (
+                                    <option key={option} value={option}>
+                                        {option}
+                                    </option>
+                                ))}
+                            </select>
+                            <label>Ležernost:</label>
+                            <select
+                                value={newArticle.howCasual}
+                                onChange={(e) => setNewArticle({...newArticle, howCasual: e.target.value})}
+                            >
+                                <option value="">Odaberi ležernost</option>
+                                {casualnessOptions.map((option) => (
+                                    <option key={option} value={option}>
+                                        {option}
+                                    </option>
+                                ))}
+                            </select>
+                            <label>Glavna Boja:</label>
+                            <select
+                                value={newArticle.mainColor}
+                                onChange={(e) => setNewArticle({...newArticle, mainColor: e.target.value})}
+                            >
+                                <option value="">Odaberi glavnu boju</option>
+                                {colors.map((color) => (
+                                    <option key={color} value={color}>
+                                        {color}
+                                    </option>
+                                ))}
+                            </select>
+                            <label>Sporedna Boja:</label>
+                            <select
+                                value={newArticle.sideColor}
+                                onChange={(e) => setNewArticle({...newArticle, sideColor: e.target.value})}
+                            >
+                                <option value="">Odaberi sporednu boju</option>
+                                {colors.map((color) => (
+                                    <option key={color} value={color}>
+                                        {color}
+                                    </option>
+                                ))}
+                            </select>
+                            <label>
+                                Opis:
+                                <input
+                                    type="text"
+                                    value={newArticle.descript}
+                                    onChange={(e) => setNewArticle({...newArticle, descript: e.target.value})}
+                                />
+                            </label>
                             {/* Add other dropdowns similarly */}
                             <button type="submit">Dodaj</button>
                             <button onClick={() => setShowArticleModal(false)}>Zatvori</button>
