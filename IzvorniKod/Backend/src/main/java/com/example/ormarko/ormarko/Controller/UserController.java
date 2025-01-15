@@ -147,7 +147,7 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/profile/location{id}/addArticle")
-    void addLocation(Authentication authentication, @PathVariable Integer id, @RequestBody @Valid ArticleUser article) {
+    void addArticle(Authentication authentication, @PathVariable Integer id, @RequestBody /*@Valid*/ ArticleUser article) {
         //String username = authentication.getName();
 
         //
