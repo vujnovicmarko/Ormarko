@@ -162,57 +162,6 @@ public class UserController {
         //Set<ArticleUser> articles = new HashSet<>();
         List<ArticleUser> articles = articleService.findAllArticlesBySharing(true);
 
-        boolean isEmpty = true;
-
-        if(body.containsKey("kategorija") && body.get("kategorija").length > 0){
-            isEmpty = false;
-            articles = articles.stream().filter(a -> {
-                for(String s : body.get("kategorija")){
-                    if (a.getCategory().toString().equals(s)) return true;
-                }
-                return false;
-            }).toList();
-        }
-
-        if (body.containsKey("godisnjeDoba") && body.get("godisnjeDoba").length > 0) {
-            isEmpty = false;
-            articles = articles.stream().filter(a -> {
-                for(String s : body.get("godisnjeDoba")){
-                    if (a.getSeason().toString().equals(s)) return true;
-                }
-                return false;
-            }).toList();
-        }
-
-        if (body.containsKey("otvorenost") && body.get("otvorenost").length > 0) {
-            isEmpty = false;
-            articles = articles.stream().filter(a -> {
-                for(String s : body.get("otvorenost")){
-                    if (a.getOpenness().toString().equals(s)) return true;
-                }
-                return false;
-            }).toList();
-        }
-
-        if (body.containsKey("lezernost") && body.get("lezernost").length > 0) {
-            isEmpty = false;
-            articles = articles.stream().filter(a -> {
-                for(String s : body.get("lezernost")){
-                    if (a.getHowCasual().toString().equals(s)) return true;
-                }
-                return false;
-            }).toList();
-        }
-
-        if (body.containsKey("boja") && body.get("boja").length > 0) {
-            isEmpty = false;
-            articles = articles.stream().filter(a -> {
-                for(String s : body.get("boja")){
-                    if (a.getMainColor().toString().equals(s) || a.getSideColor().toString().equals(s)) return true;
-                }
-                return false;
-            }).toList();
-        }
 
         //List<ArticleUser> articles = articleService.findAllArticlesByFilter(true, category, season, openness, casual, color);
 
@@ -231,14 +180,33 @@ public class UserController {
 //                }
 //        ).toList();
 
-        log.info("Received data from filter!");
-        log.info("Logging articles");
-        articles.forEach(a -> log.info(a.toString()));
+        return userService.filter(articles, body);
+    }
 
-        if(isEmpty) return new ArrayList<>();
 
-        return articles;       //ako zelimo sve artikle neovisno o lokaciji korisnika
-        //return new ArrayList<>();
+    @PostMapping("/profile/localSearch")
+    public List<ArticleUser> localSearch(Authentication authentication, @RequestBody Map<String, String[]> body){
+
+        log.info("Received POST request to /profile/localSearch!");
+        log.info("Body: " + body);
+
+        String username = authentication.getName();
+        //User user = userService.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+//        ArticleCategory category = ArticleCategory.valueOf(body.get("kategorija"));
+//        ArticleSeason season = ArticleSeason.valueOf(body.get("godisnjeDoba"));
+//        ArticleOpen openness = ArticleOpen.valueOf(body.get("otvorenost"));
+//        ArticleCasual casual = ArticleCasual.valueOf(body.get("lezernost"));
+//        ArticleColor color = ArticleColor.valueOf(body.get("boja"));
+
+        //Set<ArticleUser> articles = new HashSet<>();
+        List<ArticleUser> articles = closetService.findAllClosetsForUser(username).stream()
+                .map(closet -> locationService.findAllLocationsForCloset(closet.getClosetId()))
+                .flatMap(List::stream)
+                .map(location -> articleService.findAllArticlesForLocation(location.getLocationId()))
+                .flatMap(List::stream)
+                .toList();
+
+        return userService.filter(articles, body);
     }
 
 }
