@@ -4,7 +4,8 @@ import ClosetList from "./ClosetList";
 import LocationList from "./LocationList";
 import ArticleList from "./ArticleList";
 import AddArticleModal from "./AddArticleModal";
-import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import DeleteClosetModal from "./DeleteClosetModal.jsx";
+import DeleteLocationModal from "./DeleteLocationModal.jsx";
 import "./ClosetsPage.css";
 
 export default function ClosetsPage() {
@@ -27,7 +28,8 @@ export default function ClosetsPage() {
         descript: "",
     });
     const [error, setError] = useState(null);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showDeleteClosetModal, setShowDeleteClosetModal] = useState(false);
+    const [showDeleteLocationModal, setShowDeleteLocationModal] = useState(false);
     const [closetToDelete, setClosetToDelete] = useState(null);
     const [locationToDelete, setLocationToDelete] = useState(null);
 
@@ -215,7 +217,7 @@ export default function ClosetsPage() {
                     handleSelectCloset={handleSelectCloset}
                     handleDeleteCloset={handleDeleteCloset}
                     setClosetToDelete={setClosetToDelete}
-                    setShowDeleteModal={setShowDeleteModal}
+                    setShowDeleteClosetModal={setShowDeleteClosetModal}
                     handleAddCloset={handleAddCloset}
                 />
                 {selectedCloset && (
@@ -226,7 +228,7 @@ export default function ClosetsPage() {
                         handleSelectLocation={handleSelectLocation}
                         handleDeleteLocation={handleDeleteLocation}
                         setLocationToDelete={setLocationToDelete}
-                        setShowDeleteModal={setShowDeleteModal}
+                        setShowDeleteLocationModal={setShowDeleteLocationModal}
                     />
                 )}
                 {selectedLocation && (
@@ -246,12 +248,20 @@ export default function ClosetsPage() {
                     colors={colors}
                 />
             )}
-            {showDeleteModal && (
-                <DeleteConfirmationModal
+            {showDeleteClosetModal && (
+                <DeleteClosetModal
                     closetToDelete={closetToDelete}
                     closets={closets}
                     handleDeleteCloset={handleDeleteCloset}
-                    setShowDeleteModal={setShowDeleteModal}
+                    setShowDeleteClosetModal={setShowDeleteClosetModal}
+                />
+            )}
+            {showDeleteLocationModal && (
+                <DeleteLocationModal
+                    locationToDelete={locationToDelete}
+                    locations={locations}
+                    handleDeleteLocation={handleDeleteLocation}
+                    setShowDeleteLocationModal={setShowDeleteLocationModal}
                 />
             )}
 

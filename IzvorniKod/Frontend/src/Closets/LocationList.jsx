@@ -5,10 +5,16 @@ export default function LocationList({
                                          selectedLocation,
                                          handleAddLocation,
                                          handleSelectLocation,
-                                         handleDeleteLocation,
                                          setLocationToDelete,
-                                         setShowDeleteModal,
+                                         setShowDeleteLocationModal,
                                      }) {
+    // Helper function to count locations of the same type
+    const getLocationLabel = (location) => {
+        const count =
+            locations.filter((loc) => loc.typeLoc === location.typeLoc).indexOf(location) + 1;
+        return `${location.typeLoc} ${count}`;
+    };
+
     return (
         <div className="locations-nav">
             <h3>Lokacije</h3>
@@ -23,13 +29,13 @@ export default function LocationList({
                         }`}
                         onClick={() => handleSelectLocation(location)}
                     >
-                        {location.typeLoc}
+                        {getLocationLabel(location)}
                     </button>
                     <button
                         className="delete-btn"
                         onClick={() => {
                             setLocationToDelete(location);
-                            setShowDeleteModal(true);
+                            setShowDeleteLocationModal(true);
                         }}
                     >
                         X

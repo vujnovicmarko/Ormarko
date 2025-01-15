@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function DeleteConfirmationModal({
+export default function DeleteClosetModal({
                                                     closetToDelete,
                                                     closets,
                                                     handleDeleteCloset,
-                                                    setShowDeleteModal,
+                                                    setShowDeleteClosetModal,
                                                 }) {
     return (
         <div className="modal-overlay">
@@ -15,14 +15,14 @@ export default function DeleteConfirmationModal({
                     {closets.findIndex((c) => c.closetId === closetToDelete.closetId) + 1}?
                 </div>
                 <div className="modal-actions">
-                    <button className="cancel-btn" onClick={() => setShowDeleteModal(false)}>
+                    <button className="cancel-btn" onClick={() => setShowDeleteClosetModal(false)}>
                         Odustani
                     </button>
                     <button
                         className="save-btn"
                         onClick={() => {
                             handleDeleteCloset(closetToDelete.closetId);
-                            setShowDeleteModal(false);
+                            setShowDeleteClosetModal(false);
                         }}
                     >
                         Obriši

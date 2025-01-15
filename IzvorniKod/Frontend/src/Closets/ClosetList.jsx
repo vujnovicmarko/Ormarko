@@ -6,7 +6,7 @@ export default function ClosetList({
                                        handleSelectCloset,
                                        handleDeleteCloset,
                                        setClosetToDelete,
-                                       setShowDeleteModal,
+                                       setShowDeleteClosetModal,
                                        handleAddCloset
                                    }) {
     return (
@@ -27,7 +27,7 @@ export default function ClosetList({
                             className="delete-btn"
                             onClick={() => {
                                 setClosetToDelete(closet);
-                                setShowDeleteModal(true);
+                                setShowDeleteClosetModal(true);
                             }}
                         >
                             X
