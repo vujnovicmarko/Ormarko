@@ -10,23 +10,27 @@ export default function Modal({ item, onClose }) {
     mainColor,
     sideColor,
     descript,
+    email
   } = item || {};
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div
-        className="modal-content"
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
+          className="modal-content"
+          onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
       >
         <button className="close-button" onClick={onClose}>
           &times;
         </button>
         <img
-          src={`data:image/png;base64,${img}`}
-          alt={title}
-          className="modal-img"
+            src={`data:image/png;base64,${img}`}
+            alt={title}
+            className="modal-img"
         />
         <h2>{title}</h2>
+        <p>
+          <strong>Kontakt:</strong> {email}
+        </p>
         <p>
           <strong>Kategorija:</strong> {category}
         </p>

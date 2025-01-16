@@ -46,7 +46,9 @@ public class CustomSuccesHandler implements AuthenticationSuccessHandler {
                 userRepository.save(newUser);
             }
         }
-        redirectURL = "http://localhost:5173/profile";
+        redirectURL = "/profile";
+
+        //redirectURL = "https://ormarkodeploy-c46f4289b2cf.herokuapp.com/profile";
         new DefaultRedirectStrategy().sendRedirect(request, response, redirectURL);
 
     }

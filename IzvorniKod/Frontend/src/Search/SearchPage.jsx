@@ -28,6 +28,10 @@ export default function SearchPage({ isLoggedIn }) {
                 }
                 const data = await response.json();
                 // data is an array of articles returned by the backend
+                const combinedData = data.first.map((article, index) => ({
+                    ...article,
+                    email: data.second[index].email,
+                }));
                 setProducts(data || []);
             } catch (err) {
                 console.error("Error searching products:", err);
