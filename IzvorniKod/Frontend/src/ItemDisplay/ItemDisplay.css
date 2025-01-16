@@ -45,6 +45,19 @@
     color: #6B7280;
     text-align: center;
 }
+.no-articles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #6b7280;
+    background-color: #f9fafb;
+    height: 100vh; /* Full viewport height */
+    margin: 0;
+    padding: 0;
+}
 
 @media (max-width: 768px) {
     .itemdisplay {

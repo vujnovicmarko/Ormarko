@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "../Header/Header.jsx";
 import LoggedInHeader from "../Header/LoggedInHeader";
-import SearchItemDisplay from "./SearchItemDisplay.jsx"; // New dedicated component
+import SearchItemDisplay from "./SearchItemDisplay.jsx";
 
 export default function SearchPage({ isLoggedIn }) {
     const location = useLocation();

@@ -1,7 +1,7 @@
 import React from "react";
 import "./ArticleModal.css";
 
-export default function ArticleModal({ article, onClose }) {
+export default function ArticleModal({ article, onClose, onDelete }) {
     const {
         title,
         img,
@@ -12,6 +12,11 @@ export default function ArticleModal({ article, onClose }) {
         sideColor,
         descript,
     } = article || {};
+
+    const handleDelete = () => {
+        onDelete(article.articleId);
+    };
+
 
     return (
         <div className="modal-overlay" onClick={onClose}>
@@ -32,7 +37,7 @@ export default function ArticleModal({ article, onClose }) {
                     <strong>Kategorija:</strong> {category}
                 </p>
                 <p>
-                    <strong>Godisnje doba:</strong> {season}
+                    <strong>Godišnje doba:</strong> {season}
                 </p>
                 <p>
                     <strong>Ležernost:</strong> {howCasual}
@@ -46,6 +51,9 @@ export default function ArticleModal({ article, onClose }) {
                 <p>
                     <strong>Opis:</strong> {descript}
                 </p>
+                <button className="delete-btn" onClick={handleDelete}>
+                    Obriši
+                </button>
             </div>
         </div>
     );

@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
 import "../Header/Header.css";
 
-
-export default function AdvertisersListHeader() {
+export default function MarketerListHeader() {
     return (
         <div className="header">
             <div className="logo-container">

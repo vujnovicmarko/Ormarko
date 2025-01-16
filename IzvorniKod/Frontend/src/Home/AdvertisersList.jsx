@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./AdvertisersList.css";
-import AdvertisersListHeader from "../MarketerHeader/AdvertisersListHeader.jsx";
+import MarketerListHeader from "../MarketerHeader/MarketerListHeader.jsx";
 
 export default function AdvertisersList() {
     const [advertisers, setAdvertisers] = useState([]);
@@ -27,7 +27,7 @@ export default function AdvertisersList() {
     return (
         <div className="advertisers-list-page">
             {/* Header Component */}
-            <AdvertisersListHeader/>
+            <MarketerListHeader/>
 
 
 

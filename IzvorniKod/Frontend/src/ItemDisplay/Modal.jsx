@@ -28,22 +28,22 @@ export default function Modal({ item, onClose }) {
         />
         <h2>{title}</h2>
         <p>
-          <strong>Category:</strong> {category}
+          <strong>Kategorija:</strong> {category}
         </p>
         <p>
-          <strong>Season:</strong> {season}
+          <strong>Godišnje doba:</strong> {season}
         </p>
         <p>
-          <strong>Style:</strong> {howCasual}
+          <strong>Ležernost:</strong> {howCasual}
         </p>
         <p>
-          <strong>Main Color:</strong> {mainColor}
+          <strong>Glavna boja:</strong> {mainColor}
         </p>
         <p>
-          <strong>Accent Color:</strong> {sideColor}
+          <strong>Sporedna boja:</strong> {sideColor}
         </p>
         <p>
-          <strong>Description:</strong> {descript}
+          <strong>Opis stanja:</strong> {descript}
         </p>
       </div>
     </div>

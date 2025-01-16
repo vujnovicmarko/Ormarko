@@ -19,7 +19,7 @@ export default function ItemDisplay() {
           const data = await response.json();
           setItems(data);
           if (
-            Array.isArray(data) &&
+              Array.isArray(data) &&
             data.every((item) => item && typeof item === "object")
           ) {
             setItems(data);

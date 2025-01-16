@@ -213,6 +213,23 @@ export default function ClosetsPage() {
             setError("Failed to delete location.");
         }
     };
+    const handleDeleteArticle = async (articleId) => {
+        try {
+            const response = await fetch(`/api/user/profile/deleteArticle${articleId}`, {
+                method: "DELETE",
+                credentials: "include",
+            });
+            if (!response.ok) throw new Error("Failed to delete article");
+
+            // Close the modal and refresh the articles list
+            setIsArticleModalOpen(false);
+            fetchArticles(selectedLocation.locationId);
+        } catch (err) {
+            console.error("Error deleting article:", err);
+            setError("Failed to delete article.");
+        }
+    };
+
 
     // Fetch closets on mount
     useEffect(() => {
@@ -281,6 +298,13 @@ export default function ClosetsPage() {
                     locations={locations}
                     handleDeleteLocation={handleDeleteLocation}
                     setShowDeleteLocationModal={setShowDeleteLocationModal}
+                />
+            )}
+            {isArticleModalOpen && selectedArticle && (
+                <ArticleModal
+                    article={selectedArticle}
+                    onClose={handleCloseArticleModal}
+                    onDelete={handleDeleteArticle}
                 />
             )}
 

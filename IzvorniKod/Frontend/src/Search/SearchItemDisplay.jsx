@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../ItemDisplay/ItemDisplay.css"; // Reuse the same CSS file as ItemDisplay
+import "../ItemDisplay/ItemDisplay.css";
 import Modal from "../ItemDisplay/Modal";
 
 export default function SearchItemDisplay({ products }) {
@@ -17,7 +17,11 @@ export default function SearchItemDisplay({ products }) {
     };
 
     if (!products || products.length === 0) {
-        return <p>No products found matching your filters.</p>;
+        return (
+            <div className="no-articles">
+                <p>Nisu ponađeni artikli sa navedenim filterima</p>
+            </div>
+        )
     }
 
     return (
