@@ -84,14 +84,16 @@ export default function SearchBar() {
         }
         setShowFilters(false);
     };
-
+    const closeFilters = () => {
+        setShowFilters(false);
+    };
     return (
         <div className="searchbar-container">
             <form className="searchbar" onSubmit={handleSearch}>
                 <input
                     className="searchinput"
                     type="text"
-                    placeholder="Search..."
+                    placeholder="Pretraži artikle"
                     onClick={() => setShowFilters(!showFilters)}
                 />
                 <button className="searchbtn" type="submit">
@@ -99,6 +101,8 @@ export default function SearchBar() {
                 </button>
             </form>
             {showFilters && (
+                <>
+                <div className="filter-overlay" onClick={closeFilters}></div>
                 <div className="filter-dropdown">
                     {Object.keys(categories).map((category) => (
                         <div key={category} className="filter-category">
@@ -123,6 +127,7 @@ export default function SearchBar() {
                         Pretraži
                     </button>
                 </div>
+                </>
             )}
         </div>
     );

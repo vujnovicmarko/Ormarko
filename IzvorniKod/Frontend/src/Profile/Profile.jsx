@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import LoggedInHeader from "../Header/LoggedInHeader";
+import ClosetsHeader from "../Header/ClosetsHeader";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
@@ -47,7 +47,7 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
 
   return (
       <div className="profile-container">
-        <LoggedInHeader />
+        <ClosetsHeader />
         <h1 className="profile-heading">Moj profil</h1>
         {userInfo.googleoauth ? (
           <div className="profile-details">

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import LoggedInHeader from "../Header/LoggedInHeader";
+import ClosetsHeader from "../Header/ClosetsHeader";
 import ClosetList from "./ClosetList";
 import LocationList from "./LocationList";
-import ArticleList from "./ArticleList";
 import AddArticleModal from "./AddArticleModal";
 import DeleteClosetModal from "./DeleteClosetModal.jsx";
 import DeleteLocationModal from "./DeleteLocationModal.jsx";
+import ArticleModal from "./ArticleModal";
+import ArticleList from "./ArticleList";
 import "./ClosetsPage.css";
 
 export default function ClosetsPage() {
@@ -44,7 +45,18 @@ export default function ClosetsPage() {
         "BIJELA", "SIVA", "CRNA", "CRVENA", "PLAVA", "ŽUTA", "ZELENA",
         "LJUBIČASTA", "NARANČASTA", "SMEĐA", "ROZA", "BEŽ",
     ];
+    const [selectedArticle, setSelectedArticle] = useState(null);
+    const [isArticleModalOpen, setIsArticleModalOpen] = useState(false);
 
+    const handleArticleClick = (article) => {
+        setSelectedArticle(article);
+        setIsArticleModalOpen(true);
+    };
+
+    const handleCloseArticleModal = () => {
+        setIsArticleModalOpen(false);
+        setSelectedArticle(null);
+    };
     const fetchClosets = async () => {
         try {
             const response = await fetch("/api/user/profile/allClosets", {
@@ -209,7 +221,7 @@ export default function ClosetsPage() {
 
     return (
         <div className="closets-page">
-            <LoggedInHeader />
+            <ClosetsHeader />
             <div className="closets-container">
                 <ClosetList
                     closets={closets}
@@ -232,7 +244,14 @@ export default function ClosetsPage() {
                     />
                 )}
                 {selectedLocation && (
-                    <ArticleList articles={articles} setShowArticleModal={setShowArticleModal} />
+                    <ArticleList
+                        articles={articles}
+                        setShowArticleModal={setShowArticleModal}
+                        onArticleClick={handleArticleClick}
+                    />
+                )}
+                {isArticleModalOpen && selectedArticle && (
+                    <ArticleModal article={selectedArticle} onClose={handleCloseArticleModal} />
                 )}
             </div>
             {showArticleModal && (

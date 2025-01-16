@@ -1,15 +1,27 @@
 import React from "react";
+import "./ArticleList.css"; // Ensure to create or update the CSS file
 
-export default function ArticleList({ articles, setShowArticleModal }) {
+export default function ArticleList({ articles, setShowArticleModal, onArticleClick }) {
     return (
         <div className="articles-section">
             <h3>Artikli</h3>
             <button className="add-article-btn" onClick={() => setShowArticleModal(true)}>Dodaj Artikl</button>
-            <ul>
+            <div className="article-display">
                 {articles.map((article) => (
-                    <li key={article.articleId}>{article.title}</li>
+                    <div
+                        key={article.articleId}
+                        className="article-item"
+                        onClick={() => onArticleClick(article)}
+                    >
+                        <img
+                            src={`data:image/png;base64,${article.img}`}
+                            alt={article.title}
+                            className="article-img"
+                        />
+                        <h4 className="article-title">{article.title}</h4>
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 }
