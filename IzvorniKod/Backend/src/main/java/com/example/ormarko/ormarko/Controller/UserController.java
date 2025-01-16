@@ -3,6 +3,7 @@ package com.example.ormarko.ormarko.Controller;
 import com.example.ormarko.ormarko.Model.*;
 import com.example.ormarko.ormarko.Service.*;
 import jakarta.validation.Valid;
+import org.springframework.data.util.Pair;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -169,7 +170,7 @@ public class UserController {
     }
 
     @PostMapping("/search")
-    public List<ArticleUser> search(@RequestBody Map<String, String[]> body){
+    public Pair<List<ArticleUser>, List<User>> search(@RequestBody Map<String, String[]> body){
 
         log.info("Received POST request to /search!");
         log.info("Body: " + body);
@@ -203,7 +204,13 @@ public class UserController {
 //                }
 //        ).toList();
 
-        return userService.filter(articles, body);
+        articles = userService.filter(articles, body);
+        return Pair.of(articles, articles.stream()
+                .map(article -> locationService.findLocationById(article.getLocationId()))
+                .map(location -> closetService.findClosetById(location.getClosetId()))
+                .map(closet -> userService.findByUsername(closet.getClosetOwner()))
+                .map(Optional::get)
+                .toList());
     }
 
 
