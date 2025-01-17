@@ -71,12 +71,14 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
         const apiKey = "AIzaSyDt7HBawUA_F4Nm8VGBbjh3Q67CKz_niSg";
         try {
           const response = await fetch(
-            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
+            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&result_type=locality&result_type=country&result_type&key=${apiKey}`
           );
           const data = await response.json();
           if (data.results && data.results.length > 0) {
-            console.log("Address fetched:", data.results[0].address_components); 
-            console.log("Coordinates fetched:", { latitude, longitude, }); 
+            const location = data.results[0].formatted_address.split(",");
+            console.log("Address fetched:", location[0], location[1]);
+            console.log("Coordinates fetched:", { latitude, longitude, });
+            updateLocation(location[0], location[1]);
           } else {
             console.error("No address found for the coordinates");
           }
@@ -87,7 +89,28 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
 
       fetchAddress(userCoordinates.latitude, userCoordinates.longitude);
     }
-  }, [userCoordinates]); 
+  }, [userCoordinates]);
+
+
+  function updateLocation(newCity, newCountry) {
+    fetch('/api/user/updateGeolocation', {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        city: newCity,
+        country: newCountry,
+      }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Updated user:', data);
+    })
+    .catch(error => {
+      console.error('Error updating location:', error);
+    });
+  }
 
   const getGeolocationFromGoogle = async () => {
     try {
