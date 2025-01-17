@@ -49,7 +49,7 @@ export default function ArticleModal({ article, onClose, onDelete }) {
                     <strong>Sporedna boja:</strong> {sideColor}
                 </p>
                 <p>
-                    <strong>Opis:</strong> {descript}
+                    <strong>Opis stanja:</strong> {descript}
                 </p>
                 <button className="delete-btn" onClick={handleDelete}>
                     Obriši

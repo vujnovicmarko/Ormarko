@@ -1,4 +1,5 @@
 import React from "react";
+import "./AddArticleModal.css";
 
 export default function AddArticleModal({
                                             newArticle,
@@ -11,26 +12,44 @@ export default function AddArticleModal({
                                             casualnessOptions,
                                             colors,
                                         }) {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!showOpennessOption) {
+            newArticle.openness = null;
+        }
+
+        const requiredFields = ["title","img", "category", "season", "howCasual", "mainColor", "sideColor"];
+        const missingFields = requiredFields.filter((field) => !newArticle[field]);
+
+        if (missingFields.length > 0) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+
+        handleAddArticle();
+    };
+
+    const showOpennessOption = ["CIPELE", "TENISICE", "ČIZME", "ŠTIKLE"].includes(
+        newArticle.category
+    );
+
     return (
-        <div className="modal">
-            <div className="modal-content">
+        <div className="modal-overlay" onClick={() => setShowArticleModal(false)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
                 <h3>Dodaj Artikl</h3>
-                <form
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        handleAddArticle();
-                    }}
-                >
+                <form onSubmit={handleSubmit}>
                     <label>
-                        Naslov:
+                        Naslov: <span className="required">*</span>
                         <input
                             type="text"
                             value={newArticle.title}
-                            onChange={(e) => setNewArticle({...newArticle, title: e.target.value})}
+                            onChange={(e) =>
+                                setNewArticle({ ...newArticle, title: e.target.value })
+                            }
                         />
                     </label>
                     <label>
-                        Slika:
+                        Slika: <span className="required">*</span>
                         <input
                             type="file"
                             onChange={(e) => {
@@ -38,7 +57,10 @@ export default function AddArticleModal({
                                 if (file) {
                                     const reader = new FileReader();
                                     reader.onload = () => {
-                                        setNewArticle({ ...newArticle, img: reader.result.split(",")[1] }); // Extract Base64 data
+                                        setNewArticle({
+                                            ...newArticle,
+                                            img: reader.result.split(",")[1],
+                                        });
                                     };
                                     reader.readAsDataURL(file);
                                 }
@@ -46,18 +68,21 @@ export default function AddArticleModal({
                         />
                     </label>
                     <label>
-                        Dijeli:
+                    Dijeli:
                         <input
                             type="checkbox"
                             checked={newArticle.sharing}
-                            onChange={(e) => setNewArticle({...newArticle, sharing: e.target.checked})}
+                            onChange={(e) =>
+                                setNewArticle({ ...newArticle, sharing: e.target.checked })
+                            }
                         />
                     </label>
-
-                    <label>Kategorija:</label>
+                    <label>Kategorija: <span className="required">*</span></label>
                     <select
                         value={newArticle.category}
-                        onChange={(e) => setNewArticle({...newArticle, category: e.target.value})}
+                        onChange={(e) =>
+                            setNewArticle({ ...newArticle, category: e.target.value })
+                        }
                     >
                         <option value="">Odaberi kategoriju</option>
                         {categories.map((category) => (
@@ -66,10 +91,12 @@ export default function AddArticleModal({
                             </option>
                         ))}
                     </select>
-                    <label>Godišnje Doba:</label>
+                    <label>Godišnje Doba: <span className="required">*</span></label>
                     <select
                         value={newArticle.season}
-                        onChange={(e) => setNewArticle({...newArticle, season: e.target.value})}
+                        onChange={(e) =>
+                            setNewArticle({ ...newArticle, season: e.target.value })
+                        }
                     >
                         <option value="">Odaberi godišnje doba</option>
                         {seasons.map((season) => (
@@ -78,22 +105,30 @@ export default function AddArticleModal({
                             </option>
                         ))}
                     </select>
-                    <label>Otvorenost:</label>
-                    <select
-                        value={newArticle.openness}
-                        onChange={(e) => setNewArticle({...newArticle, openness: e.target.value})}
-                    >
-                        <option value="">Odaberi otvorenost</option>
-                        {opennessOptions.map((option) => (
-                            <option key={option} value={option}>
-                                {option}
-                            </option>
-                        ))}
-                    </select>
-                    <label>Ležernost:</label>
+                    {showOpennessOption && (
+                        <>
+                            <label>Otvorenost:</label>
+                            <select
+                                value={newArticle.openness}
+                                onChange={(e) =>
+                                    setNewArticle({ ...newArticle, openness: e.target.value })
+                                }
+                            >
+                                <option value="">Odaberi otvorenost</option>
+                                {opennessOptions.map((option) => (
+                                    <option key={option} value={option}>
+                                        {option}
+                                    </option>
+                                ))}
+                            </select>
+                        </>
+                    )}
+                    <label>Ležernost: <span className="required">*</span></label>
                     <select
                         value={newArticle.howCasual}
-                        onChange={(e) => setNewArticle({...newArticle, howCasual: e.target.value})}
+                        onChange={(e) =>
+                            setNewArticle({ ...newArticle, howCasual: e.target.value })
+                        }
                     >
                         <option value="">Odaberi ležernost</option>
                         {casualnessOptions.map((option) => (
@@ -102,10 +137,12 @@ export default function AddArticleModal({
                             </option>
                         ))}
                     </select>
-                    <label>Glavna Boja:</label>
+                    <label>Glavna Boja: <span className="required">*</span></label>
                     <select
                         value={newArticle.mainColor}
-                        onChange={(e) => setNewArticle({...newArticle, mainColor: e.target.value})}
+                        onChange={(e) =>
+                            setNewArticle({ ...newArticle, mainColor: e.target.value })
+                        }
                     >
                         <option value="">Odaberi glavnu boju</option>
                         {colors.map((color) => (
@@ -114,10 +151,12 @@ export default function AddArticleModal({
                             </option>
                         ))}
                     </select>
-                    <label>Sporedna Boja:</label>
+                    <label>Sporedna Boja: <span className="required">*</span></label>
                     <select
                         value={newArticle.sideColor}
-                        onChange={(e) => setNewArticle({...newArticle, sideColor: e.target.value})}
+                        onChange={(e) =>
+                            setNewArticle({ ...newArticle, sideColor: e.target.value })
+                        }
                     >
                         <option value="">Odaberi sporednu boju</option>
                         {colors.map((color) => (
@@ -127,15 +166,27 @@ export default function AddArticleModal({
                         ))}
                     </select>
                     <label>
-                        Opis:
+                        Opis stanja:
                         <input
                             type="text"
                             value={newArticle.descript}
-                            onChange={(e) => setNewArticle({...newArticle, descript: e.target.value})}
+                            onChange={(e) =>
+                                setNewArticle({ ...newArticle, descript: e.target.value })
+                            }
                         />
                     </label>
-                    <button type="submit">Dodaj</button>
-                    <button onClick={() => setShowArticleModal(false)}>Zatvori</button>
+                    <div className="modal-actions">
+                        <button type="submit" className="save-btn">
+                            Dodaj
+                        </button>
+                        <button
+                            type="button"
+                            className="cancel-btn"
+                            onClick={() => setShowArticleModal(false)}
+                        >
+                            Zatvori
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
