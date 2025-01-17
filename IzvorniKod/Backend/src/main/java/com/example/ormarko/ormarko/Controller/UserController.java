@@ -235,19 +235,44 @@ public class UserController {
         List<Integer> closetIds = locationIds.stream().map(id -> locationService.findLocationById(id).getClosetId()).sorted().toList();
 
         List<Integer> allClosetIds = closetService.findAllClosetsForUser(username).stream().map(Closet::getClosetId).toList();
-        List<Integer> allLocationIds = closetService.findAllClosetsForUser(username).stream()
-                .map(closet -> locationService.findAllLocationsForCloset(closet.getClosetId()))
-                .flatMap(List::stream)
-                .map(Location::getLocationId)
-                .sorted()
+        List<List<Location>> allLocationByClosetForGivenArticle = locationIds.stream()
+                .map(id -> locationService.findLocationById(id).getClosetId())
+                .map(locationService::findAllLocationsForCloset)
+                .map(list -> list.stream().sorted().toList())
                 .toList();
 
-        locationIds = locationIds.stream().map(allLocationIds::indexOf).toList();
+
+        List<Integer> rLoc = new ArrayList<>();
+
+        for(int i = 0; i < locationIds.size(); i++) {
+            Integer p = 0, l = 0, s = 0;
+            List<Location> neighborLocations = allLocationByClosetForGivenArticle.get(i);
+            Integer id = locationIds.get(i);
+
+            for(Location neighborLocation : neighborLocations) {
+                if(neighborLocation.getLocationId() == id) {
+                    switch (neighborLocation.getTypeLoc()){
+                        case LADICA -> rLoc.add(l);
+                        case POLICA -> rLoc.add(p);
+                        case ŠIPKA_ZA_ODJEĆU -> rLoc.add(s);
+                    }
+                    break;
+                }
+
+                switch (neighborLocation.getTypeLoc()){
+                    case LADICA -> l++;
+                    case POLICA -> p++;
+                    case ŠIPKA_ZA_ODJEĆU -> s++;
+                }
+            }
+
+        }
+
         closetIds = closetIds.stream().map(allClosetIds::indexOf).toList();
 
         List<Pair<Integer, Integer>> pairs = new ArrayList<>();
-        for(int i = 0; i < locationIds.size(); i++){
-            pairs.add(Pair.of(closetIds.get(i), locationIds.get(i)));
+        for(int i = 0; i < rLoc.size(); i++){
+            pairs.add(Pair.of(closetIds.get(i), rLoc.get(i)));
         }
 
         articles = userService.filter(articles, body);
