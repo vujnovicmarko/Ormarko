@@ -6,6 +6,7 @@ import "./Profile.css";
 export default function Profile({ isLoggedIn, setIsLoggedIn }) {
   const [userInfo, setUserInfo] = useState([])
   const navigate = useNavigate();
+  const [userCoordinates, setUserCoordinates] = useState(null);
 
   useEffect(() => {
       const fetchUserInfo = async () => {
@@ -31,6 +32,104 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
       fetchUserInfo();
   }, []);
 
+  useEffect(() => {
+    const fetchUserCoordinates = async() => {
+      if (userInfo) {
+        const browserCoordinates = await getGeolocationFromBrowser().catch(() => null);
+        const googleCoordinates = await getGeolocationFromGoogle().catch(() => null);
+        const [browserResult, googleResult] = await Promise.all([browserCoordinates, googleCoordinates]);
+        let bestLocation = null;
+
+        if (browserResult && googleResult) {
+          if (browserResult.accuracy < googleResult.accuracy) {
+            bestLocation = browserResult;
+            console.log("BROWSER"); 
+          } else {
+            bestLocation = googleResult;
+            console.log("GOOGLE"); 
+          }
+        } else if (browserResult) {
+          bestLocation = browserResult;
+          console.log("BROWSER"); 
+        } else if (googleResult) {
+          bestLocation = googleResult;
+          console.log("GOOGLE"); 
+        }
+        if (bestLocation) {
+          setUserCoordinates(bestLocation);
+        } else {
+          setError("Unable to fetch geolocation.");
+        }
+      };
+    }
+    fetchUserCoordinates();
+  }, [userInfo]);
+
+  useEffect(() => {
+    if (userCoordinates) {
+      const fetchAddress = async (latitude, longitude) => {
+        const apiKey = "AIzaSyDt7HBawUA_F4Nm8VGBbjh3Q67CKz_niSg";
+        try {
+          const response = await fetch(
+            `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`
+          );
+          const data = await response.json();
+          if (data.results && data.results.length > 0) {
+            console.log("Address fetched:", data.results[0].address_components); 
+            console.log("Coordinates fetched:", { latitude, longitude, }); 
+          } else {
+            console.error("No address found for the coordinates");
+          }
+        } catch (error) {
+          console.error("Error fetching address:", error);
+        }
+      };
+
+      fetchAddress(userCoordinates.latitude, userCoordinates.longitude);
+    }
+  }, [userCoordinates]); 
+
+  const getGeolocationFromGoogle = async () => {
+    try {
+      const response = await fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDt7HBawUA_F4Nm8VGBbjh3Q67CKz_niSg`, {
+        method: 'POST',
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to fetch location from Google API");
+      }
+  
+      const data = await response.json();
+      return {
+        latitude: data.location.lat,
+        longitude: data.location.lng,
+        accuracy: data.accuracy || 1111, // za slucaj da ne vrati accuracy
+      };
+    } catch (error) {
+      console.error("Error fetching geolocation from Google API:", error);
+      return null;
+    }
+  };
+
+  const getGeolocationFromBrowser = () => {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude, accuracy } = position.coords;
+          resolve({ latitude, longitude, accuracy });
+        },
+        (error) => {
+          reject("Error fetching geolocation from browser:", error);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        }
+      );
+    });
+  };
+  
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserInfo([]);  // razrješiti čuvanja podataka o prošlom logiranom korisniku
@@ -42,8 +141,6 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
         navigate("/");
     });
   };
-
-
 
   return (
       <div className="profile-container">
