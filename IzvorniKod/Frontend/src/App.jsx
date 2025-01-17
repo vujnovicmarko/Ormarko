@@ -15,6 +15,7 @@ import MarketerGallery from "./Marketer/MarketerGallery.jsx";
 import AddArticle from "./Marketer/AddArticle.jsx";
 import AdvertiserGallery from "./Home/AdvertiserGallery.jsx";
 import AdvertisersList from "./Home/AdvertisersList.jsx";
+import ClosetSearchPage from "./Search/ClosetSearchPage.jsx";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -76,6 +77,10 @@ export default function App() {
           <Route
               path="/add-article"
               element={<AddArticle />}
+          />
+          <Route
+              path="/closet-search"
+              element={<ClosetSearchPage />}
           />
           <Route path="/advertisers" element={<AdvertisersList />} />
           <Route

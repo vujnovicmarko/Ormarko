@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
-import SearchBar from "./SearchBar.jsx";
+import ClosetSearchBar from "./ClosetSearchBar.jsx";
 
 export default function ClosetsHeader() {
     return (
@@ -10,6 +10,7 @@ export default function ClosetsHeader() {
                     <img className="logo" src="../OrmarkoLogo.png" alt="Logo" />
                 </Link>
             </div>
+            <ClosetSearchBar />
             <div className="headerbtndiv">
                 <Link to="/closets">
                     <button className="headerbtn">Moji Ormari</button>
