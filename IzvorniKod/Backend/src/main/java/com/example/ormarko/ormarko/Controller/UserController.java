@@ -2,6 +2,7 @@ package com.example.ormarko.ormarko.Controller;
 
 import com.example.ormarko.ormarko.Model.*;
 import com.example.ormarko.ormarko.Service.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
 import org.springframework.data.util.Pair;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -215,28 +216,43 @@ public class UserController {
 
 
     @PostMapping("/profile/localSearch")
-    public List<ArticleUser> localSearch(Authentication authentication, @RequestBody Map<String, String[]> body){
+    public Pair<List<ArticleUser>, List<Pair<Integer, Integer>>> localSearch(Authentication authentication, @RequestBody Map<String, String[]> body){
 
         log.info("Received POST request to /profile/localSearch!");
         log.info("Body: " + body);
 
         String username = authentication.getName();
-        //User user = userService.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-//        ArticleCategory category = ArticleCategory.valueOf(body.get("kategorija"));
-//        ArticleSeason season = ArticleSeason.valueOf(body.get("godisnjeDoba"));
-//        ArticleOpen openness = ArticleOpen.valueOf(body.get("otvorenost"));
-//        ArticleCasual casual = ArticleCasual.valueOf(body.get("lezernost"));
-//        ArticleColor color = ArticleColor.valueOf(body.get("boja"));
 
-        //Set<ArticleUser> articles = new HashSet<>();
         List<ArticleUser> articles = closetService.findAllClosetsForUser(username).stream()
                 .map(closet -> locationService.findAllLocationsForCloset(closet.getClosetId()))
                 .flatMap(List::stream)
                 .map(location -> articleService.findAllArticlesForLocation(location.getLocationId()))
                 .flatMap(List::stream)
+                .sorted()
                 .toList();
 
-        return userService.filter(articles, body);
+        List<Integer> locationIds = articles.stream().map(ArticleUser::getLocationId).sorted().toList();
+        List<Integer> closetIds = locationIds.stream().map(id -> locationService.findLocationById(id).getClosetId()).sorted().toList();
+
+        List<Integer> allClosetIds = closetService.findAllClosetsForUser(username).stream().map(Closet::getClosetId).toList();
+        List<Integer> allLocationIds = closetService.findAllClosetsForUser(username).stream()
+                .map(closet -> locationService.findAllLocationsForCloset(closet.getClosetId()))
+                .flatMap(List::stream)
+                .map(Location::getLocationId)
+                .sorted()
+                .toList();
+
+        locationIds = locationIds.stream().map(allLocationIds::indexOf).toList();
+        closetIds = closetIds.stream().map(allClosetIds::indexOf).toList();
+
+        List<Pair<Integer, Integer>> pairs = new ArrayList<>();
+        for(int i = 0; i < locationIds.size(); i++){
+            pairs.add(Pair.of(closetIds.get(i), locationIds.get(i)));
+        }
+
+        articles = userService.filter(articles, body);
+
+        return Pair.of(articles, pairs);
     }
 
 }
