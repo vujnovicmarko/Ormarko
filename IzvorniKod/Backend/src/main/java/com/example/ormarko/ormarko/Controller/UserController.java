@@ -5,6 +5,7 @@ import com.example.ormarko.ormarko.Service.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
 import org.springframework.data.util.Pair;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -280,4 +281,12 @@ public class UserController {
         return Pair.of(articles, pairs);
     }
 
+    @PostMapping("/updateGeolocation")
+    public ResponseEntity<User> updateLocation(@RequestBody Map<String, String> requestBody, Authentication authentication) {
+        String city = requestBody.get("city");
+        String country = requestBody.get("country");
+        String username = authentication.getName();
+        User updatedUser = userService.updateUserLocation(city, country, username);
+        return ResponseEntity.ok(updatedUser);
+    }
 }

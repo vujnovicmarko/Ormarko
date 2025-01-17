@@ -2,6 +2,7 @@ package com.example.ormarko.ormarko.Service;
 
 import com.example.ormarko.ormarko.CustomUser;
 import com.example.ormarko.ormarko.Model.ArticleUser;
+import com.example.ormarko.ormarko.Model.Closet;
 import com.example.ormarko.ormarko.Model.User;
 import com.example.ormarko.ormarko.Repository.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,6 +25,13 @@ public class UserService implements UserDetailsService {
 
     public Optional<User> findByUsername(String username) {
         return repository.findByUsername(username);
+    }
+
+    public User updateUserLocation(String city, String country, String username) {
+        User user = repository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        user.setCountry(country);
+        user.setCity(city);
+        return repository.save(user);
     }
 
     @Override
