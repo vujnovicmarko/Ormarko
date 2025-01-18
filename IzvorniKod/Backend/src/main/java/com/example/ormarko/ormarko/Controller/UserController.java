@@ -229,17 +229,27 @@ public class UserController {
                 .flatMap(List::stream)
                 .map(location -> articleService.findAllArticlesForLocation(location.getLocationId()))
                 .flatMap(List::stream)
+                .sorted(Comparator.comparing(ArticleUser::getArticleId))
+                .toList();
+
+        List<Integer> locationIds = articles.stream()
+                .map(ArticleUser::getLocationId)
                 .sorted()
                 .toList();
 
-        List<Integer> locationIds = articles.stream().map(ArticleUser::getLocationId).sorted().toList();
-        List<Integer> closetIds = locationIds.stream().map(id -> locationService.findLocationById(id).getClosetId()).sorted().toList();
+        List<Integer> closetIds = locationIds.stream()
+                .map(id -> locationService.findLocationById(id).getClosetId())
+                .sorted()
+                .toList();
 
-        List<Integer> allClosetIds = closetService.findAllClosetsForUser(username).stream().map(Closet::getClosetId).toList();
+        List<Integer> allClosetIds = closetService.findAllClosetsForUser(username).stream()
+                .map(Closet::getClosetId)
+                .toList();
+
         List<List<Location>> allLocationByClosetForGivenArticle = locationIds.stream()
                 .map(id -> locationService.findLocationById(id).getClosetId())
                 .map(locationService::findAllLocationsForCloset)
-                .map(list -> list.stream().sorted().toList())
+                .map(list -> list.stream().sorted(Comparator.comparing(Location::getLocationId)).toList())
                 .toList();
 
 
