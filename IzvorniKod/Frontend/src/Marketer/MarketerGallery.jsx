@@ -61,7 +61,7 @@ export default function MarketerGallery() {
                            />
                             <h3>{article.title}</h3>
                             <h5>{article.category}</h5>
-                            <h5>{article.price} eur</h5>
+                            <h5>{article.price} EUR</h5>
                             <button
                                 className="delete-btn"
                                 onClick={() => handleDeleteArticle(article.articleId)}

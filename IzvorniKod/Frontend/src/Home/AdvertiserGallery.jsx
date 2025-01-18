@@ -45,7 +45,7 @@ export default function AdvertiserGallery() {
                             className="article-image"
                         />
                         <h3>{article.title}</h3>
-                        <p>{article.price} HRK</p>
+                        <p>{article.price} EUR</p>
                     </div>
                 ))}
             </div>

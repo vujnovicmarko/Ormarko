@@ -128,14 +128,19 @@ export default function RegisterMarketer() {
                         </label>
                     </div>
                     <div>
-                    <label>
-                        Logo: <span className="required"></span>
-                        <input
-                            type="file"
-                            onChange={handleFileChange}
-                        />
-                    </label>
+                        <label className="file-label">
+                            Odaberi logo
+                            <input
+                                type="file"
+                                onChange={handleFileChange}
+                                required
+                            />
+                        </label>
+                        {formData.logo && (
+                            <p className="file-name">Datoteka odabrana</p>
+                        )}
                     </div>
+
                     <button type="submit">Registriraj se kao oglašivač</button>
                 </form>
             </div>

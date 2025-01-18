@@ -67,6 +67,7 @@ h2 {
     cursor: pointer;
     transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
     box-shadow: 0 3px 6px rgba(185, 126, 105, 0.3);
+    margin-top: 15px;
 }
 
 .registration-form button[type="submit"]:hover {
@@ -78,4 +79,63 @@ h2 {
 .registration-form button[type="submit"]:active {
     transform: translateY(0);
     box-shadow: 0 2px 5px rgba(185, 126, 105, 0.3);
+}
+
+
+.registration-form input[type="file"] {
+    padding: 0.75rem;
+    border: none;
+    background: #F3F4F6;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: box-shadow 0.3s, border 0.3s;
+    width: 100%;
+    cursor: pointer;
+}
+
+.registration-form input[type="file"]:focus {
+    border: 2px solid #b97e69;
+    box-shadow: 0 0 5px rgba(185, 126, 105, 0.5);
+}
+
+
+.registration-form .file-label {
+    display: inline-block;
+    padding: 0.75rem;
+    background: linear-gradient(135deg, #d9a48f, #b97e69);
+    color: #FFFFFF;
+    border-radius: 8px;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 3px 6px rgba(185, 126, 105, 0.3);
+    margin-top: 0.5rem;
+}
+
+.registration-form .file-label:hover {
+    background: linear-gradient(135deg, #b97e69, #a06754);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(185, 126, 105, 0.4);
+}
+
+.registration-form .file-label:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(185, 126, 105, 0.3);
+}
+
+
+.registration-form input[type="file"] {
+    display: none;
+}
+
+
+.registration-form .file-name {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    color: #4B5563;
+    font-weight: 500;
+
 }

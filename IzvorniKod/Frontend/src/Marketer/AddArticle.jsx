@@ -76,8 +76,9 @@ export default function AddArticle() {
                     <div className="form-group">
                         <label>
                             Kategorija:
+                        </label>
                             <select name="category" value={formData.category} onChange={handleChange} required>
-                                <option value="">Select a category</option>
+                                <option value="">Odaberi kategoriju</option>
                                 <option value="MAJICA">MAJICA</option>
                                 <option value="KOŠULJA">KOŠULJA</option>
                                 <option value="TRENIRKA_GORNJI_DIO">TRENIRKA GORNJI DIO</option>
@@ -92,7 +93,7 @@ export default function AddArticle() {
                                 <option value="JAKNA">JAKNA</option>
                                 <option value="KAPUT">KAPUT</option>
                             </select>
-                        </label>
+
                     </div>
                     <div className="form-group">
                         <label htmlFor="price">Cijena:</label>
@@ -107,12 +108,13 @@ export default function AddArticle() {
                     </div>
                     <div className="form-group">
                         <label>
-                            Slika: <span className="required">*</span>
+                            Slika: </label>
                             <input
                                 type="file"
                                 onChange={handleFileChange}
+                                required
                             />
-                        </label>
+
                     </div>
 
                     <button type="submit" className="add-article-btn">
