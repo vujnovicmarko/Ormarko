@@ -34,7 +34,7 @@ export default function MarketerGallery() {
             });
             if (response.ok) {
                 setArticles((prevArticles) =>
-                    prevArticles.filter((article) => article.id !== articleId)
+                    prevArticles.filter((article) => article.articleId !== articleId)
                 );
             } else {
                 console.error("Failed to delete article");
@@ -51,11 +51,20 @@ export default function MarketerGallery() {
                 {articles.length > 0 ? (
                     articles.map((article) => (
                         <div className="gallery-item" key={article.id}>
-                            {/*dok ne nađemo način prikazivanja slika  <img src={`data:image/jpeg;base64,${article.img}`} alt={article.title} />*/}
+                           <img
+                               src={
+                                   article.img
+                                       ? `data:image/png;base64,${article.img}`
+                                       : "../Toolbar/OrmarkoLogo.png"
+                               }
+                               alt={article.title}
+                           />
                             <h3>{article.title}</h3>
+                            <h5>{article.category}</h5>
+                            <h5>{article.price} eur</h5>
                             <button
                                 className="delete-btn"
-                                onClick={() => handleDeleteArticle(article.id)}
+                                onClick={() => handleDeleteArticle(article.articleId)}
                             >
                                 &#x2716; {/* Unicode za X */}
                             </button>

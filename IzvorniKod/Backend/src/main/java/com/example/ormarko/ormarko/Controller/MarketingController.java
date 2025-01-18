@@ -50,7 +50,7 @@ public class MarketingController {
         var marketer = marketerService.findByUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Advertiser not found"));
 
-        List<?> articles = articleService.getArticlesWithEncodedImages(username);
+        List<?> articles = articleService.getArticlesByMarketer(username);
         return Map.of(
                 "username", marketer.getUsername(),
                 "email", marketer.geteMail(),

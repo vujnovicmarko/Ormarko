@@ -7,38 +7,36 @@ export default function AddArticle() {
     const [formData, setFormData] = useState({
         title: "",
         category: "",
-        price: ""
-        //img: null,
+        price: "",
+        img: ""
     });
 
     const navigate = useNavigate();
-/*
+
     const handleChange = (e) => {
-        const { name, value, files } = e.target;
-        if (name === "img") {
-            setFormData({ ...formData, img: files[0] });
-        } else {
-            setFormData({ ...formData, [name]: value });
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    };
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setFormData({
+                    ...formData,
+                    img: reader.result.split(",")[1],
+                });
+            };
+            reader.readAsDataURL(file);
         }
     };
-*/
-
-
-const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        //const formDataToSend = new FormData();
-       // formDataToSend.append("title", formData.title);
-        //formDataToSend.append("category", formData.category);
-       // formDataToSend.append("price", formData.price);
-       // formDataToSend.append("img", formData.img);
 
         try {
             const response = await fetch("/api/marketer/gallery/add-article", {
@@ -49,8 +47,7 @@ const handleChange = (e) => {
             });
 
             if (response.ok) {
-
-                navigate("/marketer-gallery"); // Redirekt na MarketerGallery
+                navigate("/marketer-gallery");
             } else {
                 alert("Greška prilikom dodavanja artikla.");
             }
@@ -76,10 +73,10 @@ const handleChange = (e) => {
                             required
                         />
                     </div>
-                    <div>
-                            <label>
-                              Kategorija:
-                              <select name="category" value={formData.category} onChange={handleChange} required>
+                    <div className="form-group">
+                        <label>
+                            Kategorija:
+                            <select name="category" value={formData.category} onChange={handleChange} required>
                                 <option value="">Select a category</option>
                                 <option value="MAJICA">MAJICA</option>
                                 <option value="KOŠULJA">KOŠULJA</option>
@@ -94,9 +91,9 @@ const handleChange = (e) => {
                                 <option value="SUKNJA">SUKNJA</option>
                                 <option value="JAKNA">JAKNA</option>
                                 <option value="KAPUT">KAPUT</option>
-                              </select>
-                            </label>
-                          </div>
+                            </select>
+                        </label>
+                    </div>
                     <div className="form-group">
                         <label htmlFor="price">Cijena:</label>
                         <input
@@ -108,18 +105,15 @@ const handleChange = (e) => {
                             required
                         />
                     </div>
-                    {/*
-                   <div className="form-group">
-                        <label htmlFor="img">Slika Artikla:</label>
-                        <input
-                            type="text"
-                            id="img"
-                            name="img"
-                            onChange={handleChange}
-                            required
-                        />
+                    <div className="form-group">
+                        <label>
+                            Slika: <span className="required">*</span>
+                            <input
+                                type="file"
+                                onChange={handleFileChange}
+                            />
+                        </label>
                     </div>
-                    */}
 
                     <button type="submit" className="add-article-btn">
                         Dodaj Artikl

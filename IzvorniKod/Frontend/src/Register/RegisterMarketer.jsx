@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./RegisterMarketer.css"; // Dodajte stilove za ovu komponentu
+import "./RegisterMarketer.css";
 import Header from "../Header/MinimalHeaderReg";
 
 export default function RegisterMarketer() {
@@ -19,14 +19,50 @@ export default function RegisterMarketer() {
         });
     };
 
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement("canvas");
+                    const maxSize = 100;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > maxSize) {
+                            height *= maxSize / width;
+                            width = maxSize;
+                        }
+                    } else {
+                        if (height > maxSize) {
+                            width *= maxSize / height;
+                            height = maxSize;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+
+                    const resizedBase64 = canvas.toDataURL("image/png").split(",")[1];
+                    setFormData({
+                        ...formData,
+                        logo: resizedBase64,
+                    });
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const dataToSend = {
-              username: formData.username,
-              eMail: formData.email, // Backend očekuje "eMail"
-              pass: formData.password, // Backend očekuje "pass"
-              logo: formData.logo
-            };
+        console.log("Submitting formData:", formData);
 
         try {
             const response = await fetch("/api/signup/marketer", {
@@ -37,16 +73,15 @@ export default function RegisterMarketer() {
             });
 
             if (response.ok) {
-
-                navigate("/marketer-profile"); // Redirekt na profil oglašivača
+                navigate("/marketer-profile");
             } else {
                 const errorData = await response.json();
                 const errorMessage = errorData.error || "Registration failed. Please try again.";
                 alert(errorMessage);
             }
         } catch (error) {
-            console.error("Greška pri registraciji:", error);
-            alert("Dogodila se neočekivana greška. Pokušajte ponovo.");
+            console.error("Error during registration:", error);
+            alert("An unexpected error occurred. Please try again.");
         }
     };
 
@@ -93,16 +128,13 @@ export default function RegisterMarketer() {
                         </label>
                     </div>
                     <div>
-                        <label>
-                            Logo:
-                            <input
-                                type="logo"
-                                name="logo"
-                                value={formData.logo}
-                                onChange={handleChange}
-                                required
-                            />
-                        </label>
+                    <label>
+                        Logo: <span className="required"></span>
+                        <input
+                            type="file"
+                            onChange={handleFileChange}
+                        />
+                    </label>
                     </div>
                     <button type="submit">Registriraj se kao oglašivač</button>
                 </form>

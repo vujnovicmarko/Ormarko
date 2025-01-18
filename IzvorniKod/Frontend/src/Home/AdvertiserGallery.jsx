@@ -40,7 +40,7 @@ export default function AdvertiserGallery() {
                 {articles.map((article, index) => (
                     <div className="article-card" key={index}>
                         <img
-                            src={`data:image/jpeg;base64,${article.img}`}
+                            src={`data:image/png;base64,${article.img}`}
                             alt={article.title}
                             className="article-image"
                         />

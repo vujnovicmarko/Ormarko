@@ -49,10 +49,11 @@ export default function AdvertisersList() {
                             key={index}
                         >
                             <img
-                                src={`data:image/jpeg;base64,${advertiser.logo}`}
+                                src={`data:image/png;base64,${advertiser.logo}`}
                                 alt={`${advertiser.username} logo`}
                                 className="advertiser-logo"
                             />
+
                             <p className="advertiser-username">
                                 {advertiser.username}
                             </p>

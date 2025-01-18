@@ -43,15 +43,13 @@ public class MarketerController {
         );
     }
 
-
-
     @GetMapping("/gallery")
-    public ResponseEntity<List<Map<String, Object>>> getMarketerGallery(Authentication authentication) {
+    public ResponseEntity<List<ArticleMarketing>> getMarketerGallery(Authentication authentication) {
         String username = authentication.getName();
         Marketer marketer = marketerService.findByUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Marketer not found"));
 
-        List<Map<String, Object>> articles = articleService.getArticlesByMarketer(username);
+        List<ArticleMarketing> articles = articleService.getArticlesByMarketer(username);
         return ResponseEntity.ok(articles);
     }
 
@@ -62,9 +60,6 @@ public class MarketerController {
         String username = authentication.getName();
         Marketer marketer = marketerService.findByUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Marketer not found"));
-
-        //byte[] hardcodedImage = new byte[]{(byte) 0x89, (byte) 0x50, (byte) 0x4E, (byte) 0x47, (byte) 0x0D, (byte) 0x0A};
-        //article.setImg(hardcodedImage);
         article.setArticleMarketer(username);
         ArticleMarketing savedArticle = articleService.saveArticle(article);
         return ResponseEntity.ok(savedArticle);

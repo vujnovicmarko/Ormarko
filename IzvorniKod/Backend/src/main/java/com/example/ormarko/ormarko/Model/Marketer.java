@@ -23,6 +23,7 @@ public class Marketer {
         @JsonProperty("email")
         private String eMail;
 
+        @Column(name = "logo")
         private byte[] logo;
 
 
