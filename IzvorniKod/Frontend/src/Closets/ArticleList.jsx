@@ -1,7 +1,7 @@
 import React from "react";
 import "./ArticleList.css"; // Ensure to create or update the CSS file
 
-export default function ArticleList({ articles, setShowArticleModal, onArticleClick }) {
+export default function ArticleList({ articles, setShowArticleModal, onArticleClick, highlightedArticle }) {
     return (
         <div className="articles-section">
             <h3>Artikli</h3>
@@ -10,7 +10,9 @@ export default function ArticleList({ articles, setShowArticleModal, onArticleCl
                 {articles.map((article) => (
                     <div
                         key={article.articleId}
-                        className="article-item"
+                        className={`article-item ${
+                            article.articleId === highlightedArticle ? "highlight" : ""
+                        }`}
                         onClick={() => onArticleClick(article)}
                     >
                         <img

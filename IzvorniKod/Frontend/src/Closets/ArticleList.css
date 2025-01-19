@@ -68,3 +68,34 @@
     color: #4B5563;
     margin-top: 0;
 }
+
+.article-item {
+    padding: 1rem;
+    border: 1px solid #ccc;
+    margin: 0.5rem;
+    border-radius: 8px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.article-item.highlight {
+    background-color: #fffae6; /* Light yellow highlight */
+    border-color: #ffcc00; /* Yellow border */
+    animation: fadeIn 0.5s ease-in-out;
+    transform: scale(1.05); /* Slightly enlarge the article */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes jumpHighlight {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        transform: scale(1.1); /* Bigger jump */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+    100% {
+        transform: scale(1.05); /* Settle to slightly enlarged */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+}

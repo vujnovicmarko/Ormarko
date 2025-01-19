@@ -49,7 +49,8 @@ export default function ClosetsPage() {
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [isArticleModalOpen, setIsArticleModalOpen] = useState(false);
     const location = useLocation();
-    const { closetIndex, locationIndex } = location.state || {};
+    const { closetIndex, locationIndex, articleId } = location.state || {};
+    const [highlightedArticle, setHighlightedArticle] = useState(null);
 
     // Handle closetIndex from location.state
     useEffect(() => {
@@ -70,6 +71,19 @@ export default function ClosetsPage() {
             }
         }
     }, [locationIndex, locations]);
+
+    useEffect(() => {
+        if (articleId && articles.length > 0) {
+            setHighlightedArticle(articleId);
+        }
+    }, [articleId, articles]);
+
+    useEffect(() => {
+        return () => {
+            setHighlightedArticle(null);
+        };
+    }, [selectedCloset, selectedLocation]);
+
 
     const handleArticleClick = (article) => {
         setSelectedArticle(article);
@@ -195,7 +209,11 @@ export default function ClosetsPage() {
         console.log("Selected location:", location);
         console.log("Selected Location ID:", selectedLocation?.locationId);
         setSelectedLocation(location);
-        fetchArticles(location.locationId);
+        fetchArticles(location.locationId).then(() => {
+            if (articleId) {
+                setHighlightedArticle(articleId); // Ensure article is highlighted after articles load
+            }
+        });
     };
 
     // Delete a closet
@@ -292,6 +310,7 @@ export default function ClosetsPage() {
                         articles={articles}
                         setShowArticleModal={setShowArticleModal}
                         onArticleClick={handleArticleClick}
+                        highlightedArticle={highlightedArticle}
                     />
                 )}
                 {isArticleModalOpen && selectedArticle && (

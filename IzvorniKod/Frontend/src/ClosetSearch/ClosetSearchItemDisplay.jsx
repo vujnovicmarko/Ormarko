@@ -57,7 +57,7 @@ export default function ClosetSearchItemDisplay({ products, onJumpToLocation }) 
                                 className="jump-button"
                                 onClick={(e) => {
                                     e.stopPropagation(); // Prevent triggering the modal
-                                    onJumpToLocation(closetIndex, locationIndex);
+                                    onJumpToLocation(closetIndex, locationIndex, product.articleId);
                                 }}
                             >
                                 Skoči na lokaciju

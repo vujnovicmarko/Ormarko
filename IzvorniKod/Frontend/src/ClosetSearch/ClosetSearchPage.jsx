@@ -50,8 +50,8 @@ export default function ClosetSearchPage() {
         fetchClosetSearchResults();
     }, [filters]);
 
-    const handleJumpToLocation = (closetIndex, locationIndex) => {
-        navigate("/closets", { state: { closetIndex, locationIndex } });
+    const handleJumpToLocation = (closetIndex, locationIndex, articleId) => {
+        navigate("/closets", { state: { closetIndex, locationIndex, articleId } });
     };
 
     return (
