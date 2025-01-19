@@ -8,6 +8,7 @@ import DeleteLocationModal from "./DeleteLocationModal.jsx";
 import ArticleModal from "./ArticleModal";
 import ArticleList from "./ArticleList";
 import "./ClosetsPage.css";
+import {useLocation} from "react-router-dom";
 
 export default function ClosetsPage() {
     const [closets, setClosets] = useState([]);
@@ -47,6 +48,23 @@ export default function ClosetsPage() {
     ];
     const [selectedArticle, setSelectedArticle] = useState(null);
     const [isArticleModalOpen, setIsArticleModalOpen] = useState(false);
+    const location = useLocation();
+    const { closetIndex, locationIndex } = location.state || {};
+    useEffect(() => {
+        if (closetIndex != null) {
+            const targetCloset = closets[closetIndex];
+            if (targetCloset) {
+                handleSelectCloset(targetCloset);
+
+                if (locationIndex != null) {
+                    const targetLocation = locations[locationIndex];
+                    if (targetLocation) {
+                        handleSelectLocation(targetLocation);
+                    }
+                }
+            }
+        }
+    }, [closetIndex, locationIndex, closets, locations]);
 
     const handleArticleClick = (article) => {
         setSelectedArticle(article);
@@ -206,6 +224,10 @@ export default function ClosetsPage() {
                 credentials: "include",
             });
             if (!response.ok) throw new Error("Failed to delete location");
+            if (selectedLocation && selectedLocation.locationId === locationId) {
+                setSelectedLocation(null);
+                setArticles([]);
+            }
             // Update the locations list after deletion
             if (selectedCloset) await fetchLocations(selectedCloset.closetId);
         } catch (err) {

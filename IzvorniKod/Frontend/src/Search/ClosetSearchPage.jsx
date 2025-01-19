@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ClosetsHeader from "../Header/ClosetsHeader";
-import SearchItemDisplay from "./SearchItemDisplay.jsx";
+import ClosetSearchItemDisplay from "./ClosetSearchItemDisplay.jsx";
 
 export default function ClosetSearchPage() {
     const location = useLocation();
     const filters = location.state?.filters || {};
+    const navigate = useNavigate();
     const [products, setProducts] = useState([]);
-    const [positions, setPositions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -38,7 +38,6 @@ export default function ClosetSearchPage() {
                     }))
                     : [];
 
-
                 setProducts(combinedData);
             } catch (err) {
                 console.error("Error fetching closet search results:", err);
@@ -51,6 +50,10 @@ export default function ClosetSearchPage() {
         fetchClosetSearchResults();
     }, [filters]);
 
+    const handleJumpToLocation = (closetIndex, locationIndex) => {
+        navigate("/closets", { state: { closetIndex, locationIndex } });
+    };
+
     return (
         <div className="search-page">
             <ClosetsHeader />
@@ -58,7 +61,12 @@ export default function ClosetSearchPage() {
                 <h2>Search Results in Your Closet</h2>
                 {loading && <p>Loading products...</p>}
                 {error && <p className="error-message">{error}</p>}
-                {!loading && !error && <SearchItemDisplay products={products} />}
+                {!loading && !error && (
+                    <ClosetSearchItemDisplay
+                        products={products}
+                        onJumpToLocation={handleJumpToLocation}
+                    />
+                )}
             </div>
         </div>
     );

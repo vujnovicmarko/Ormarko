@@ -93,7 +93,7 @@ export default function ClosetSearchBar() {
                 <input
                     className="searchinput"
                     type="text"
-                    placeholder="Pretraži artikle"
+                    placeholder="Pretraži ormare"
                     onClick={() => setShowFilters(!showFilters)}
                 />
                 <button className="searchbtn" type="submit">

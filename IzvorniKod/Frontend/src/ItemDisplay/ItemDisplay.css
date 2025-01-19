@@ -58,6 +58,21 @@
     margin: 0;
     padding: 0;
 }
+.jump-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.jump-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
 
 @media (max-width: 768px) {
     .itemdisplay {
