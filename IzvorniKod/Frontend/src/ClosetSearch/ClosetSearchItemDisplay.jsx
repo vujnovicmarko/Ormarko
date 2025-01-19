@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../ItemDisplay/ItemDisplay.css";
-import Modal from "../ItemDisplay/Modal";
+import Modal from "../ItemDisplay/Modal.jsx";
 
 export default function ClosetSearchItemDisplay({ products, onJumpToLocation }) {
     const [selectedItem, setSelectedItem] = useState(null);
@@ -54,7 +54,7 @@ export default function ClosetSearchItemDisplay({ products, onJumpToLocation }) 
                 ))}
             </div>
             {isModalOpen && selectedItem && (
-                <Modal item={selectedItem} onClose={handleCloseModal} />
+                <Modal item={selectedItem} onClose={handleCloseModal} showContact={false}/>
             )}
         </div>
     );

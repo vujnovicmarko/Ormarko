@@ -114,6 +114,33 @@ h2 {
     box-shadow: 0 2px 5px rgba(185, 126, 105, 0.3);
 }
 
+.password-container {
+    position: relative;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.input-container input {
+    padding-right: 2rem; /* Space for the eye icon */
+}
+
+.eye-icon {
+    position: absolute;
+    right: 0.5rem;
+    cursor: pointer;
+    color: #555;
+    font-size: 1.2rem;
+}
+
+.eye-icon:hover {
+    color: #000;
+}
+
+
 @media (max-width: 600px) {
     .registration-form {
         max-width: 90%;

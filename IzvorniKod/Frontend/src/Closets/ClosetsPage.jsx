@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ClosetsHeader from "../Header/ClosetsHeader.jsx";
+import ClosetsHeader from "../ClosetsHeader/ClosetsHeader.jsx";
 import ClosetList from "./ClosetList";
 import LocationList from "./LocationList";
 import AddArticleModal from "./AddArticleModal";

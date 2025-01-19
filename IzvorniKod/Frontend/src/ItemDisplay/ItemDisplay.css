@@ -6,6 +6,10 @@
     margin-top: 80px;
 }
 
+.loader {
+
+}
+
 .item {
     display: flex;
     flex-direction: column;

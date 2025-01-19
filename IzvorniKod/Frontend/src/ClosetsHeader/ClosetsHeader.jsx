@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./Header.css";
+import "../Header/Header.css";
 import ClosetSearchBar from "./ClosetSearchBar.jsx";
 
 export default function ClosetsHeader() {

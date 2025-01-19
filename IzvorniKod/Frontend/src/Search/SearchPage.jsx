@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import Header from "../Header/Header.jsx";
 import LoggedInHeader from "../Header/LoggedInHeader";
 import SearchItemDisplay from "./SearchItemDisplay.jsx";
+import Loader from "./Loader.jsx";
 
 export default function SearchPage({ isLoggedIn }) {
     const location = useLocation();
@@ -49,7 +50,7 @@ export default function SearchPage({ isLoggedIn }) {
             {isLoggedIn ? <LoggedInHeader /> : <Header />}
             <div className="search-results">
                 <h2>Search Results</h2>
-                {loading && <p>Loading products...</p>}
+                {loading ? <Loader /> : null}
                 {error && <p className="error-message">{error}</p>}
                 {!loading && !error && <SearchItemDisplay products={products} />}
             </div>

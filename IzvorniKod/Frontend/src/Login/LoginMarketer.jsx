@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"; // Import eye icons
 import "./LoginMarketer.css";
 import Header from "../Header/MinimalHeaderLog";
 
@@ -8,6 +9,7 @@ export default function LoginMarketer({ setIsLoggedIn }) {
         username: "",
         password: "",
     });
+    const [passwordRevealed, setPasswordRevealed] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -19,24 +21,18 @@ export default function LoginMarketer({ setIsLoggedIn }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const dataToSend = {
-          username: formData.username,
-          pass: formData.password // Backend očekuje "pass"
-
-        };
 
         try {
-            const response = await fetch("/api/login/marketer", {
+            const response = await fetch("/api/login-marketer", {
                 method: "POST",
-                headers: { "Content-Type": "application/json"  },
-                body: JSON.stringify(dataToSend),
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData),
                 credentials: "include",
             });
 
             if (response.ok) {
                 setIsLoggedIn(true);
-                navigate("/marketer-profile");
-                console.log("Login successful");
+                navigate("/marketer-dashboard");
             } else {
                 const errorData = await response.json();
                 alert(
@@ -54,7 +50,7 @@ export default function LoginMarketer({ setIsLoggedIn }) {
             <Header />
             <div className="main-container">
                 <div className="form-container">
-                    <h2>Prijava Oglašivača</h2>
+                    <h2>Prijava za Oglašivače</h2>
                     <form className="login-form" onSubmit={handleSubmit}>
                         <div>
                             <label>
@@ -68,20 +64,28 @@ export default function LoginMarketer({ setIsLoggedIn }) {
                                 />
                             </label>
                         </div>
-                        <div>
+                        <div className="password-container">
                             <label>
-                                   Lozinka:
-                                   <input
-                                        type="password"
+                                Lozinka:
+                                <div className="input-container">
+                                    <input
+                                        type={passwordRevealed ? "text" : "password"}
                                         name="password"
                                         value={formData.password}
                                         onChange={handleChange}
                                         required
-                                   />
-                                </label>
-
+                                    />
+                                    <div
+                                        title={passwordRevealed ? "Sakrij lozinku" : "Prikaži lozinku"}
+                                        className="eye-icon"
+                                        onClick={() => setPasswordRevealed(!passwordRevealed)}
+                                    >
+                                        {passwordRevealed ? <AiFillEye /> : <AiFillEyeInvisible />}
+                                    </div>
+                                </div>
+                            </label>
                         </div>
-                        <button type="submit">Prijavi se kao oglašivač</button>
+                        <button type="submit">Prijavi se</button>
                     </form>
                 </div>
             </div>

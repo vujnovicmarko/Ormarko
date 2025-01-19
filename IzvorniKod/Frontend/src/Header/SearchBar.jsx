@@ -14,41 +14,65 @@ export default function SearchBar() {
     });
 
     const categories = {
-        kategorija: [
-            "MAJICA",
-            "KOŠULJA",
-            "TRENIRKA_GORNJI_DIO",
-            "TRENIRKA_DONJI_DIO",
-            "TRAPERICE",
-            "CIPELE",
-            "TENISICE",
-            "ČIZME",
-            "ŠTIKLE",
-            "HALJINA",
-            "SUKNJA",
-            "JAKNA",
-            "KAPUT",
-        ],
-        godisnjeDoba: ["PROLJEĆE", "LJETO", "JESEN", "ZIMA"],
-        otvorenost: ["OTVORENO", "ZATVORENO", "KIŠA_SNIJEG"],
-        lezernost: ["ZA_DOMA", "SPORTSKO", "LEŽERNO", "RADNO", "SVEČANO"],
-        boja: [
-            "BIJELA",
-            "SIVA",
-            "CRNA",
-            "CRVENA",
-            "PLAVA",
-            "ŽUTA",
-            "ZELENA",
-            "LJUBIČASTA",
-            "NARANČASTA",
-            "SMEĐA",
-            "ROZA",
-            "BEŽ",
-        ],
+        kategorija: {
+            "Majica": "MAJICA",
+            "Košulja": "KOŠULJA",
+            "Trenirka gornji dio": "TRENIRKA_GORNJI_DIO",
+            "Trenirka donji dio": "TRENIRKA_DONJI_DIO",
+            "Traperice": "TRAPERICE",
+            "Cipele": "CIPELE",
+            "Tenisice": "TENISICE",
+            "Čizme": "ČIZME",
+            "Štikle": "ŠTIKLE",
+            "Haljina": "HALJINA",
+            "Suknja": "SUKNJA",
+            "Jakna": "JAKNA",
+            "Kaput": "KAPUT",
+        },
+        godisnjeDoba: {
+            "Proljeće": "PROLJEĆE",
+            "Ljeto": "LJETO",
+            "Jesen": "JESEN",
+            "Zima": "ZIMA",
+        },
+        otvorenost: {
+            "Otvoreno": "OTVORENO",
+            "Zatvoreno": "ZATVORENO",
+            "Kiša/Snijeg": "KIŠA_SNIJEG",
+        },
+        lezernost: {
+            "Za doma": "ZA_DOMA",
+            "Sportsko": "SPORTSKO",
+            "Ležerno": "LEŽERNO",
+            "Radno": "RADNO",
+            "Svečano": "SVEČANO",
+        },
+        boja: {
+            "Bijela": "BIJELA",
+            "Siva": "SIVA",
+            "Crna": "CRNA",
+            "Crvena": "CRVENA",
+            "Plava": "PLAVA",
+            "Žuta": "ŽUTA",
+            "Zelena": "ZELENA",
+            "Ljubičasta": "LJUBIČASTA",
+            "Narančasta": "NARANČASTA",
+            "Smeđa": "SMEĐA",
+            "Roza": "ROZA",
+            "Bež": "BEŽ",
+        },
     };
 
-    const handleInputChange = (category, value) => {
+    const categoryHeaders = {
+        kategorija: "Kategorija",
+        godisnjeDoba: "Godišnje doba",
+        otvorenost: "Otvorenost",
+        lezernost: "Ležernost",
+        boja: "Boja",
+    };
+
+    const handleInputChange = (category, label) => {
+        const value = categories[category][label]; // Get backend-compatible value
         setFilters((prev) => ({
             ...prev,
             [category]: prev[category].includes(value)
@@ -106,18 +130,16 @@ export default function SearchBar() {
                 <div className="filter-dropdown">
                     {Object.keys(categories).map((category) => (
                         <div key={category} className="filter-category">
-                            <h4>
-                                {category.charAt(0).toUpperCase() + category.slice(1)}
-                            </h4>
-                            {categories[category].map((option) => (
-                                <label key={option} className="filter-option">
+                            <h4>{categoryHeaders[category]}</h4>
+                            {Object.keys(categories[category]).map((label) => (
+                                <label key={label} className="filter-option">
                                     <input
                                         type="checkbox"
-                                        value={option}
-                                        checked={filters[category].includes(option)}
-                                        onChange={() => handleInputChange(category, option)}
+                                        value={label}
+                                        checked={filters[category].includes(categories[category][label])}
+                                        onChange={() => handleInputChange(category, label)}
                                     />
-                                    {option}
+                                    {label}
                                 </label>
                             ))}
                         </div>

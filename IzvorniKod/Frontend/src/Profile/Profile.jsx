@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ClosetsHeader from "../Header/ClosetsHeader";
+import ClosetsHeader from "../ClosetsHeader/ClosetsHeader.jsx";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
@@ -60,7 +60,7 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
         } else {
           setError("Unable to fetch geolocation.");
         }
-      };
+      }
     }
     fetchUserCoordinates();
   }, [userInfo]);

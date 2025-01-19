@@ -1,6 +1,6 @@
 import "./Modal.css";
 
-export default function Modal({ item, onClose }) {
+export default function Modal({ item, onClose, showContact = true }) {
   const {
     title,
     img,
@@ -28,9 +28,11 @@ export default function Modal({ item, onClose }) {
             className="modal-img"
         />
         <h2>{title}</h2>
-        <p>
-          <strong>Kontakt:</strong> {email}
-        </p>
+        {showContact && (
+            <p>
+              <strong>Kontakt:</strong> {email}
+            </p>
+        )}
         <p>
           <strong>Kategorija:</strong> {category}
         </p>

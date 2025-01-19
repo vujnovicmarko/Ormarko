@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
 import Header from "../Header/MinimalHeaderReg";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 export default function Register({ setIsLoggedIn }) {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ export default function Register({ setIsLoggedIn }) {
     password: "",
     email: "",
   });
+  const [passwordRevealed, setPasswordRevealed] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -118,16 +120,27 @@ export default function Register({ setIsLoggedIn }) {
               />
             </label>
           </div>
-          <div>
+          <div className="password-container">
             <label>
               Lozinka:
-              <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-              />
+              <div className="input-container">
+                <input
+                    type={passwordRevealed ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                />
+                <div
+                    className="eye-icon"
+                    onClick={() => setPasswordRevealed(!passwordRevealed)}
+                    title={
+                      passwordRevealed ? "Sakrij lozinku" : "Prikaži lozinku"
+                    }
+                >
+                  {passwordRevealed ? <AiFillEye /> : <AiFillEyeInvisible />}
+                </div>
+              </div>
             </label>
           </div>
           <button type="submit">Registriraj se</button>

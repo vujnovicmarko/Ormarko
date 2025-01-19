@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./RegisterMarketer.css";
 import Header from "../Header/MinimalHeaderReg";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 export default function RegisterMarketer() {
     const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ export default function RegisterMarketer() {
         password: "",
         logo: ""
     });
+    const [passwordRevealed, setPasswordRevealed] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -115,16 +117,27 @@ export default function RegisterMarketer() {
                             />
                         </label>
                     </div>
-                    <div>
+                    <div className="password-container">
                         <label>
                             Lozinka:
-                            <input
-                                type="password"
-                                name="pass"
-                                value={formData.pass}
-                                onChange={handleChange}
-                                required
-                            />
+                            <div className="input-container">
+                                <input
+                                    type={passwordRevealed ? "text" : "password"}
+                                    name="pass"
+                                    value={formData.pass}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <div
+                                    className="eye-icon"
+                                    onClick={() => setPasswordRevealed(!passwordRevealed)}
+                                    title={
+                                        passwordRevealed ? "Sakrij lozinku" : "Prikaži lozinku"
+                                    }
+                                >
+                                    {passwordRevealed ? <AiFillEye/> : <AiFillEyeInvisible/>}
+                                </div>
+                            </div>
                         </label>
                     </div>
                     <div>

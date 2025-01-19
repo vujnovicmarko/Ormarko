@@ -15,7 +15,7 @@ import MarketerGallery from "./Marketer/MarketerGallery.jsx";
 import AddArticle from "./Marketer/AddArticle.jsx";
 import AdvertiserGallery from "./Home/AdvertiserGallery.jsx";
 import AdvertisersList from "./Home/AdvertisersList.jsx";
-import ClosetSearchPage from "./Search/ClosetSearchPage.jsx";
+import ClosetSearchPage from "./ClosetSearch/ClosetSearchPage.jsx";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -30,7 +30,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
+        <Route
+            path="/"
+            element={<Home isLoggedIn={isLoggedIn} />} />
         <Route
           path="/login"
           element={<Login setIsLoggedIn={setIsLoggedIn} />}
@@ -45,16 +47,16 @@ export default function App() {
             <Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           }
         />
-        <Route path="/items" element={<ItemDisplay />} />
-        <Route path="/search"
-               element={
-                 <SearchPage isLoggedIn={isLoggedIn}/>
-               }
+        <Route
+            path="/items"
+            element={<ItemDisplay />} />
+        <Route
+            path="/search"
+            element={<SearchPage isLoggedIn={isLoggedIn}/>}
         />
-        <Route path="/closets"
-               element={
-                 <ClosetsPage isLoggedIn={isLoggedIn}/>
-               }
+        <Route
+            path="/closets"
+            element={<ClosetsPage isLoggedIn={isLoggedIn}/>}
         />
         <Route
             path="/register-marketer"
@@ -66,9 +68,7 @@ export default function App() {
         />
         <Route
             path="/marketer-profile"
-            element={
-                <MarketerProfile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-            }
+            element={<MarketerProfile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}
         />
         <Route
             path="/marketer-gallery"
@@ -82,7 +82,9 @@ export default function App() {
               path="/closet-search"
               element={<ClosetSearchPage />}
           />
-          <Route path="/advertisers" element={<AdvertisersList />} />
+          <Route
+              path="/advertisers"
+              element={<AdvertisersList />} />
           <Route
               path="/advertisers/:username/gallery"
               element={<AdvertiserGallery />}

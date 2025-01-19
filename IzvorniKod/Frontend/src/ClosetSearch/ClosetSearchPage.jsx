@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import ClosetsHeader from "../Header/ClosetsHeader";
+import ClosetsHeader from "../ClosetsHeader/ClosetsHeader.jsx";
 import ClosetSearchItemDisplay from "./ClosetSearchItemDisplay.jsx";
+import Loader from "../Search/Loader.jsx";
 
 export default function ClosetSearchPage() {
     const location = useLocation();
@@ -59,7 +60,7 @@ export default function ClosetSearchPage() {
             <ClosetsHeader />
             <div className="search-results">
                 <h2>Search Results in Your Closet</h2>
-                {loading && <p>Loading products...</p>}
+                {loading ? <Loader /> : null}
                 {error && <p className="error-message">{error}</p>}
                 {!loading && !error && (
                     <ClosetSearchItemDisplay
