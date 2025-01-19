@@ -84,7 +84,7 @@ public class UserController {
         if (userService.findByUsername(username).isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
 
-        return closetService.findAllClosetsForUser(username);
+        return closetService.findAllClosetsForUser(username).stream().sorted(Comparator.comparing(Closet::getClosetId)).toList();
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -113,7 +113,7 @@ public class UserController {
         if(!username.equals(closetService.findClosetById(id).getClosetOwner()))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Closet not found.");
 
-        return locationService.findAllLocationsForCloset(id);
+        return locationService.findAllLocationsForCloset(id).stream().sorted(Comparator.comparing(Location::getLocationId)).toList();
     }
 
 
@@ -144,7 +144,7 @@ public class UserController {
         if (!username.equals(closetService.findClosetById(locationService.findLocationById(id).getClosetId()).getClosetOwner()))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Location not found.");
 
-        return articleService.findAllArticlesForLocation(id);
+        return articleService.findAllArticlesForLocation(id).stream().sorted(Comparator.comparing(ArticleUser::getArticleId)).toList();
     }
 
 
@@ -206,7 +206,7 @@ public class UserController {
 //                }
 //        ).toList();
 
-        articles = userService.filter(articles, body);
+        articles = userService.filter(articles, body).stream().sorted(Comparator.comparing(ArticleUser::getArticleId)).toList();
         return Pair.of(articles, articles.stream()
                 .map(article -> locationService.findLocationById(article.getLocationId()))
                 .map(location -> closetService.findClosetById(location.getClosetId()))
@@ -217,7 +217,7 @@ public class UserController {
 
 
     @PostMapping("/profile/localSearch")
-    public Pair<List<ArticleUser>, List<Pair<Integer, Integer>>> localSearch(Authentication authentication, @RequestBody Map<String, String[]> body){
+    public Pair<List<ArticleUser>, List<Pair<Integer, LocationReturnData>>> localSearch(Authentication authentication, @RequestBody Map<String, String[]> body){
 
         log.info("Received POST request to /profile/localSearch!");
         log.info("Body: " + body);
@@ -232,19 +232,28 @@ public class UserController {
                 .sorted(Comparator.comparing(ArticleUser::getArticleId))
                 .toList();
 
+        articles = userService.filter(articles, body);
+
         List<Integer> locationIds = articles.stream()
                 .map(ArticleUser::getLocationId)
                 .sorted()
                 .toList();
+
+        log.info("LocationIds: " + locationIds);
 
         List<Integer> closetIds = locationIds.stream()
                 .map(id -> locationService.findLocationById(id).getClosetId())
                 .sorted()
                 .toList();
 
+        log.info("ClosetIds: " + closetIds);
+
         List<Integer> allClosetIds = closetService.findAllClosetsForUser(username).stream()
                 .map(Closet::getClosetId)
+                .sorted()
                 .toList();
+
+        log.info("AllClosetIds: " + allClosetIds);
 
         List<List<Location>> allLocationByClosetForGivenArticle = locationIds.stream()
                 .map(id -> locationService.findLocationById(id).getClosetId())
@@ -253,7 +262,7 @@ public class UserController {
                 .toList();
 
 
-        List<Integer> rLoc = new ArrayList<>();
+        List<LocationReturnData> rLoc = new ArrayList<>();
 
         for(int i = 0; i < locationIds.size(); i++) {
             Integer p = 0, l = 0, s = 0;
@@ -263,9 +272,9 @@ public class UserController {
             for(Location neighborLocation : neighborLocations) {
                 if(neighborLocation.getLocationId() == id) {
                     switch (neighborLocation.getTypeLoc()){
-                        case LADICA -> rLoc.add(l);
-                        case POLICA -> rLoc.add(p);
-                        case ŠIPKA_ZA_ODJEĆU -> rLoc.add(s);
+                        case LADICA -> rLoc.add(new LocationReturnData(id, LocationType.LADICA, l));
+                        case POLICA -> rLoc.add(new LocationReturnData(id, LocationType.POLICA, p));
+                        case ŠIPKA_ZA_ODJEĆU -> rLoc.add(new LocationReturnData(id, LocationType.ŠIPKA_ZA_ODJEĆU, s));
                     }
                     break;
                 }
@@ -281,12 +290,12 @@ public class UserController {
 
         closetIds = closetIds.stream().map(allClosetIds::indexOf).toList();
 
-        List<Pair<Integer, Integer>> pairs = new ArrayList<>();
+        List<Pair<Integer, LocationReturnData>> pairs = new ArrayList<>();
         for(int i = 0; i < rLoc.size(); i++){
             pairs.add(Pair.of(closetIds.get(i), rLoc.get(i)));
         }
 
-        articles = userService.filter(articles, body);
+        //articles = userService.filter(articles, body);
 
         return Pair.of(articles, pairs);
     }
