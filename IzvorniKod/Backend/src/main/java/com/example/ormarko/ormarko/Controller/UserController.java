@@ -151,13 +151,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/profile/location{id}/addArticle")
     void addArticle(Authentication authentication, @PathVariable Integer id, @RequestBody /*@Valid*/ ArticleUser article) {
-        //String username = authentication.getName();
-
-        //
-//        article.setArticleId(null);
-//        article.setLocationId(id);
         Location location = locationService.findLocationById(id);
-        // Set the location ID
         article.setLocationId(location.getLocationId());
         log.info("Received location ID: {}", id);
 
@@ -171,42 +165,52 @@ public class UserController {
         articleService.delete(articleService.findArticleById(id));
     }
 
+
+
+    @PostMapping("/searchUsingGeolocation")
+    public Pair<List<ArticleUser>, List<User>> geoSearch(Authentication authentication, @RequestBody Map<String, String[]> body){
+
+        String username = authentication.getName();
+        String userCity = userService.findByUsername(username).get().getCity();
+
+        List<ArticleUser> articles = articleService.findAllArticlesBySharing(true);
+        articles = userService.filter(articles, body).stream().sorted(Comparator.comparing(ArticleUser::getArticleId)).toList();
+
+
+        articles = articles.stream().filter(article -> {                        //filtriranje po lokaciji korisnika i vlasnika artikla
+                    Optional<User> ou = userService.findByUsername(
+                            closetService.findClosetById(
+                                    locationService.findLocationById(
+                                            article.getLocationId()
+                                    ).getClosetId()
+                            ).getClosetOwner()
+                    );
+                    if (ou.isEmpty()) return false;
+
+                    return ou.get().getCity().equals(userCity);
+                })
+                .toList();
+
+        return Pair.of(articles, articles.stream()
+                .map(article -> locationService.findLocationById(article.getLocationId()))
+                .map(location -> closetService.findClosetById(location.getClosetId()))
+                .map(closet -> userService.findByUsername(closet.getClosetOwner()))
+                .map(Optional::get)
+                .toList());
+    }
+
+
+
     @PostMapping("/search")
     public Pair<List<ArticleUser>, List<User>> search(@RequestBody Map<String, String[]> body){
 
         log.info("Received POST request to /search!");
         log.info("Body: " + body);
 
-        //String username = authentication.getName();
-        //User user = userService.findByUsername(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-//        ArticleCategory category = ArticleCategory.valueOf(body.get("kategorija"));
-//        ArticleSeason season = ArticleSeason.valueOf(body.get("godisnjeDoba"));
-//        ArticleOpen openness = ArticleOpen.valueOf(body.get("otvorenost"));
-//        ArticleCasual casual = ArticleCasual.valueOf(body.get("lezernost"));
-//        ArticleColor color = ArticleColor.valueOf(body.get("boja"));
-
-        //Set<ArticleUser> articles = new HashSet<>();
         List<ArticleUser> articles = articleService.findAllArticlesBySharing(true);
 
-
-        //List<ArticleUser> articles = articleService.findAllArticlesByFilter(true, category, season, openness, casual, color);
-
-//        return articles.stream().filter(article -> {                        //filtriranje po lokaciji korisnika i vlasnika artikla
-//                    Optional<User> ou = userService.findByUsername(
-//                            closetService.findClosetById(
-//                                    locationService.findLocationById(
-//                                            article.getLocationId()
-//                                    ).getClosetId()
-//                            ).getClosetOwner()
-//                    );
-//
-//                    if (ou.isEmpty()) return false;
-//
-//                    return ou.get().getCountry().equals(user.getCountry());
-//                }
-//        ).toList();
-
         articles = userService.filter(articles, body).stream().sorted(Comparator.comparing(ArticleUser::getArticleId)).toList();
+
         return Pair.of(articles, articles.stream()
                 .map(article -> locationService.findLocationById(article.getLocationId()))
                 .map(location -> closetService.findClosetById(location.getClosetId()))
