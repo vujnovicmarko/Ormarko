@@ -1,0 +1,80 @@
+{
+  "id": "cbc12fda-d650-4770-adea-e32727981197",
+  "version": "2.0",
+  "name": "Ormarko",
+  "url": "https://ormarkodeploy-c46f4289b2cf.herokuapp.com",
+  "tests": [{
+    "id": "65658ea5-10c5-42ca-8163-d913ede4c417",
+    "name": "TS-11",
+    "commands": [{
+      "id": "7e7a04b7-4467-4f67-b278-d08355c102d5",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "71d6434a-4d61-483f-8928-e78174692eb3",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "784x864",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3304b16f-ece3-4285-bccc-f540c75b5d3f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.item:nth-child(2)",
+      "targets": [
+        ["css=.item:nth-child(2)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[3]/div/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "846e0a08-c6e9-4797-ac0f-d3027c4c0b30",
+      "comment": "",
+      "command": "click",
+      "target": "css=.modal-overlay",
+      "targets": [
+        ["css=.modal-overlay", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[3]/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "5c4bd5cd-fafa-48fe-963e-af098d8a3e07",
+      "comment": "",
+      "command": "click",
+      "target": "css=.item:nth-child(13) > .itemimg",
+      "targets": [
+        ["css=.item:nth-child(13) > .itemimg", "css:finder"],
+        ["xpath=(//img[@alt='Majica'])[2]", "xpath:img"],
+        ["xpath=//div[@id='root']/div/div[3]/div/div/div[13]/img", "xpath:idRelative"],
+        ["xpath=//div[13]/img", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4312c6fe-74b4-4a2d-975e-684e3de57ecf",
+      "comment": "",
+      "command": "click",
+      "target": "css=.modal-overlay",
+      "targets": [
+        ["css=.modal-overlay", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[3]/div/div[2]", "xpath:idRelative"],
+        ["xpath=//div[3]/div/div[2]", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "9272b763-495d-4b07-9f38-8d253f029290",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["65658ea5-10c5-42ca-8163-d913ede4c417"]
+  }],
+  "urls": ["https://ormarkodeploy-c46f4289b2cf.herokuapp.com/"],
+  "plugins": []
+}

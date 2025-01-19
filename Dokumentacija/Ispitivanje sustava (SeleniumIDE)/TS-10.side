@@ -1,0 +1,71 @@
+{
+  "id": "b0f5c294-8cc6-476e-b716-82fbb4bb23ee",
+  "version": "2.0",
+  "name": "Ormarko",
+  "url": "https://ormarkodeploy-c46f4289b2cf.herokuapp.com",
+  "tests": [{
+    "id": "596fe657-bdef-44a8-b186-ba7fc7730f9c",
+    "name": "TS-10",
+    "commands": [{
+      "id": "ea30607d-f555-469d-8095-163f39e15962",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "1a9c6cc6-9e31-4dcb-b9dc-9601f6104cba",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "786x864",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b562ef53-4649-432c-aa67-f350f1855821",
+      "comment": "",
+      "command": "click",
+      "target": "css=a:nth-child(1) > .headerbtn",
+      "targets": [
+        ["css=a:nth-child(1) > .headerbtn", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div[3]/a/button", "xpath:idRelative"],
+        ["xpath=//a/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Moji Ormari')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "df2293ad-8511-42ed-b68c-b9dd57b208c9",
+      "comment": "",
+      "command": "click",
+      "target": "css=.add-closet-btn",
+      "targets": [
+        ["css=.add-closet-btn", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'+ Dodaj novi ormar')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4ad98e51-88ad-4de1-9524-8792487f34ae",
+      "comment": "",
+      "command": "click",
+      "target": "css=.closet-btn",
+      "targets": [
+        ["css=.closet-btn", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Ormar #1')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "7f45562d-22ed-4a92-a0fb-e8b4c42c8238",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["596fe657-bdef-44a8-b186-ba7fc7730f9c"]
+  }],
+  "urls": ["https://ormarkodeploy-c46f4289b2cf.herokuapp.com/"],
+  "plugins": []
+}
