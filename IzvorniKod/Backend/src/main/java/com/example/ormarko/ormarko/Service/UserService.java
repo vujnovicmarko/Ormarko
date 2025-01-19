@@ -27,6 +27,10 @@ public class UserService implements UserDetailsService {
         return repository.findByUsername(username);
     }
 
+    public Optional<User> findByEmail(String email) {
+        return repository.findByEmail(email);
+    }
+
     public User updateUserLocation(String city, String country, String username) {
         User user = repository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
         user.setCountry(country);

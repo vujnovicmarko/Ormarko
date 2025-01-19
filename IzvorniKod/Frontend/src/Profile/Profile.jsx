@@ -39,25 +39,16 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
         const googleCoordinates = await getGeolocationFromGoogle().catch(() => null);
         const [browserResult, googleResult] = await Promise.all([browserCoordinates, googleCoordinates]);
         let bestLocation = null;
-
-        if (browserResult && googleResult) {
-          if (browserResult.accuracy < googleResult.accuracy) {
-            bestLocation = browserResult;
-            console.log("BROWSER"); 
-          } else {
-            bestLocation = googleResult;
-            console.log("GOOGLE"); 
-          }
-        } else if (browserResult) {
+        if (browserResult) {
           bestLocation = browserResult;
           console.log("BROWSER"); 
-        } else if (googleResult) {
+        }
+        else {
           bestLocation = googleResult;
           console.log("GOOGLE"); 
-        }
-        if (bestLocation) {
-          setUserCoordinates(bestLocation);
-        } else {
+        } 
+        if (bestLocation) setUserCoordinates(bestLocation);
+         else {
           setError("Unable to fetch geolocation.");
         }
       }
@@ -76,6 +67,7 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
           const data = await response.json();
           if (data.results && data.results.length > 0) {
             const location = data.results[0].formatted_address.split(",");
+            console.log("Address fetched:", location);
             console.log("Address fetched:", location[0], location[1]);
             console.log("Coordinates fetched:", { latitude, longitude, });
             updateLocation(location[0], location[1]);
@@ -126,7 +118,7 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
       return {
         latitude: data.location.lat,
         longitude: data.location.lng,
-        accuracy: data.accuracy || 1111, // za slucaj da ne vrati accuracy
+        accuracy: data.accuracy, 
       };
     } catch (error) {
       console.error("Error fetching geolocation from Google API:", error);

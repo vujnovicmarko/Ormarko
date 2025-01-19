@@ -59,10 +59,17 @@ public class UserController {
         if (authentication.getPrincipal() instanceof OAuth2User) {
             OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
             String email = oAuth2User.getAttribute("email");
-            return Map.of("googleoauth", true, "email", email);
+            User user = userService.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+            return Map.of(
+                    "googleoauth", true,
+                    "username", user.getUsername(),
+                    "email", user.getE_mail(),
+                    "city", user.getCity(),
+                    "country", user.getCountry()
+
+            );
         } else {
             String username = authentication.getName();
-
             User user = userService.findByUsername(username)
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
@@ -309,7 +316,14 @@ public class UserController {
         String city = requestBody.get("city");
         String country = requestBody.get("country");
         String username = authentication.getName();
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            String email = oAuth2User.getAttribute("email");
+            username = userService.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")).getUsername();
+        }
+        log.info("TU SAM GLEDAJ ME  " + username);
         User updatedUser = userService.updateUserLocation(city, country, username);
         return ResponseEntity.ok(updatedUser);
+
     }
 }
