@@ -50,21 +50,26 @@ export default function ClosetsPage() {
     const [isArticleModalOpen, setIsArticleModalOpen] = useState(false);
     const location = useLocation();
     const { closetIndex, locationIndex } = location.state || {};
+
+    // Handle closetIndex from location.state
     useEffect(() => {
-        if (closetIndex != null) {
+        if (closetIndex != null && closets.length > 0) {
             const targetCloset = closets[closetIndex];
             if (targetCloset) {
                 handleSelectCloset(targetCloset);
-
-                if (locationIndex != null) {
-                    const targetLocation = locations[locationIndex];
-                    if (targetLocation) {
-                        handleSelectLocation(targetLocation);
-                    }
-                }
             }
         }
-    }, [closetIndex, locationIndex, closets, locations]);
+    }, [closetIndex, closets]);
+
+    // Handle locationIndex from location.state
+    useEffect(() => {
+        if (locationIndex != null && locations.length > 0) {
+            const targetLocation = locations[locationIndex];
+            if (targetLocation) {
+                handleSelectLocation(targetLocation);
+            }
+        }
+    }, [locationIndex, locations]);
 
     const handleArticleClick = (article) => {
         setSelectedArticle(article);
@@ -75,20 +80,20 @@ export default function ClosetsPage() {
         setIsArticleModalOpen(false);
         setSelectedArticle(null);
     };
-    const fetchClosets = async () => {
-        try {
-            const response = await fetch("/api/user/profile/allClosets", {
-                method: "GET",
-                credentials: "include", // Include cookies for authentication
-            });
-            if (!response.ok) throw new Error("Failed to fetch closets");
-            const data = await response.json();
-            setClosets(data);
-        } catch (err) {
-            console.error("Error fetching closets:", err);
-            setError("Failed to load closets.");
+        const fetchClosets = async () => {
+            try {
+                const response = await fetch("/api/user/profile/allClosets", {
+                    method: "GET",
+                    credentials: "include", // Include cookies for authentication
+                });
+                if (!response.ok) throw new Error("Failed to fetch closets");
+                const data = await response.json();
+                setClosets(data);
+            } catch (err) {
+                console.error("Error fetching closets:", err);
+                setError("Failed to load closets.");
+            }
         }
-    };
 
     const fetchLocations = async (closetId) => {
         try {

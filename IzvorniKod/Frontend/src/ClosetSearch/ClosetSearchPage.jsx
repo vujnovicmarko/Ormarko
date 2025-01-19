@@ -31,13 +31,12 @@ export default function ClosetSearchPage() {
 
                 const data = await response.json();
 
-                const combinedData = Array.isArray(data.first) && Array.isArray(data.second)
-                    ? data.first.map((article, index) => ({
-                        ...article,
-                        closetPosition: data.second[index]?.first || 0, // Fallback for missing data
-                        locationPosition: data.second[index]?.second || 0,
-                    }))
-                    : [];
+                // Combine `first` and `second` into a single `products` array
+                const combinedData = data.first.map((article, index) => ({
+                    ...article,
+                    closetPosition: data.second[index]?.first ?? null,
+                    locationData: data.second[index]?.second || {},
+                }));
 
                 setProducts(combinedData);
             } catch (err) {

@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import {useState} from "react";
+import React, {useState} from "react";
 import "../Header/SearchBar.css";
 
 export default function ClosetSearchBar() {
@@ -97,7 +97,7 @@ export default function ClosetSearchBar() {
             }
 
             const data = await response.json();
-            navigate("/closet-search", { state: { filters, products: data.products } });
+            navigate("/closet-search", { state: { filters, products: data.first } });
         } catch (error) {
             console.error("Error during search:", error);
         }
