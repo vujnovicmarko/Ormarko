@@ -11,6 +11,7 @@ export default function ArticleModal({ article, onClose, onDelete }) {
         mainColor,
         sideColor,
         descript,
+        openness
     } = article || {};
 
     const handleDelete = () => {
@@ -42,6 +43,11 @@ export default function ArticleModal({ article, onClose, onDelete }) {
                 <p>
                     <strong>Ležernost:</strong> {howCasual}
                 </p>
+                {openness && (
+                    <p>
+                        <strong>Otvorenost:</strong> {openness}
+                    </p>
+                )}
                 <p>
                     <strong>Glavna boja:</strong> {mainColor}
                 </p>

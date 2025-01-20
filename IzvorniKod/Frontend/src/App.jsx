@@ -7,6 +7,7 @@ import Register from "./Register/Register";
 import Home from "./Home/Home";
 import Profile from "./Profile/Profile";
 import SearchPage from "./Search/SearchPage.jsx";
+import SearchUsingGeolocation from "./Search/SearchUsingGeolocation.jsx";
 import ClosetsPage from "./Closets/ClosetsPage.jsx"
 import RegisterMarketer from "./Register/RegisterMarketer";
 import LoginMarketer from "./Login/LoginMarketer";
@@ -53,6 +54,10 @@ export default function App() {
         <Route
             path="/search"
             element={<SearchPage isLoggedIn={isLoggedIn}/>}
+        />
+        <Route
+            path="/search-geolocation"
+            element={<SearchUsingGeolocation isLoggedIn={isLoggedIn}/>}
         />
         <Route
             path="/closets"

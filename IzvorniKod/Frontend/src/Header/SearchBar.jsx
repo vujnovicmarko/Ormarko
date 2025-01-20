@@ -5,6 +5,7 @@ import "./SearchBar.css";
 export default function SearchBar() {
     const navigate = useNavigate();
     const [showFilters, setShowFilters] = useState(false);
+    const [useGeolocation, setUseGeolocation] = useState(false);
     const [filters, setFilters] = useState({
         kategorija: [],
         godisnjeDoba: [],
@@ -85,8 +86,8 @@ export default function SearchBar() {
         e.preventDefault();
         console.log("Filters applied:", filters);
         try {
-            // Make a POST request to your backend endpoint:
-            const response = await fetch("/api/user/search", {
+            const endpoint = useGeolocation ? "/api/user/searchUsingGeolocation" : "/api/user/search";
+            const response = await fetch(endpoint, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(filters),
@@ -97,17 +98,16 @@ export default function SearchBar() {
                 throw new Error("Search request failed");
             }
 
-            // Assume the backend returns { products: [...] }
             const data = await response.json();
+            const targetPage = useGeolocation ? "/search-geolocation" : "/search";
 
-            // Navigate to the search page and pass the retrieved products (and filters, if needed)
-            navigate("/search", { state: { filters, products: data.products } });
+            navigate(targetPage, { state: { filters, products: data.first } });
         } catch (error) {
             console.error("Error during search:", error);
-            // Optionally, display an error message.
         }
         setShowFilters(false);
     };
+
     const closeFilters = () => {
         setShowFilters(false);
     };
@@ -127,28 +127,37 @@ export default function SearchBar() {
             {showFilters && (
                 <>
                 <div className="filter-overlay" onClick={closeFilters}></div>
-                <div className="filter-dropdown">
-                    {Object.keys(categories).map((category) => (
-                        <div key={category} className="filter-category">
-                            <h4>{categoryHeaders[category]}</h4>
-                            {Object.keys(categories[category]).map((label) => (
-                                <label key={label} className="filter-option">
-                                    <input
-                                        type="checkbox"
-                                        value={label}
-                                        checked={filters[category].includes(categories[category][label])}
-                                        onChange={() => handleInputChange(category, label)}
-                                    />
-                                    {label}
-                                </label>
-                            ))}
+                    <div className="filter-dropdown">
+                        {Object.keys(categories).map((category) => (
+                            <div key={category} className="filter-category">
+                                <h4>{categoryHeaders[category]}</h4>
+                                {Object.keys(categories[category]).map((label) => (
+                                    <label key={label} className="filter-option">
+                                        <input
+                                            type="checkbox"
+                                            value={label}
+                                            checked={filters[category].includes(categories[category][label])}
+                                            onChange={() => handleInputChange(category, label)}
+                                        />
+                                        {label}
+                                    </label>
+                                ))}
+                            </div>
+                        ))}
+                        <div className="filter-category">
+                            <label className="filter-option">
+                                <input
+                                    type="checkbox"
+                                    checked={useGeolocation}
+                                    onChange={() => setUseGeolocation(!useGeolocation)}
+                                />
+                                Pretraži u odnosu na geolokaciju
+                            </label>
                         </div>
-                    ))}
-                    {/* "Pretraži" button is now inside the dropdown */}
-                    <button className="pretrazi-btn" onClick={handleSearch}>
-                        Pretraži
-                    </button>
-                </div>
+                        <button className="pretrazi-btn" onClick={handleSearch}>
+                            Pretraži
+                        </button>
+                    </div>
                 </>
             )}
         </div>

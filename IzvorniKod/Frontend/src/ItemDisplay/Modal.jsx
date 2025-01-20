@@ -10,7 +10,8 @@ export default function Modal({ item, onClose, showContact = true }) {
     mainColor,
     sideColor,
     descript,
-    email
+    email,
+      openness
   } = item || {};
 
   return (
@@ -42,6 +43,11 @@ export default function Modal({ item, onClose, showContact = true }) {
         <p>
           <strong>Ležernost:</strong> {howCasual}
         </p>
+        {openness && (
+            <p>
+              <strong>Otvorenost:</strong> {openness}
+            </p>
+        )}
         <p>
           <strong>Glavna boja:</strong> {mainColor}
         </p>
