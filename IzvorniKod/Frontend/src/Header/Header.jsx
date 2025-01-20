@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import LoginRegisterButtons from "./LoginRegisterButtons";
 import SearchBar from "./SearchBar";
 import "./Header.css";
-import "./SearchBar.css"
+import "./SearchBar.css";
 
 export default function Header() {
   return (

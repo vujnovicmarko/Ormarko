@@ -8,7 +8,7 @@ import Home from "./Home/Home";
 import Profile from "./Profile/Profile";
 import SearchPage from "./Search/SearchPage.jsx";
 import SearchUsingGeolocation from "./Search/SearchUsingGeolocation.jsx";
-import ClosetsPage from "./Closets/ClosetsPage.jsx"
+import ClosetsPage from "./Closets/ClosetsPage.jsx";
 import RegisterMarketer from "./Register/RegisterMarketer";
 import LoginMarketer from "./Login/LoginMarketer";
 import MarketerProfile from "./Profile/MarketerProfile";
@@ -31,9 +31,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-            path="/"
-            element={<Home isLoggedIn={isLoggedIn} />} />
+        <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
         <Route
           path="/login"
           element={<Login setIsLoggedIn={setIsLoggedIn} />}
@@ -48,52 +46,44 @@ export default function App() {
             <Profile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
           }
         />
+        <Route path="/items" element={<ItemDisplay />} />
         <Route
-            path="/items"
-            element={<ItemDisplay />} />
-        <Route
-            path="/search"
-            element={<SearchPage isLoggedIn={isLoggedIn}/>}
+          path="/search"
+          element={<SearchPage isLoggedIn={isLoggedIn} />}
         />
         <Route
-            path="/search-geolocation"
-            element={<SearchUsingGeolocation isLoggedIn={isLoggedIn}/>}
+          path="/search-geolocation"
+          element={<SearchUsingGeolocation isLoggedIn={isLoggedIn} />}
         />
         <Route
-            path="/closets"
-            element={<ClosetsPage isLoggedIn={isLoggedIn}/>}
+          path="/closets"
+          element={<ClosetsPage isLoggedIn={isLoggedIn} />}
         />
         <Route
-            path="/register-marketer"
-            element={<RegisterMarketer setIsLoggedIn={setIsLoggedIn} />}
+          path="/register-marketer"
+          element={<RegisterMarketer setIsLoggedIn={setIsLoggedIn} />}
         />
         <Route
-            path="/login-marketer"
-            element={<LoginMarketer setIsLoggedIn={setIsLoggedIn} />}
+          path="/login-marketer"
+          element={<LoginMarketer setIsLoggedIn={setIsLoggedIn} />}
         />
         <Route
-            path="/marketer-profile"
-            element={<MarketerProfile isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}
+          path="/marketer-profile"
+          element={
+            <MarketerProfile
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
+          }
         />
+        <Route path="/marketer-gallery" element={<MarketerGallery />} />
+        <Route path="/add-article" element={<AddArticle />} />
+        <Route path="/closet-search" element={<ClosetSearchPage />} />
+        <Route path="/advertisers" element={<AdvertisersList />} />
         <Route
-            path="/marketer-gallery"
-            element={<MarketerGallery />}
+          path="/advertisers/:username/gallery"
+          element={<AdvertiserGallery />}
         />
-          <Route
-              path="/add-article"
-              element={<AddArticle />}
-          />
-          <Route
-              path="/closet-search"
-              element={<ClosetSearchPage />}
-          />
-          <Route
-              path="/advertisers"
-              element={<AdvertisersList />} />
-          <Route
-              path="/advertisers/:username/gallery"
-              element={<AdvertiserGallery />}
-          />
       </Routes>
     </BrowserRouter>
   );

@@ -53,12 +53,12 @@ export default function Register({ setIsLoggedIn }) {
         navigate("/profile");
         const result = await response.json();
         console.log("Registration successful:", result);
-
       } else {
         console.error("Registration failed:", response.statusText);
 
         const errorData = await response.json();
-        const errorMessage = errorData.error || "Registration failed. Please try again.";
+        const errorMessage =
+          errorData.error || "Registration failed. Please try again.";
         alert(errorMessage);
       }
     } catch (error) {
@@ -76,11 +76,11 @@ export default function Register({ setIsLoggedIn }) {
             <label>
               Korisničko ime:
               <input
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                required
               />
             </label>
           </div>
@@ -88,11 +88,11 @@ export default function Register({ setIsLoggedIn }) {
             <label>
               Grad:
               <input
-                  type="text"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                  required
+                type="text"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+                required
               />
             </label>
           </div>
@@ -100,11 +100,11 @@ export default function Register({ setIsLoggedIn }) {
             <label>
               Država:
               <input
-                  type="text"
-                  name="country"
-                  value={formData.country}
-                  onChange={handleChange}
-                  required
+                type="text"
+                name="country"
+                value={formData.country}
+                onChange={handleChange}
+                required
               />
             </label>
           </div>
@@ -112,11 +112,11 @@ export default function Register({ setIsLoggedIn }) {
             <label>
               E-mail:
               <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
               />
             </label>
           </div>
@@ -125,18 +125,18 @@ export default function Register({ setIsLoggedIn }) {
               Lozinka:
               <div className="input-container">
                 <input
-                    type={passwordRevealed ? "text" : "password"}
-                    name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
+                  type={passwordRevealed ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
                 />
                 <div
-                    className="eye-icon"
-                    onClick={() => setPasswordRevealed(!passwordRevealed)}
-                    title={
-                      passwordRevealed ? "Sakrij lozinku" : "Prikaži lozinku"
-                    }
+                  className="eye-icon"
+                  onClick={() => setPasswordRevealed(!passwordRevealed)}
+                  title={
+                    passwordRevealed ? "Sakrij lozinku" : "Prikaži lozinku"
+                  }
                 >
                   {passwordRevealed ? <AiFillEye /> : <AiFillEyeInvisible />}
                 </div>
@@ -146,15 +146,14 @@ export default function Register({ setIsLoggedIn }) {
           <button type="submit">Registriraj se</button>
           <div className="additional-buttons">
             <button
-                className="marketer-register-btn"
-                onClick={() => navigate("/register-marketer")}
+              className="marketer-register-btn"
+              onClick={() => navigate("/register-marketer")}
             >
               Registriraj se kao oglašivač
             </button>
           </div>
         </form>
       </div>
-
     </>
   );
 }

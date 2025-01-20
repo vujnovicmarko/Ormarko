@@ -36,7 +36,7 @@ export default function Login({ setIsLoggedIn }) {
       } else {
         const errorData = await response.json();
         alert(
-            errorData.error || "Login failed. Please check your credentials."
+          errorData.error || "Login failed. Please check your credentials."
         );
       }
     } catch (error) {
@@ -51,64 +51,64 @@ export default function Login({ setIsLoggedIn }) {
   };
 
   return (
-      <>
-        <Header />
-        <div className="main-container">
-          <div className="form-container">
-            <h2>Prijava</h2>
-            <form className="login-form" onSubmit={handleSubmit}>
-              <div>
-                <label>
-                  Korisničko ime:
+    <>
+      <Header />
+      <div className="main-container">
+        <div className="form-container">
+          <h2>Prijava</h2>
+          <form className="login-form" onSubmit={handleSubmit}>
+            <div>
+              <label>
+                Korisničko ime:
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+            </div>
+            <div className="password-container">
+              <label>
+                Lozinka:
+                <div className="input-container">
                   <input
-                      type="text"
-                      name="username"
-                      value={formData.username}
-                      onChange={handleChange}
-                      required
+                    type={passwordRevealed ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
                   />
-                </label>
-              </div>
-              <div className="password-container">
-                <label>
-                  Lozinka:
-                  <div className="input-container">
-                    <input
-                        type={passwordRevealed ? "text" : "password"}
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                    <div
-                        className="eye-icon"
-                        onClick={() => setPasswordRevealed(!passwordRevealed)}
-                        title={
-                          passwordRevealed ? "Sakrij lozinku" : "Prikaži lozinku"
-                        }
-                    >
-                      {passwordRevealed ? <AiFillEye /> : <AiFillEyeInvisible />}
-                    </div>
+                  <div
+                    className="eye-icon"
+                    onClick={() => setPasswordRevealed(!passwordRevealed)}
+                    title={
+                      passwordRevealed ? "Sakrij lozinku" : "Prikaži lozinku"
+                    }
+                  >
+                    {passwordRevealed ? <AiFillEye /> : <AiFillEyeInvisible />}
                   </div>
-                </label>
-              </div>
-              <button type="submit">Prijavi se</button>
-            </form>
-            <div className="additional-login-container">
-              <div className="additional-buttons">
-                <button
-                    className="marketer-login-btn"
-                    onClick={() => navigate("/login-marketer")}
-                >
-                  Prijavi se kao oglašivač
-                </button>
-                <button className="googleBtn" onClick={handleGoogleLogin}>
-                  Prijavi se s Google računom
-                </button>
-              </div>
+                </div>
+              </label>
+            </div>
+            <button type="submit">Prijavi se</button>
+          </form>
+          <div className="additional-login-container">
+            <div className="additional-buttons">
+              <button
+                className="marketer-login-btn"
+                onClick={() => navigate("/login-marketer")}
+              >
+                Prijavi se kao oglašivač
+              </button>
+              <button className="googleBtn" onClick={handleGoogleLogin}>
+                Prijavi se s Google računom
+              </button>
             </div>
           </div>
         </div>
-      </>
+      </div>
+    </>
   );
 }

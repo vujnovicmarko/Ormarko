@@ -8,13 +8,13 @@ export default function Item({ content, onItemClick }) {
   }
 
   return (
-      <div className="item" onClick={() => onItemClick(content)}>
-          <img
-              src={`data:image/png;base64,${img}`}
-              alt={title}
-              className="itemimg"
-          />
-          <h3 className="maintext">{title}</h3>
-      </div>
+    <div className="item" onClick={() => onItemClick(content)}>
+      <img
+        src={`data:image/png;base64,${img}`}
+        alt={title}
+        className="itemimg"
+      />
+      <h3 className="maintext">{title}</h3>
+    </div>
   );
 }

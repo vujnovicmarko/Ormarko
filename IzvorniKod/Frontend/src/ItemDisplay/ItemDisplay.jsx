@@ -9,7 +9,7 @@ export default function ItemDisplay() {
   const [error, setError] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchItems() {
@@ -36,7 +36,6 @@ export default function ItemDisplay() {
     fetchItems();
   }, []);
 
-
   const handleItemClick = (item) => {
     setSelectedItem(item);
     setIsModalOpen(true);
@@ -49,9 +48,9 @@ export default function ItemDisplay() {
 
   if (loading) {
     return (
-        <div className="loader-container">
-          <Loader />
-        </div>
+      <div className="loader-container">
+        <Loader />
+      </div>
     );
   }
 
@@ -62,7 +61,7 @@ export default function ItemDisplay() {
     <div>
       <div className="itemdisplay">
         {items.map((content, index) => (
-            <Item content={content} key={index} onItemClick={handleItemClick} />
+          <Item content={content} key={index} onItemClick={handleItemClick} />
         ))}
       </div>
       {isModalOpen && selectedItem && (

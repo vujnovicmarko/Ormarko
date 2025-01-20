@@ -11,28 +11,28 @@ export default function Modal({ item, onClose, showContact = true }) {
     sideColor,
     descript,
     email,
-      openness
+    openness,
   } = item || {};
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div
-          className="modal-content"
-          onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
+        className="modal-content"
+        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
       >
         <button className="close-button" onClick={onClose}>
           &times;
         </button>
         <img
-            src={`data:image/png;base64,${img}`}
-            alt={title}
-            className="modal-img"
+          src={`data:image/png;base64,${img}`}
+          alt={title}
+          className="modal-img"
         />
         <h2>{title}</h2>
         {showContact && (
-            <p>
-              <strong>Kontakt:</strong> {email}
-            </p>
+          <p>
+            <strong>Kontakt:</strong> {email}
+          </p>
         )}
         <p>
           <strong>Kategorija:</strong> {category}
@@ -44,9 +44,9 @@ export default function Modal({ item, onClose, showContact = true }) {
           <strong>Ležernost:</strong> {howCasual}
         </p>
         {openness && (
-            <p>
-              <strong>Otvorenost:</strong> {openness}
-            </p>
+          <p>
+            <strong>Otvorenost:</strong> {openness}
+          </p>
         )}
         <p>
           <strong>Glavna boja:</strong> {mainColor}
