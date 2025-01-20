@@ -173,6 +173,16 @@ public class UserController {
     }
 
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("/profile/updateArticle{id}")
+    void deleteArticle(@PathVariable Integer id, @RequestBody Map<String, String> body) {
+        Boolean visibility = Boolean.valueOf(body.get("visibility"));
+        ArticleUser article = articleService.findArticleById(id);
+        article.setSharing(visibility);
+        articleService.save(article);
+    }
+
+
 
     @PostMapping("/searchUsingGeolocation")
     public Pair<List<ArticleUser>, List<User>> geoSearch(Authentication authentication, @RequestBody Map<String, String[]> body){
