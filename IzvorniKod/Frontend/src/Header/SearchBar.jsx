@@ -123,7 +123,7 @@ export default function SearchBar() {
           onClick={() => setShowFilters(!showFilters)}
         />
         <button className="searchbtn" type="submit">
-          <img src="../SearchIcon.png" alt="Search" />
+          <img src="/SearchIcon.png" alt="Search" />
         </button>
       </form>
       {showFilters && (

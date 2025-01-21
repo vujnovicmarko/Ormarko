@@ -7,7 +7,7 @@ export default function MarketerGalleryHeader() {
     <div className="header">
       <div className="logo-container">
         <Link to="/marketer-profile">
-          <img className="logo" src="../OrmarkoLogo.png" alt="Logo" />
+          <img className="logo" src="/OrmarkoLogo.png" alt="Logo" />
         </Link>
       </div>
       <div className="headerbtndiv">
