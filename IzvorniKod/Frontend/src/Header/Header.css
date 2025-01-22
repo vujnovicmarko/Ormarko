@@ -46,7 +46,7 @@ body {
 }
 
 /* Header Button Styling */
-.headerbtn {
+.headerbtn, .get-weather {
     padding: 0.5rem 1rem;
     background: linear-gradient(135deg, #d9a48f, #b97e69);
     color: #FFFFFF;
@@ -60,7 +60,7 @@ body {
     box-shadow: 0 2px 5px rgba(185, 126, 105, 0.2);
 }
 
-.headerbtn:hover {
+.headerbtn:hover, .get-weather:hover {
     background: linear-gradient(135deg, #b97e69, #a06754);
     box-shadow: 0 3px 8px rgba(185, 126, 105, 0.3);
     transform: translateY(-2px);
@@ -140,6 +140,14 @@ body {
 .dropdown-item:hover {
     background: #F9FAFB;
     color: #b97e69;
+}
+
+.center-container {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }
 
 

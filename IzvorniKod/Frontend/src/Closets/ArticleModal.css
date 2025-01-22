@@ -54,3 +54,22 @@
 .delete-btn:hover {
     background-color: #dc2626;
 }
+
+.toggle-visibility-btn {
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.toggle-visibility-btn.visible {
+    background-color: #4caf50; /* Green */
+    color: white;
+}
+
+.toggle-visibility-btn.hidden {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
