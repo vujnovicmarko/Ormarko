@@ -89,6 +89,15 @@ public class UserController {
     public List<Closet> getUserContent(Authentication authentication) { //vraća podatke trenutno ulogiranog korisnika
 
         String username = authentication.getName();
+
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            String email = oAuth2User.getAttribute("email");
+            username = userService.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")).getUsername();
+        }
+
+        log.info("Current username: " + username);
+
         if (userService.findByUsername(username).isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
 
@@ -99,6 +108,12 @@ public class UserController {
     @PostMapping("/profile/addCloset")
     void addCloset(Authentication authentication) {
         String username = authentication.getName();
+
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            String email = oAuth2User.getAttribute("email");
+            username = userService.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")).getUsername();
+        }
 
         Closet closet = new Closet();
         closet.setClosetOwner(username);
@@ -118,6 +133,12 @@ public class UserController {
     public List<Location> getCloset(Authentication authentication, @PathVariable Integer id){
 
         String username = authentication.getName();
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            String email = oAuth2User.getAttribute("email");
+            username = userService.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")).getUsername();
+        }
+
         if(!username.equals(closetService.findClosetById(id).getClosetOwner()))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Closet not found.");
 
@@ -149,6 +170,12 @@ public class UserController {
     public List<ArticleUser> getLocation(Authentication authentication, @PathVariable Integer id){
 
         String username = authentication.getName();
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            String email = oAuth2User.getAttribute("email");
+            username = userService.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")).getUsername();
+        }
+
         if (!username.equals(closetService.findClosetById(locationService.findLocationById(id).getClosetId()).getClosetOwner()))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Location not found.");
 
@@ -189,6 +216,12 @@ public class UserController {
     public Pair<List<ArticleUser>, List<User>> geoSearch(Authentication authentication, @RequestBody Map<String, String[]> body){
 
         String username = authentication.getName();
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            String email = oAuth2User.getAttribute("email");
+            username = userService.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")).getUsername();
+        }
+
         String userCity = userService.findByUsername(username).get().getCity();
 
         List<ArticleUser> articles = articleService.findAllArticlesBySharing(true);
@@ -245,6 +278,12 @@ public class UserController {
         log.info("Body: " + body);
 
         String username = authentication.getName();
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            String email = oAuth2User.getAttribute("email");
+            username = userService.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")).getUsername();
+        }
+
 
         List<ArticleUser> articles = closetService.findAllClosetsForUser(username).stream()
                 .map(closet -> locationService.findAllLocationsForCloset(closet.getClosetId()))
