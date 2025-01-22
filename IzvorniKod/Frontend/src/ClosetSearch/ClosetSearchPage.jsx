@@ -58,7 +58,7 @@ export default function ClosetSearchPage() {
     <div className="search-page">
       <ClosetsHeader />
       <div className="search-results">
-        <h2>Search Results in Your Closet</h2>
+        <h2>Rezultati pretraživanja ormara</h2>
         {loading ? <Loader /> : null}
         {error && <p className="error-message">{error}</p>}
         {!loading && !error && (

@@ -25,23 +25,27 @@
 }
 
 .modal-img {
-  width: 100%;
-  height: auto;
+  width: 80%; /* Reduce the width to make the image smaller */
+  max-width: 300px; /* Set a maximum width for larger screens */
+  height: auto; /* Maintain aspect ratio */
   border-radius: 8px;
   object-fit: cover;
-  margin-bottom: 1rem;
+  margin: 0 auto 1rem auto; /* Center the image and add bottom margin */
+  display: block;
 }
 
+
 .close-button {
-  position: fixed;
-  top: 10px;
-  right: 15px;
+  position: fixed; /* Position relative to the viewport */
+  top: 20px; /* Distance from the top of the viewport */
+  right: 20px; /* Distance from the right of the viewport */
   background: none;
   border: none;
   font-size: 1.5rem;
   color: #6b7280;
   cursor: pointer;
   transition: color 0.3s;
+  z-index: 2001;
 }
 
 .close-button:hover {
@@ -51,7 +55,7 @@
 .modal-content h2 {
   font-size: 1.5rem;
   color: #333;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   text-align: center;
 }
 

@@ -49,7 +49,7 @@ export default function SearchPage({ isLoggedIn }) {
     <div className="search-page">
       {isLoggedIn ? <LoggedInHeader /> : <Header />}
       <div className="search-results">
-        <h2>Search Results</h2>
+        <h2>Rezultati pretraživanja</h2>
         {loading ? <Loader /> : null}
         {error && <p className="error-message">{error}</p>}
         {!loading && !error && <SearchItemDisplay products={products} />}

@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
 import "../Header/Header.css";
 import ClosetSearchBar from "./ClosetSearchBar.jsx";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import "./WeatherClothing.css";
 
 export default function ClosetsHeader() {
     const [userCoordinates, setUserCoordinates] = useState(null);
+    const [weatherData, setWeatherData] = useState(null);
+    const [clothingData, setClothingData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [dropdownVisible, setDropdownVisible] = useState(false);
+    const dropdownRef = useRef(null);
 
     const getGeolocationFromGoogle = async () => {
         try {
@@ -50,6 +56,10 @@ export default function ClosetsHeader() {
     };
 
     const getWeather = async () => {
+        setLoading(true);
+        setDropdownVisible(true);
+        setWeatherData(null);
+        setClothingData([]);
         const browserCoordinates = await getGeolocationFromBrowser().catch(() => null);
         const googleCoordinates = await getGeolocationFromGoogle().catch(() => null);
         const [browserResult, googleResult] = await Promise.all([
@@ -68,6 +78,7 @@ export default function ClosetsHeader() {
 
         if (!bestLocation) {
             console.error("Unable to fetch weather.");
+            setLoading(false);
             return;
         }
 
@@ -84,6 +95,7 @@ export default function ClosetsHeader() {
             }
             const data = await response.json();
             console.log("Weather fetched:", data);
+            setWeatherData(data);
 
             const condition = data.weather[0].main.toLowerCase();
             const temperature = data.main.temp;
@@ -105,30 +117,41 @@ export default function ClosetsHeader() {
                 return;
             }
             console.log("Weather filter:", ArticleOpen);
-            requestWeatherCombination(ArticleOpen);
+            const clothingResponse = await fetch("/api/user/getCombinationBasedOnWeather", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ articleOpen: ArticleOpen }),
+            });
+
+            if (!clothingResponse.ok) {
+                throw new Error("Failed to fetch clothing data.");
+            }
+
+            const clothing = await clothingResponse.json();
+            setClothingData(clothing);
         } catch (error) {
             console.error("Error fetching weather from Weather API:", error);
+        } finally {
+            setLoading(false);
         }
     };
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setDropdownVisible(false);
+            }
+        };
 
-    const requestWeatherCombination = (ArticleOpen) => {
-        fetch("/api/user/getCombinationBasedOnWeather", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                articleOpen: ArticleOpen,
-            }),
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("Fetched user combination based on weather:", data);
-            })
-            .catch((error) => {
-                console.error("Error fetching weather combination:", error);
-            });
-    };
+        if (dropdownVisible) {
+            document.addEventListener("mousedown", handleOutsideClick);
+        } else {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        };
+    }, [dropdownVisible]);
 
     return (
         <div className="header">
@@ -143,14 +166,49 @@ export default function ClosetsHeader() {
                     Prijedlog modne kombinacije
                 </button>
             </div>
-                <div className="headerbtndiv">
-                    <Link to="/closets">
-                        <button className="headerbtn">Moji Ormari</button>
-                    </Link>
-                    <Link to="/profile">
-                        <button className="headerbtn">Moj Profil</button>
-                    </Link>
-                </div>
+            <div className="headerbtndiv">
+                <Link to="/closets">
+                    <button className="headerbtn">Moji Ormari</button>
+                </Link>
+                <Link to="/profile">
+                    <button className="headerbtn">Moj Profil</button>
+                </Link>
             </div>
-            );
-            }
+            {dropdownVisible && (
+                <div ref={dropdownRef} className="weather-dropdown">
+                    {loading ? (
+                        <div className="loading">Učitavanje modne kombinacije, ovo može potrajati neko vrijeme...</div>
+                    ) : (
+                        <div className="weather-content">
+                            {weatherData && (
+                                <div className="weather-info">
+                                    <p>Vrijeme: {weatherData.weather[0].description}</p>
+                                    <p>Temperatura: {weatherData.main.temp}°C</p>
+                                </div>
+                            )}
+                            <div className="clothing-list">
+                                {clothingData.map((item, index) => (
+                                    <div key={index} className="clothing-item">
+                                        <img
+                                            src={`data:image/png;base64,${item.img}`}
+                                            alt={item.title}
+                                            className="modal-img"
+                                        />
+                                        <p>Naslov: {item.title}</p>
+                                        <p>Kategorija: {item.category}</p>
+                                        <p>Godišnje doba: {item.season}</p>
+                                        <p>Otvorenost: {item.openness}</p>
+                                        <p>Ležernost: {item.howCasual}</p>
+                                        <p>Glavna boja: {item.mainColor}</p>
+                                        <p>Sporedna boja: {item.sideColor}</p>
+                                        <p>Opis: {item.descript}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            )}
+        </div>
+    );
+}

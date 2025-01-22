@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./ClosetsPage.css";
 export default function LocationList({
   locations,
   selectedLocation,
@@ -24,19 +24,19 @@ export default function LocationList({
         className="location-select-btn"
         onClick={() => handleAddLocation("POLICA")}
       >
-        Dodaj Policu
+        + Dodaj Policu
       </button>
       <button
         className="location-select-btn"
         onClick={() => handleAddLocation("LADICA")}
       >
-        Dodaj Ladicu
+        + Dodaj Ladicu
       </button>
       <button
         className="location-select-btn"
         onClick={() => handleAddLocation("ŠIPKA_ZA_ODJEĆU")}
       >
-        Dodaj Šipku
+        + Dodaj Šipku
       </button>
       {locations.map((location) => (
         <div key={location.locationId} className="location-item">

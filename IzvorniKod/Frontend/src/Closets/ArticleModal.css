@@ -8,7 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 2000;
 }
 
 .modal-content {
@@ -19,16 +19,22 @@
     max-width: 500px;
     position: relative;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 2001;
 }
 
 .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
+
+        position: fixed; /* Position relative to the viewport */
+        top: 1rem; /* Distance from the top of the viewport */
+        right: 3rem; /* Distance from the right of the viewport */
+        background: none;
+        border: none;
+        font-size: 5rem;
+        color: black;
+        cursor: pointer;
+        transition: color 0.3s;
+        z-index: 2002; /* Ensure it appears above modal content */
+
 }
 
 .modal-img {
@@ -41,6 +47,27 @@
     background-color: #ef4444;
     color: white;
     border: none;
+    padding: 0.5rem 0.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.delete-btn:hover {
+    background-color: #dc2626;
+    box-shadow: 0 3px 8px rgba(185, 126, 105, 0.3);
+    transform: translateY(-2px);
+}
+
+.toggle-visibility-btn {
+    display: block;
+    background-color: #ef4444;
+    color: white;
+    border: none;
     padding: 0.5rem 1rem;
     border-radius: 8px;
     font-size: 1rem;
@@ -49,27 +76,22 @@
     margin-top: 1rem;
     text-align: center;
     transition: background-color 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+.toggle-visibility-btn:hover {
+    background: linear-gradient(135deg, #b97e69, #a06754);
+    box-shadow: 0 3px 8px rgba(185, 126, 105, 0.3);
+    transform: translateY(-2px);
 }
 
-.delete-btn:hover {
-    background-color: #dc2626;
-}
-
-.toggle-visibility-btn {
-    margin-top: 10px;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
 .toggle-visibility-btn.visible {
-    background-color: #4caf50; /* Green */
+    background: linear-gradient(135deg, #d9a48f, #b97e69); /* Green */
     color: white;
 }
 
 .toggle-visibility-btn.hidden {
-    background-color: #f44336; /* Red */
+    background: linear-gradient(135deg, #d9a48f, #b97e69); /* Green */
     color: white;
 }
 

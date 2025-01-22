@@ -1,4 +1,5 @@
 import React from "react";
+import "./ClosetsPage.css";
 
 export default function ClosetList({
   closets,

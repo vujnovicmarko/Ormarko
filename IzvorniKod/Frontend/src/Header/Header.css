@@ -149,6 +149,15 @@ body {
     align-items: center;
     gap: 1rem;
 }
+.search-results {
+    margin-top: 7rem; /* Add extra margin for smaller screens */
+}
+
+@media (max-width: 768px) {
+    .search-results {
+        margin-top: 13rem; /* Add extra margin for smaller screens */
+    }
+}
 
 
 

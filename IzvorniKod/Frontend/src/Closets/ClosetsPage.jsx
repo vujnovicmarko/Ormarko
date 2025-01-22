@@ -331,77 +331,83 @@ export default function ClosetsPage() {
     <div className="closets-page">
       <ClosetsHeader />
       <div className="closets-container">
-        <ClosetList
-          closets={closets}
-          selectedCloset={selectedCloset}
-          handleSelectCloset={handleSelectCloset}
-          handleDeleteCloset={handleDeleteCloset}
-          setClosetToDelete={setClosetToDelete}
-          setShowDeleteClosetModal={setShowDeleteClosetModal}
-          handleAddCloset={handleAddCloset}
-        />
-        {selectedCloset && (
-          <LocationList
-            locations={locations}
-            selectedLocation={selectedLocation}
-            handleAddLocation={handleAddLocation}
-            handleSelectLocation={handleSelectLocation}
-            handleDeleteLocation={handleDeleteLocation}
-            setLocationToDelete={setLocationToDelete}
-            setShowDeleteLocationModal={setShowDeleteLocationModal}
+        <div className="closets-nav">
+          <ClosetList
+              closets={closets}
+              selectedCloset={selectedCloset}
+              handleSelectCloset={handleSelectCloset}
+              handleDeleteCloset={handleDeleteCloset}
+              setClosetToDelete={setClosetToDelete}
+              setShowDeleteClosetModal={setShowDeleteClosetModal}
+              handleAddCloset={handleAddCloset}
           />
+        </div>
+        <div className="locations-nav">
+          {selectedCloset && (
+              <LocationList
+                  locations={locations}
+                  selectedLocation={selectedLocation}
+                  handleAddLocation={handleAddLocation}
+                  handleSelectLocation={handleSelectLocation}
+                  handleDeleteLocation={handleDeleteLocation}
+                  setLocationToDelete={setLocationToDelete}
+                  setShowDeleteLocationModal={setShowDeleteLocationModal}
+              />
+          )}
+        </div>
+        <div className="articles-content">
+          {selectedLocation && (
+              <ArticleList
+                  articles={articles}
+                  setShowArticleModal={setShowArticleModal}
+                  onArticleClick={handleArticleClick}
+                  highlightedArticle={highlightedArticle}
+              />
+          )}
+        </div>
+          {isArticleModalOpen && selectedArticle && (
+              <ArticleModal
+                  article={selectedArticle}
+                  onClose={handleCloseArticleModal}
+              />
+          )}
+        </div>
+        {showArticleModal && (
+            <AddArticleModal
+                newArticle={newArticle}
+                setNewArticle={setNewArticle}
+                handleAddArticle={handleAddArticle}
+                setShowArticleModal={setShowArticleModal}
+                categories={categories}
+                seasons={seasons}
+                opennessOptions={opennessOptions}
+                casualnessOptions={casualnessOptions}
+                colors={colors}
+            />
         )}
-        {selectedLocation && (
-          <ArticleList
-            articles={articles}
-            setShowArticleModal={setShowArticleModal}
-            onArticleClick={handleArticleClick}
-            highlightedArticle={highlightedArticle}
-          />
+        {showDeleteClosetModal && (
+            <DeleteClosetModal
+                closetToDelete={closetToDelete}
+                closets={closets}
+                handleDeleteCloset={handleDeleteCloset}
+                setShowDeleteClosetModal={setShowDeleteClosetModal}
+            />
+        )}
+        {showDeleteLocationModal && (
+            <DeleteLocationModal
+                locationToDelete={locationToDelete}
+                locations={locations}
+                handleDeleteLocation={handleDeleteLocation}
+                setShowDeleteLocationModal={setShowDeleteLocationModal}
+            />
         )}
         {isArticleModalOpen && selectedArticle && (
-          <ArticleModal
-            article={selectedArticle}
-            onClose={handleCloseArticleModal}
-          />
+            <ArticleModal
+                article={selectedArticle}
+                onClose={handleCloseArticleModal}
+                onDelete={handleDeleteArticle}
+            />
         )}
       </div>
-      {showArticleModal && (
-        <AddArticleModal
-          newArticle={newArticle}
-          setNewArticle={setNewArticle}
-          handleAddArticle={handleAddArticle}
-          setShowArticleModal={setShowArticleModal}
-          categories={categories}
-          seasons={seasons}
-          opennessOptions={opennessOptions}
-          casualnessOptions={casualnessOptions}
-          colors={colors}
-        />
-      )}
-      {showDeleteClosetModal && (
-        <DeleteClosetModal
-          closetToDelete={closetToDelete}
-          closets={closets}
-          handleDeleteCloset={handleDeleteCloset}
-          setShowDeleteClosetModal={setShowDeleteClosetModal}
-        />
-      )}
-      {showDeleteLocationModal && (
-        <DeleteLocationModal
-          locationToDelete={locationToDelete}
-          locations={locations}
-          handleDeleteLocation={handleDeleteLocation}
-          setShowDeleteLocationModal={setShowDeleteLocationModal}
-        />
-      )}
-      {isArticleModalOpen && selectedArticle && (
-        <ArticleModal
-          article={selectedArticle}
-          onClose={handleCloseArticleModal}
-          onDelete={handleDeleteArticle}
-        />
-      )}
-    </div>
-  );
-}
+      );
+      }

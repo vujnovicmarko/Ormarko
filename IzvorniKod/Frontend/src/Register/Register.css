@@ -9,14 +9,16 @@
     min-height: calc(100vh - 80px);
     padding: 20px;
     margin: 0 auto;
+    overflow-y: auto; /* Allow vertical scrolling */
+    height: 100vh; /* Full viewport height for scrollability */
 }
-
 
 h2 {
     color: #333;
     text-align: center;
     margin: 0;
     margin-bottom: 1rem;
+    font-size: 1.5rem;
 }
 
 .registration-form {
@@ -27,10 +29,11 @@ h2 {
     max-width: 400px;
     width: 100%;
     border: solid 3px #d9a48f;
+    display: flex;
+    flex-direction: column;
 }
 
 .registration-form label {
-    display: block;
     margin-bottom: 0.5rem;
     color: #4B5563;
     font-weight: 600;
@@ -83,7 +86,7 @@ h2 {
     box-shadow: 0 2px 5px rgba(185, 126, 105, 0.3);
 }
 
-/* Stilovi za dodatni gumb za registraciju oglašivača */
+/* Additional button styling */
 .additional-buttons {
     margin-top: 10px;
     text-align: center;
@@ -114,6 +117,7 @@ h2 {
     box-shadow: 0 2px 5px rgba(185, 126, 105, 0.3);
 }
 
+/* Password visibility toggle */
 .password-container {
     position: relative;
 }
@@ -140,15 +144,50 @@ h2 {
     color: #000;
 }
 
-
-@media (max-width: 600px) {
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
     .registration-form {
         max-width: 90%;
         padding: 1.5rem;
-        margin: 0 1rem;
     }
 
     h2 {
+        font-size: 1.3rem;
+    }
+
+    .registration-form input[type="text"],
+    .registration-form input[type="password"],
+    .registration-form input[type="email"] {
+        font-size: 0.9rem;
+    }
+
+    .registration-form button[type="submit"],
+    .additional-buttons .marketer-register-btn {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
         font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .registration-form {
+        padding: 1rem;
+    }
+
+    .registration-form input[type="text"],
+    .registration-form input[type="password"],
+    .registration-form input[type="email"] {
+        font-size: 0.85rem;
+        padding: 0.6rem;
+    }
+
+    .registration-form button[type="submit"],
+    .additional-buttons .marketer-register-btn {
+        font-size: 0.85rem;
+        padding: 0.5rem;
     }
 }

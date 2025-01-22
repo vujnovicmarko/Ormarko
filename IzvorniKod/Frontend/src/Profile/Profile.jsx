@@ -152,77 +152,6 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
     });
   };
 
-  const getWeather = async () => {
-    const browserCoordinates = await getGeolocationFromBrowser().catch(() => null);
-        const googleCoordinates = await getGeolocationFromGoogle().catch(() => null);
-        const [browserResult, googleResult] = await Promise.all([browserCoordinates, googleCoordinates]);
-        let bestLocation = null;
-        if (browserResult) {
-          bestLocation = browserResult;
-          console.log("BROWSER"); 
-        }
-        else {
-          bestLocation = googleResult;
-          console.log("GOOGLE"); 
-        } 
-        if (bestLocation) setUserCoordinates(bestLocation);
-         else {
-          setError("Unable to fetch weather.");
-        }
-        try {
-          let { latitude, longitude } = userCoordinates;
-          const apiKey = "333649eca724a1a63375afe6bdec2ae2";
-          const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric`);
-          if (!response.ok) {
-            throw new Error("Failed to fetch location from Weather API");
-          }
-          const data = await response.json();
-          console.log("Weather fetched:", data);
-
-          const condition = data.weather[0].main.toLowerCase();
-          const temperature = data.main.temp;
-          console.log(condition, temperature);
-          let ArticleOpen;
-          // Suggest clothing based on weather
-          if (condition.includes("rain") || condition.includes("drizzle") || (condition.includes("snow"))) {
-            ArticleOpen = "KIŠA_SNIJEG";
-          }
-           else if (temperature > 18) {
-            ArticleOpen = "OTVORENO";
-          } else if (temperature <= 18) {
-            ArticleOpen = "ZATVORENO";
-          } else {
-            console.log("Greška u prepostavci odjece na temelju vremena");
-            return }
-          console.log("Weather filter:", ArticleOpen);
-          requestWeatherCombination(ArticleOpen);
-
-        } catch (error) {
-          console.error("Error fetching weather from weather API:", error);
-          return null;
-        }
-  }
-
-  function requestWeatherCombination(ArticleOpen) {
-    fetch("/api/user/getCombinationBasedOnWeather", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        articleOpen: ArticleOpen
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Fetched user combination based on weather:", data);
-      })
-      .catch((error) => {
-        console.error("Error updating location:", error);
-      });
-  }
-
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserInfo([]); // razrješiti čuvanja podataka o prošlom logiranom korisniku
@@ -236,8 +165,9 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
   };
 
   return (
-    <div className="profile-container">
+      <div>
       <ClosetsHeader />
+    <div className="profile-container">
       <h1 className="profile-heading">Moj profil</h1>
         <div className="profile-details">
           <p>
@@ -256,9 +186,7 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
       <button className="logout-button" onClick={handleLogout}>
         Odjavi se
       </button>
-      <button className="get-weather" onClick={getWeather}>
-          Dobi predlozak za obuci
-        </button>
     </div>
+      </div>
   );
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import "./ClosetsPage.css"
 
 export default function DeleteLocationModal({
   locationToDelete,
@@ -9,7 +10,7 @@ export default function DeleteLocationModal({
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <div className="modal-header">Potvrda brisanja</div>
+        <div className="modal-header">Potvrdi brisanje</div>
         <div className="modal-body">
           Jeste li sigurni da želite obrisati lokaciju #
           {locations.findIndex(

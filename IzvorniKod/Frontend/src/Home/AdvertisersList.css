@@ -3,7 +3,6 @@
     text-align: center;
     padding: 40px 20px;
     background-color: #F9FAFB;
-
 }
 
 .advertisers-list-container h1 {
@@ -102,6 +101,10 @@
 
     .advertiser-username {
         font-size: 0.9rem;
+    }
+
+    .go-back {
+        margin-top: 10rem;
     }
 }
 

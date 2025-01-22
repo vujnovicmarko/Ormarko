@@ -4,26 +4,38 @@
     justify-content: flex-start;
     margin-top: 6.7rem;
     margin-left: 1rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
 }
 
 .advertisers-button {
-    padding: 10px 30px;
+    padding: 15px 40px;
     background: linear-gradient(135deg, #d9a48f, #b97e69);
     color: white;
     font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-bottom: 1rem;
+    z-index: 1;
 }
 
 .advertisers-button:hover {
     background: linear-gradient(135deg, #b97e69, #a06754);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem; /* Adjust font size for text */
+    font-weight: 700;
+    color: #4B5563;
+    margin-left: 1rem; /* Add space between the button and the text */
+    white-space: nowrap; /* Prevent wrapping of the text */
 }
 .itemdisplay {
     display: grid;
@@ -33,4 +45,20 @@
     margin-top: 1rem;
 }
 
+@media (max-width: 768px) {
+    .top-container {
+        margin-top: 13rem; /* Add extra margin for smaller screens */
+        justify-content: center; /* Center items on smaller screens */
+        text-align: center;
+    }
 
+    .advertisers-button {
+        font-size: 1.2rem; /* Adjust button size for smaller screens */
+        padding: 15px 40px; /* Adjust padding for smaller screens */
+    }
+
+    .welcome-text {
+        font-size: 2rem; /* Adjust font size for smaller screens */
+        margin-left: 0; /* Remove left margin for centered alignment */
+    }
+}

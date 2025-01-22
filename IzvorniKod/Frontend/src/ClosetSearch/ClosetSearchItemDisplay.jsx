@@ -66,7 +66,7 @@ export default function ClosetSearchItemDisplay({
                   );
                 }}
               >
-                Skoči na lokaciju
+                Pronađi u ormaru
               </button>
             </div>
           );

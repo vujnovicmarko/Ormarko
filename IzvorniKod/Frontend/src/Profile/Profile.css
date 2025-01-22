@@ -20,14 +20,6 @@
     text-align: left;
 }
 
-.welcome-text {
-    font-size: 1.1rem;
-    color: #555;
-    text-align: left;
-    margin-bottom: 1.5rem;
-    margin-left: 1rem;
-    margin-top: 2rem;
-}
 
 .logout-button {
 
@@ -44,10 +36,10 @@
 
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
     .profile-container {
         padding: 1rem;
-        margin-top: 80px;
+        margin-top: 13rem;
     }
 
     .profile-heading {

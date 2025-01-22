@@ -81,14 +81,14 @@ export default function ArticleModal({ article, onClose, onDelete }) {
         <p>
           <strong>Opis stanja:</strong> {descript}
         </p>
-        <button className="delete-btn" onClick={handleDelete}>
-          Obriši
-        </button>
         <button
             className={`toggle-visibility-btn ${isVisible ? "visible" : "hidden"}`}
             onClick={toggleVisibility}
         >
-          {isVisible ? "Ukloni iz dijeljenja" : "Dijeli"}
+          {isVisible ? "Prestani dijeliti artikl" : "Dijeli artikl"}
+        </button>
+        <button className="delete-btn" onClick={handleDelete}>
+          Obriši
         </button>
       </div>
     </div>
