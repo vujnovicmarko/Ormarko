@@ -34,9 +34,18 @@ public class CustomSuccesHandler implements AuthenticationSuccessHandler {
             System.out.println("OAuth2 user details: " + userDetails.getAttributes()); // Debug line
             String email = userDetails.getAttribute("email");
             if (userRepository.findByEmail(email).isEmpty()) {
+                String tempusername = userDetails.getAttribute("given_name") != null ? userDetails.getAttribute("given_name") :
+                        userDetails.getAttribute("name") != null ? userDetails.getAttribute("name") :
+                                Objects.requireNonNull(userDetails.getAttribute("email")).toString().split("@")[0];
+                String username = tempusername;
+                int counter = 0;
+                while (userRepository.findByUsername(username).isPresent()) {
+                    counter++;
+                    username = tempusername + counter;
+                }
                 User newUser = new User();
                 newUser.setPass("dummypassword");
-                newUser.setUsername(email);
+                newUser.setUsername(username);
                 newUser.setCity("Berlin");
                 newUser.setCountry("Germany");
                 newUser.setE_mail(email);
