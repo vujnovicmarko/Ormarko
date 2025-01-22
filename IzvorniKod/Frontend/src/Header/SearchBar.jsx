@@ -86,8 +86,34 @@ export default function SearchBar({isLoggedIn}) {
     e.preventDefault();
     console.log("Filters applied:", filters);
     try {
+      if (isLoggedIn) {
       const endpoint = useGeolocation
         ? "/api/user/searchUsingGeolocation"
+        : "/api/user/search";
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(filters),
+        credentials: "include",
+      });
+      if (!response.ok) {
+        throw new Error("Search request failed");
+      }
+
+      const data = await response.json();
+      const targetPage = useGeolocation ? "/search-geolocation" : "/search";
+      navigate(targetPage, { state: { filters, products: data.first } });
+
+    } else {
+      let userCoordinates = null;
+      let location = null;
+      if (useGeolocation) {
+        userCoordinates = await fetchUserLocationCoordinates();
+        const { latitude, longitude } = userCoordinates;
+        location = await fetchLocation(latitude, longitude);
+      }
+      const endpoint = useGeolocation
+        ? `/api/default/searchUnregisteredUserwithGeolocation?location=Zagreb`
         : "/api/user/search";
       const response = await fetch(endpoint, {
         method: "POST",
@@ -102,12 +128,97 @@ export default function SearchBar({isLoggedIn}) {
 
       const data = await response.json();
       const targetPage = useGeolocation ? "/search-geolocation" : "/search";
-
       navigate(targetPage, { state: { filters, products: data.first } });
+    }
+      
     } catch (error) {
       console.error("Error during search:", error);
     }
     setShowFilters(false);
+  };
+
+  const fetchLocation = async (latitude, longitude) => {
+    const apiKey = "AIzaSyDt7HBawUA_F4Nm8VGBbjh3Q67CKz_niSg";
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&result_type=locality&result_type=country&result_type&key=${apiKey}`
+      );
+      const data = await response.json();
+      if (data.results && data.results.length > 0) {
+        const location = data.results[0].formatted_address.split(",");
+        return location[0];
+      } else {
+        console.error("No address found for the coordinates");
+      }
+    } catch (error) {
+      console.error("Error fetching address:", error);
+    }
+  };
+
+  const fetchUserLocationCoordinates = async () => {
+    const browserCoordinates = await getGeolocationFromBrowser().catch(
+      () => null
+    );
+    const googleCoordinates = await getGeolocationFromGoogle().catch(
+      () => null
+    );
+    const [browserResult, googleResult] = await Promise.all([
+      browserCoordinates,
+      googleCoordinates,
+    ]);
+    let bestLocation = null;
+    if (browserResult) {
+      bestLocation = browserResult;
+    } else {
+      bestLocation = googleResult;
+    }
+    if (bestLocation) return bestLocation;
+    else {
+      setError("Unable to fetch geolocation.");
+    }
+  };
+
+  const getGeolocationFromGoogle = async () => {
+    try {
+      const response = await fetch(
+        `https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDt7HBawUA_F4Nm8VGBbjh3Q67CKz_niSg`,
+        {
+          method: "POST",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch location from Google API");
+      }
+
+      const data = await response.json();
+      return {
+        latitude: data.location.lat,
+        longitude: data.location.lng
+      };
+    } catch (error) {
+      console.error("Error fetching geolocation from Google API:", error);
+      return null;
+    }
+  };
+
+  const getGeolocationFromBrowser = () => {
+    return new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude, accuracy } = position.coords;
+          resolve({ latitude, longitude, accuracy });
+        },
+        (error) => {
+          reject("Error fetching geolocation from browser:", error);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0,
+        }
+      );
+    });
   };
 
   const closeFilters = () => {

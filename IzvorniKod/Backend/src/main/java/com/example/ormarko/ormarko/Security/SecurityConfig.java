@@ -5,6 +5,7 @@ import com.example.ormarko.ormarko.Service.MarketerService;
 import com.example.ormarko.ormarko.Service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,7 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,6 +128,7 @@ public class SecurityConfig {
                     registry.requestMatchers("/api/login").permitAll();
                     registry.requestMatchers("/api/signup/**","api/login/**").permitAll();
                     registry.requestMatchers("/", "/home", "/api/marketers/**", "/api/default/getAll").permitAll();
+                    registry.requestMatchers( "/api/default/**").permitAll();
                     registry.requestMatchers("/assets/**", "/static/**", "/index.html").permitAll();
                     registry.requestMatchers("/api/user/search").permitAll();
                     registry.requestMatchers("/api/user/profile/**").permitAll();
