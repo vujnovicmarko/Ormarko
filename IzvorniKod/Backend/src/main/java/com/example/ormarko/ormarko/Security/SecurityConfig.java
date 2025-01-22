@@ -104,6 +104,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(login -> login
+                        .loginPage("/login")
                         .loginProcessingUrl("/api/login").permitAll()
                         .successHandler((request, response, authentication) -> {
                             // Return JSON to the front-end
@@ -120,6 +121,7 @@ public class SecurityConfig {
                         })
                 )
                 .authorizeHttpRequests(registry -> {
+                    registry.requestMatchers("/login", "/register").permitAll();
                     registry.requestMatchers("/api/login").permitAll();
                     registry.requestMatchers("/api/signup/**","api/login/**").permitAll();
                     registry.requestMatchers("/", "/home", "/api/marketers/**", "/api/default/getAll").permitAll();
