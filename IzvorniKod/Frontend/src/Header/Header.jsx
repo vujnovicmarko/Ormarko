@@ -12,7 +12,7 @@ export default function Header() {
           <img className="logo" src="/OrmarkoLogo.png" alt="Logo" />
         </Link>
       </div>
-      <SearchBar></SearchBar>
+      <SearchBar isLoggedIn={false}/>
       <LoginRegisterButtons
         className="headerbtndiv"
         buttons={["Registracija", "Prijava"]}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SearchBar.css";
 
-export default function SearchBar() {
+export default function SearchBar({isLoggedIn}) {
   const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(false);
   const [useGeolocation, setUseGeolocation] = useState(false);
