@@ -387,64 +387,98 @@ public class UserController {
         List<Closet> userClosets = closetService.findAllClosetsForUser(currentUsername);
         ArticleOpen articleOpen = ArticleOpen.valueOf(weatherFilters.toUpperCase());
 
-        Set<ArticleUser> ArticleBoots = userClosets.stream()
+        Set<ArticleUser> ArticleBootsSet = userClosets.stream()
                 .flatMap(closet -> articleService.findAllArticlesByOpenness(articleOpen).stream())
                 .filter(article -> article.getCategory() == ArticleCategory.CIPELE || article.getCategory() == ArticleCategory.TENISICE
                         || article.getCategory() == ArticleCategory.ČIZME || article.getCategory() == ArticleCategory.ŠTIKLE)
                 .collect(Collectors.toSet());
-        Set<ArticleUser> ArticleJacket = userClosets.stream()
-                .flatMap(closet -> articleService.findAllArticlesByOpenness(articleOpen).stream())
-                .filter(article -> article.getCategory() == ArticleCategory.TRENIRKA_GORNJI_DIO || article.getCategory() == ArticleCategory.KAPUT
-                        || article.getCategory() == ArticleCategory.JAKNA)
-                .collect(Collectors.toSet());
-        Set<ArticleUser> ArticleTop = userClosets.stream()
-                .flatMap(closet -> articleService.findAllArticlesByOpenness(articleOpen).stream())
+
+        Set<ArticleUser> ArticleTopSet = userClosets.stream()
+                .flatMap(closet -> articleService.findAllArticlesByOpenness(null).stream())
                 .filter(article -> article.getCategory() == ArticleCategory.MAJICA || article.getCategory() == ArticleCategory.KOŠULJA)
                 .collect(Collectors.toSet());
-        Set<ArticleUser> ArticleBot = userClosets.stream()
-                .flatMap(closet -> articleService.findAllArticlesByOpenness(articleOpen).stream())
-                .filter(article -> article.getCategory() == ArticleCategory.SUKNJA
-                        || article.getCategory() == ArticleCategory.TRENIRKA_DONJI_DIO || article.getCategory() == ArticleCategory.TRAPERICE)
-                .collect(Collectors.toSet());
-        Set<ArticleUser> ArticleDress = userClosets.stream()
-                .flatMap(closet -> articleService.findAllArticlesByOpenness(articleOpen).stream())
-                .filter(article -> article.getCategory() == ArticleCategory.SUKNJA
-                        || article.getCategory() == ArticleCategory.HALJINA)
-                .collect(Collectors.toSet());
 
-        List<ArticleUser> articleTop = new ArrayList<>(ArticleTop);
-        List<ArticleUser> articleBot = new ArrayList<>(ArticleBot);
-        List<ArticleUser> articleJacket = new ArrayList<>(ArticleJacket);
-        List<ArticleUser> articleBoots = new ArrayList<>(ArticleBoots);
-        List<ArticleUser> articleDress = new ArrayList<>(ArticleDress);
+        List<ArticleUser> articleTop = new ArrayList<>(ArticleTopSet);
+        List<ArticleUser> articleBot;
+        List<ArticleUser> articleJacket;
+        List<ArticleUser> articleBoots = new ArrayList<>(ArticleBootsSet);
+        List<ArticleUser> articleDress = null;
+        boolean postoji_haljina = false;
+
+        switch (weatherFilters) {
+            case "KIŠA_SNIJEG" -> {
+                Set<ArticleUser> ArticleJacketSet = userClosets.stream()
+                        .flatMap(closet -> articleService.findAllArticlesByCategory(ArticleCategory.KAPUT).stream())
+                        .collect(Collectors.toSet());
+                articleJacket = new ArrayList<>(ArticleJacketSet);
+
+                Set<ArticleUser> ArticleBotSet = userClosets.stream()
+                        .flatMap(closet -> articleService.findAllArticlesByOpenness(null).stream())
+                        .filter(article -> article.getCategory() == ArticleCategory.TRENIRKA_DONJI_DIO || article.getCategory() == ArticleCategory.TRAPERICE)
+                        .collect(Collectors.toSet());
+                articleBot = new ArrayList<>(ArticleBotSet);
+            }
+            case "ZATVORENO" -> {
+                Set<ArticleUser> ArticleJacketSet = userClosets.stream()
+                        .flatMap(closet -> articleService.findAllArticlesByCategory(ArticleCategory.JAKNA).stream())
+                        .collect(Collectors.toSet());
+                articleJacket = new ArrayList<>(ArticleJacketSet);
+
+                Set<ArticleUser> ArticleBotSet = userClosets.stream()
+                        .flatMap(closet -> articleService.findAllArticlesByOpenness(null).stream())
+                        .filter(article -> article.getCategory() == ArticleCategory.SUKNJA
+                                || article.getCategory() == ArticleCategory.TRENIRKA_DONJI_DIO || article.getCategory() == ArticleCategory.TRAPERICE)
+                        .collect(Collectors.toSet());
+                articleBot = new ArrayList<>(ArticleBotSet);
+            }
+            case "OTVORENO" -> {
+                Set<ArticleUser> ArticleJacketSet = userClosets.stream()
+                        .flatMap(closet -> articleService.findAllArticlesByCategory(ArticleCategory.TRENIRKA_GORNJI_DIO).stream())
+                        .collect(Collectors.toSet());
+                articleJacket = new ArrayList<>(ArticleJacketSet);
+
+                Set<ArticleUser> ArticleDressSet = userClosets.stream()
+                        .flatMap(closet -> articleService.findAllArticlesByCategory(ArticleCategory.HALJINA).stream())
+                        .collect(Collectors.toSet());
+                articleDress = new ArrayList<>(ArticleDressSet);
+                postoji_haljina = true;
+
+                Set<ArticleUser> ArticleBotSet = userClosets.stream()
+                        .flatMap(closet -> articleService.findAllArticlesByOpenness(null).stream())
+                        .filter(article -> article.getCategory() == ArticleCategory.SUKNJA
+                                || article.getCategory() == ArticleCategory.TRENIRKA_DONJI_DIO)
+                        .collect(Collectors.toSet());
+                articleBot = new ArrayList<>(ArticleBotSet);
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + weatherFilters);
+        }
 
         Random random = new Random();
-        articleSet.add(articleBoots.get(ThreadLocalRandom.current().nextInt(articleBoots.size())));
-        articleSet.add(articleJacket.get(ThreadLocalRandom.current().nextInt(articleJacket.size())));
-        if (ArticleDress.isEmpty()){
-            if (articleTop != null && !articleTop.isEmpty()) {
-                articleSet.add(articleTop.get(ThreadLocalRandom.current().nextInt(articleTop.size())));
-            }
-            if (articleBot != null && !articleBot.isEmpty()) {
-                articleSet.add(articleBot.get(ThreadLocalRandom.current().nextInt(articleBot.size())));
-            }
-        } else if (ArticleBot.isEmpty() || ArticleTop.isEmpty()){
-            if (articleDress != null && !articleDress.isEmpty()) {
+        if (!articleBoots.isEmpty()){
+            articleSet.add(articleBoots.get(ThreadLocalRandom.current().nextInt(articleBoots.size())));
+        }
+        if (!articleJacket.isEmpty()){
+            articleSet.add(articleJacket.get(ThreadLocalRandom.current().nextInt(articleJacket.size())));
+        }
+        if (postoji_haljina){
+            if (articleTop.isEmpty() || articleBot.isEmpty()) {
                 articleSet.add(articleDress.get(ThreadLocalRandom.current().nextInt(articleDress.size())));
             }
-        }
-        else{
-            if (random.nextInt(100) < 20) {
-                if (articleDress != null && !articleDress.isEmpty()) {
+            else{
+                if (random.nextInt(100) < 20){
                     articleSet.add(articleDress.get(ThreadLocalRandom.current().nextInt(articleDress.size())));
                 }
-            } else {
-                if (articleTop != null && !articleTop.isEmpty()) {
+                else {
                     articleSet.add(articleTop.get(ThreadLocalRandom.current().nextInt(articleTop.size())));
-                }
-                if (articleBot != null && !articleBot.isEmpty()) {
                     articleSet.add(articleBot.get(ThreadLocalRandom.current().nextInt(articleBot.size())));
                 }
+            }
+        } else {
+            if (!articleTop.isEmpty()){
+                articleSet.add(articleTop.get(ThreadLocalRandom.current().nextInt(articleTop.size())));
+            }
+            if (!articleBot.isEmpty()){
+                articleSet.add(articleBot.get(ThreadLocalRandom.current().nextInt(articleBot.size())));
             }
         }
         return ResponseEntity.ok(articleSet);
