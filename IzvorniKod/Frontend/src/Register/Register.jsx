@@ -25,11 +25,10 @@ export default function Register({ setIsLoggedIn }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Mapiramo formData na backend očekivana polja
     const dataToSend = {
       username: formData.username,
-      e_mail: formData.email, // Backend očekuje "e_mail"
-      pass: formData.password, // Backend očekuje "pass"
+      e_mail: formData.email,
+      pass: formData.password,
       city: formData.city,
       country: formData.country,
     };
@@ -40,11 +39,6 @@ export default function Register({ setIsLoggedIn }) {
 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-
-        /*
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData),
-        */
         credentials: "include",
       });
 

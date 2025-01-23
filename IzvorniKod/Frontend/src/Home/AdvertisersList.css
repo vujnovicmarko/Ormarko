@@ -1,17 +1,8 @@
-
 .advertisers-list-container {
     text-align: center;
     padding: 40px 20px;
     background-color: #F9FAFB;
 }
-
-.advertisers-list-container h1 {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-}
-
 
 .advertisers-grid {
     display: grid;
@@ -20,7 +11,6 @@
     justify-content: center;
     align-items: start;
 }
-
 
 .advertiser-card {
     text-decoration: none;
@@ -69,6 +59,7 @@
     margin-top: 6.7rem;
     margin-left: 1rem;
 }
+
 .back-button {
     padding: 10px 30px;
     background: linear-gradient(135deg, #d9a48f, #b97e69);
@@ -82,7 +73,6 @@
     transition: all 0.3s ease;
     margin-bottom: 1rem;
 }
-
 
 @media (max-width: 768px) {
     .advertisers-grid {

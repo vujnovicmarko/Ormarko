@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import MarketerLoggedHeader from "../MarketerHeader/MarketerLoggedHeader.jsx";
-import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
 export default function MarketerProfile({ isLoggedIn, setIsLoggedIn }) {
   const [marketerInfo, setMarketerInfo] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMarketerInfo = async () => {
@@ -27,22 +25,9 @@ export default function MarketerProfile({ isLoggedIn, setIsLoggedIn }) {
     fetchMarketerInfo();
   }, []);
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setMarketerInfo([]); // Reset marketer info
-    localStorage.removeItem("isLoggedIn");
-    fetch("/logout", {
-      method: "POST",
-      credentials: "include",
-    }).then(() => {
-      navigate("/");
-    });
-  };
-
   return (
     <div className="profile-container">
       <MarketerLoggedHeader setIsLoggedIn={setIsLoggedIn} />{" "}
-      {/* Header specifičan za marketera */}
       <h1 className="profile-heading">Moj profil oglašivača</h1>
       <div className="profile-details">
         <p>

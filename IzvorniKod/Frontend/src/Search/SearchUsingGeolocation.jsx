@@ -28,7 +28,6 @@ export default function SearchPage({ isLoggedIn }) {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        // data is an array of articles returned by the backend
         const combinedData = data.first.map((article, index) => ({
           ...article,
           email: data.second[index].email,

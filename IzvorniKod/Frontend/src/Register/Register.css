@@ -86,7 +86,6 @@ h2 {
     box-shadow: 0 2px 5px rgba(185, 126, 105, 0.3);
 }
 
-/* Additional button styling */
 .additional-buttons {
     margin-top: 10px;
     text-align: center;
@@ -117,7 +116,6 @@ h2 {
     box-shadow: 0 2px 5px rgba(185, 126, 105, 0.3);
 }
 
-/* Password visibility toggle */
 .password-container {
     position: relative;
 }
@@ -129,7 +127,7 @@ h2 {
 }
 
 .input-container input {
-    padding-right: 2rem; /* Space for the eye icon */
+    padding-right: 2rem;
 }
 
 .eye-icon {
@@ -144,7 +142,6 @@ h2 {
     color: #000;
 }
 
-/* Mobile Responsiveness */
 @media (max-width: 768px) {
     .registration-form {
         max-width: 90%;

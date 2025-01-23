@@ -13,14 +13,10 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
       try {
         const response = await fetch(`/api/user/profile?t=${Date.now()}`, {
           credentials: "include",
-          /*headers: {
-                    "Content-Type": "application/json",
-            },
-            */
         });
         if (response.ok) {
           const data = await response.json();
-          console.log("Data fetched:", data); //sam za debug, obrisi poslje
+          console.log("Data fetched:", data);
           setUserInfo(data);
         } else {
           console.error("Failed to fetch user info");
@@ -125,7 +121,7 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
       const data = await response.json();
       return {
         latitude: data.location.lat,
-        longitude: data.location.lng
+        longitude: data.location.lng,
       };
     } catch (error) {
       console.error("Error fetching geolocation from Google API:", error);
@@ -154,7 +150,7 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
-    setUserInfo([]); // razrješiti čuvanja podataka o prošlom logiranom korisniku
+    setUserInfo([]);
     localStorage.removeItem("isLoggedIn");
     fetch("/logout", {
       method: "POST",
@@ -165,10 +161,10 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
   };
 
   return (
-      <div>
+    <div>
       <ClosetsHeader />
-    <div className="profile-container">
-      <h1 className="profile-heading">Moj profil</h1>
+      <div className="profile-container">
+        <h1 className="profile-heading">Moj profil</h1>
         <div className="profile-details">
           <p>
             <strong>Korisničko ime:</strong> {userInfo.username}
@@ -183,10 +179,10 @@ export default function Profile({ isLoggedIn, setIsLoggedIn }) {
             <strong>Država:</strong> {userInfo.country}
           </p>
         </div>
-      <button className="logout-button" onClick={handleLogout}>
-        Odjavi se
-      </button>
-    </div>
+        <button className="logout-button" onClick={handleLogout}>
+          Odjavi se
+        </button>
       </div>
+    </div>
   );
 }

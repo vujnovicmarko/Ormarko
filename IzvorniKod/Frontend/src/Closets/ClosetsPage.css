@@ -1,4 +1,3 @@
-/* Container for the entire closets page */
 .closets-page {
     display: flex;
     flex-direction: column;
@@ -6,12 +5,16 @@
     background: #f3f4f6;
 }
 
-/* Main container with nav and content */
 .closets-container {
     display: flex;
     flex-grow: 1;
-    margin-top: 80px; /* Ensures content is not covered by the header */
+    margin-top: 80px;
     gap: 1rem;
+}
+
+.closets-nav {
+    left: 0;
+    top: 80px;
 }
 
 .closets-nav,
@@ -28,29 +31,14 @@
     position: fixed;
     z-index: 900;
 }
-.closets-nav {
-    left: 0;
-    top: 80px; /* Below the header */
-}
-.locations-nav {
-    left: 350px; /* Positioned beside closets-nav */
-    top: 80px; /* Below the header */
-}
 
-.closets-content {
-    margin-left: 700px; /* Space for both navs (350px each) */
-    padding: 1rem;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.locations-nav {
+    left: 350px;
+    top: 80px;
 }
 
 .articles-content {
-    margin-left: 700px; /* Space for both navs (350px each) */
+    margin-left: 700px;
     padding: 1rem;
     flex-grow: 1;
     display: flex;
@@ -59,49 +47,13 @@
     background: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    height: calc(100vh - 80px); /* Full height minus header */
-    overflow-y: auto; /* Scrollable content */
+    height: calc(100vh - 80px);
+    overflow-y: auto;
     position: fixed;
-    top: 80px; /* Below the header */
+    top: 80px;
     z-index: 900;
 }
-@media (max-width: 1024px) {
-    .closets-container {
-        flex-direction: column;
-        align-items: center;
-        margin-top: 5rem;
-    }
 
-    .closets-nav,
-    .locations-nav {
-        width: 100%;
-        height: auto;
-        position: relative;
-        left: 0;
-        top: auto;
-    }
-
-    .articles-content {
-        margin-left: 0;
-        width: 100%;
-        position: relative; /* Remove fixed position */
-        top: auto;
-        height: auto;
-    }
-}
-
-@media (max-width: 768px) {
-    .closets-container {
-        flex-direction: column;
-        align-items: center;
-        margin-top: 13rem;
-    }
-    .closets-page {
-        height: auto;
-    }
-
-}
-/* Navigation bar title */
 .closets-nav h3 {
     font-size: 1.2rem;
     color: #4b5563;
@@ -109,14 +61,13 @@
     text-align: center;
 }
 
-.location-item{
+.closet-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
 }
 
-/* Navigation buttons for closets */
 .closet-btn, .location-btn {
     padding: 0.4rem 1rem;
     background: linear-gradient(135deg, #d9a48f, #b97e69);
@@ -144,13 +95,32 @@
     box-shadow: 0 2px 5px rgba(185, 126, 105, 0.2);
 }
 
-/* Active button styling */
 .closet-btn.active, .location-btn.active {
     background: #a06754;
     box-shadow: 0 4px 10px rgba(160, 103, 84, 0.5);
 }
 
-/* Button to add a new closet or location */
+.delete-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 0.2rem 0.2rem;
+    font-size: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0;
+}
+
+.delete-btn:hover {
+    background: darkred;
+}
+
 .add-closet-btn, .add-location-btn, .location-select-btn, .add-article-btn {
     padding: 0.4rem 1rem;
     background: linear-gradient(135deg, #d9a48f, #b97e69);
@@ -176,178 +146,50 @@
     box-shadow: 0 2px 5px rgba(185, 126, 105, 0.2);
 }
 
-
 .locations-nav h3{
     text-align: center;
 }
 
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: #ffffff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    width: 90%;
-    max-width: 450px;
-    z-index: 1000;
-    padding: 2rem;
-}
-
-
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 2000;
-}
-
-.modal-header {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #4b5563;
-    margin-bottom: 1rem;
-}
-
-.modal-body {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.modal-body label {
-    font-size: 0.9rem;
-    color: #6b7280;
-}
-
-.modal-body input, .modal-body select {
-    padding: 0.5rem;
-    border: 1px solid #d1d5db;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    width: 100%;
-}
-
-.modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-}
-
-.modal-actions button {
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.modal-actions .save-btn {
-    background: #10b981;
-    color: #ffffff;
-}
-
-.modal-actions .cancel-btn {
-    background: #ef4444;
-    color: #ffffff;
-}
-.closet-item {
+.location-item{
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 10px;
 }
 
-.delete-btn {
-    background: red;
-    color: white;
-    border: none;
-    padding: 0.2rem 0.2rem;
-    font-size: 0.5rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-    height: auto;
-    display: flex;
-    align-items: center; /* Center 'X' vertically */
-    justify-content: center; /* Center 'X' horizontally */
-    flex-shrink: 0;
-    margin-top: 0;
+@media (max-width: 1024px) {
+    .closets-container {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 5rem;
+    }
+
+    .closets-nav,
+    .locations-nav {
+        width: 100%;
+        height: auto;
+        position: relative;
+        left: 0;
+        top: auto;
+    }
+
+    .articles-content {
+        margin-left: 0;
+        width: 100%;
+        position: relative;
+        top: auto;
+        height: auto;
+    }
 }
 
-.delete-btn:hover {
-    background: darkred;
-}
+@media (max-width: 768px) {
+    .closets-container {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 13rem;
+    }
+    .closets-page {
+        height: auto;
+    }
 
-
-.modal-content, .modal-content form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-}
-
-.modal-content h3 {
-    text-align: center;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-    color: #333;
-}
-
-.modal-content label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    font-size: 1rem;
-    color: #555;
-}
-.modal-content input[type="file"]{
-    margin-left: auto;
-}
-
-
-.modal-body {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-.modal-actions {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.cancel-btn,
-.save-btn {
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-family:'Poppins', sans-serif;
-}
-
-.cancel-btn {
-    background-color: #ef4444;
-    color: white;
-}
-
-.cancel-btn:hover {
-    background-color: #dc2626;
-}
-
-.save-btn {
-    background-color: #10b981;
-    color: white;
-}
-
-.save-btn:hover {
-    background-color: #059669;
 }

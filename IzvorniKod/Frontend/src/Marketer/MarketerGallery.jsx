@@ -66,7 +66,7 @@ export default function MarketerGallery() {
                 className="delete-btn"
                 onClick={() => handleDeleteArticle(article.articleId)}
               >
-                &#x2716; {/* Unicode za X */}
+                &#x2716;
               </button>
             </div>
           ))

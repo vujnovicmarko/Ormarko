@@ -1,35 +1,33 @@
 import React from "react";
-import "./ClosetsPage.css"
+import "./DeleteModal.css";
 
-export default function DeleteLocationModal({
-  locationToDelete,
-  locations,
-  handleDeleteLocation,
-  setShowDeleteLocationModal,
+export default function DeleteClosetModal({
+  closetToDelete,
+  closets,
+  handleDeleteCloset,
+  setShowDeleteClosetModal,
 }) {
   return (
     <div className="modal-overlay">
       <div className="modal">
         <div className="modal-header">Potvrdi brisanje</div>
         <div className="modal-body">
-          Jeste li sigurni da želite obrisati lokaciju #
-          {locations.findIndex(
-            (loc) => loc.locationId === locationToDelete.locationId
-          ) + 1}
-          ({locationToDelete.typeLoc})?
+          Jeste li sigurni da želite obrisati ormar #
+          {closets.findIndex((c) => c.closetId === closetToDelete.closetId) + 1}
+          ?
         </div>
         <div className="modal-actions">
           <button
             className="cancel-btn"
-            onClick={() => setShowDeleteLocationModal(false)}
+            onClick={() => setShowDeleteClosetModal(false)}
           >
             Odustani
           </button>
           <button
             className="save-btn"
             onClick={() => {
-              handleDeleteLocation(locationToDelete.locationId);
-              setShowDeleteLocationModal(false);
+              handleDeleteCloset(closetToDelete.closetId);
+              setShowDeleteClosetModal(false);
             }}
           >
             Obriši

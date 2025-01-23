@@ -10,7 +10,7 @@ export default function LoggedInHeader() {
           <img className="logo" src="/OrmarkoLogo.png" alt="Logo" />
         </Link>
       </div>
-      <SearchBar isLoggedIn={true}/>
+      <SearchBar isLoggedIn={true} />
       <div className="headerbtndiv">
         <Link to="/closets">
           <button className="headerbtn">Moji Ormari</button>

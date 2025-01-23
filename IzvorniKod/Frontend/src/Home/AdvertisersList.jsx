@@ -26,10 +26,7 @@ export default function AdvertisersList() {
 
   return (
     <div className="advertisers-list-page">
-      {/* Header Component */}
       <MarketerListHeader />
-
-      {/* Advertisers Grid */}
       <div className="go-back">
         <Link to="/" className="back-button">
           Natrag
@@ -48,7 +45,6 @@ export default function AdvertisersList() {
                 alt={`${advertiser.username} logo`}
                 className="advertiser-logo"
               />
-
               <p className="advertiser-username">{advertiser.username}</p>
             </Link>
           ))}

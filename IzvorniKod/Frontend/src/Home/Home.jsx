@@ -8,14 +8,14 @@ export default function Home({ isLoggedIn }) {
   return (
     <div>
       {isLoggedIn ? <LoggedInHeader /> : <Header />}
-        <div className="top-container">
-            <Link to="/advertisers">
-                <button className="advertisers-button">Oglasi</button>
-            </Link>
-            <h1 className="welcome-text">Dobrodošli u Ormarko!</h1>
-        </div>
-        <div className="items-container">
-            <ItemDisplay />
+      <div className="top-container">
+        <Link to="/advertisers">
+          <button className="advertisers-button">Oglasi</button>
+        </Link>
+        <h1 className="welcome-text">Dobrodošli u Ormarko!</h1>
+      </div>
+      <div className="items-container">
+        <ItemDisplay />
       </div>
     </div>
   );

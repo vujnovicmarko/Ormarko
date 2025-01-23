@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"; // Import eye icons
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import "./LoginMarketer.css";
 import Header from "../Header/MinimalHeaderLog";
 
@@ -23,14 +23,13 @@ export default function LoginMarketer({ setIsLoggedIn }) {
     e.preventDefault();
     const dataToSend = {
       username: formData.username,
-      pass: formData.password // Backend očekuje "pass"
-
+      pass: formData.password,
     };
 
     try {
       const response = await fetch("/api/login/marketer", {
         method: "POST",
-        headers: { "Content-Type": "application/json"  },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(dataToSend),
         credentials: "include",
       });

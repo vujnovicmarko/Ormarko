@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import ClosetsHeader from "../ClosetsHeader/ClosetsHeader.jsx";
 import ClosetList from "./ClosetList";
 import LocationList from "./LocationList";
-import AddArticleModal from "./AddArticleModal";
-import DeleteClosetModal from "./DeleteClosetModal.jsx";
-import DeleteLocationModal from "./DeleteLocationModal.jsx";
-import ArticleModal from "./ArticleModal";
+import AddArticleModal from "./ArticleModal/AddArticleModal.jsx";
+import DeleteClosetModal from "./DeleteModal/DeleteClosetModal.jsx";
+import DeleteLocationModal from "./DeleteModal/DeleteLocationModal.jsx";
+import ArticleModal from "./ArticleModal/ArticleModal.jsx";
 import ArticleList from "./ArticleList";
 import "./ClosetsPage.css";
 import { useLocation } from "react-router-dom";
@@ -79,7 +79,6 @@ export default function ClosetsPage() {
   const { closetIndex, locationIndex, articleId } = location.state || {};
   const [highlightedArticle, setHighlightedArticle] = useState(null);
 
-  // Handle closetIndex from location.state
   useEffect(() => {
     if (closetIndex != null && closets.length > 0) {
       const targetCloset = closets[closetIndex];
@@ -89,7 +88,6 @@ export default function ClosetsPage() {
     }
   }, [closetIndex, closets]);
 
-  // Handle locationIndex from location.state
   useEffect(() => {
     if (locationIndex != null && locations.length > 0) {
       const targetLocation = locations[locationIndex];
@@ -124,7 +122,7 @@ export default function ClosetsPage() {
     try {
       const response = await fetch("/api/user/profile/allClosets", {
         method: "GET",
-        credentials: "include", // Include cookies for authentication
+        credentials: "include",
       });
       if (!response.ok) throw new Error("Failed to fetch closets");
       const data = await response.json();
@@ -223,11 +221,10 @@ export default function ClosetsPage() {
     try {
       const response = await fetch("/api/user/profile/addCloset", {
         method: "POST",
-        credentials: "include", // Include cookies for authentication
+        credentials: "include",
       });
       if (!response.ok) throw new Error("Failed to create a new closet");
 
-      // Fetch updated closet list after successful addition
       await fetchClosets();
     } catch (err) {
       console.error("Error creating closet:", err);
@@ -249,12 +246,11 @@ export default function ClosetsPage() {
     setSelectedLocation(location);
     fetchArticles(location.locationId).then(() => {
       if (articleId) {
-        setHighlightedArticle(articleId); // Ensure article is highlighted after articles load
+        setHighlightedArticle(articleId);
       }
     });
   };
 
-  // Delete a closet
   const handleDeleteCloset = async (closetId) => {
     try {
       const response = await fetch(
@@ -272,7 +268,7 @@ export default function ClosetsPage() {
         setArticles([]);
         setSelectedLocation(null);
       }
-      // Update the closets list after deletion
+
       await fetchClosets();
     } catch (err) {
       console.error("Error deleting closet:", err);
@@ -280,7 +276,6 @@ export default function ClosetsPage() {
     }
   };
 
-  // Delete a location
   const handleDeleteLocation = async (locationId) => {
     try {
       const response = await fetch(
@@ -295,13 +290,14 @@ export default function ClosetsPage() {
         setSelectedLocation(null);
         setArticles([]);
       }
-      // Update the locations list after deletion
+
       if (selectedCloset) await fetchLocations(selectedCloset.closetId);
     } catch (err) {
       console.error("Error deleting location:", err);
       setError("Failed to delete location.");
     }
   };
+
   const handleDeleteArticle = async (articleId) => {
     try {
       const response = await fetch(
@@ -313,7 +309,6 @@ export default function ClosetsPage() {
       );
       if (!response.ok) throw new Error("Failed to delete article");
 
-      // Close the modal and refresh the articles list
       setIsArticleModalOpen(false);
       fetchArticles(selectedLocation.locationId);
     } catch (err) {
@@ -322,7 +317,6 @@ export default function ClosetsPage() {
     }
   };
 
-  // Fetch closets on mount
   useEffect(() => {
     fetchClosets();
   }, []);
@@ -333,81 +327,81 @@ export default function ClosetsPage() {
       <div className="closets-container">
         <div className="closets-nav">
           <ClosetList
-              closets={closets}
-              selectedCloset={selectedCloset}
-              handleSelectCloset={handleSelectCloset}
-              handleDeleteCloset={handleDeleteCloset}
-              setClosetToDelete={setClosetToDelete}
-              setShowDeleteClosetModal={setShowDeleteClosetModal}
-              handleAddCloset={handleAddCloset}
+            closets={closets}
+            selectedCloset={selectedCloset}
+            handleSelectCloset={handleSelectCloset}
+            handleDeleteCloset={handleDeleteCloset}
+            setClosetToDelete={setClosetToDelete}
+            setShowDeleteClosetModal={setShowDeleteClosetModal}
+            handleAddCloset={handleAddCloset}
           />
         </div>
         <div className="locations-nav">
           {selectedCloset && (
-              <LocationList
-                  locations={locations}
-                  selectedLocation={selectedLocation}
-                  handleAddLocation={handleAddLocation}
-                  handleSelectLocation={handleSelectLocation}
-                  handleDeleteLocation={handleDeleteLocation}
-                  setLocationToDelete={setLocationToDelete}
-                  setShowDeleteLocationModal={setShowDeleteLocationModal}
-              />
+            <LocationList
+              locations={locations}
+              selectedLocation={selectedLocation}
+              handleAddLocation={handleAddLocation}
+              handleSelectLocation={handleSelectLocation}
+              handleDeleteLocation={handleDeleteLocation}
+              setLocationToDelete={setLocationToDelete}
+              setShowDeleteLocationModal={setShowDeleteLocationModal}
+            />
           )}
         </div>
         <div className="articles-content">
           {selectedLocation && (
-              <ArticleList
-                  articles={articles}
-                  setShowArticleModal={setShowArticleModal}
-                  onArticleClick={handleArticleClick}
-                  highlightedArticle={highlightedArticle}
-              />
+            <ArticleList
+              articles={articles}
+              setShowArticleModal={setShowArticleModal}
+              onArticleClick={handleArticleClick}
+              highlightedArticle={highlightedArticle}
+            />
           )}
         </div>
-          {isArticleModalOpen && selectedArticle && (
-              <ArticleModal
-                  article={selectedArticle}
-                  onClose={handleCloseArticleModal}
-              />
-          )}
-        </div>
-        {showArticleModal && (
-            <AddArticleModal
-                newArticle={newArticle}
-                setNewArticle={setNewArticle}
-                handleAddArticle={handleAddArticle}
-                setShowArticleModal={setShowArticleModal}
-                categories={categories}
-                seasons={seasons}
-                opennessOptions={opennessOptions}
-                casualnessOptions={casualnessOptions}
-                colors={colors}
-            />
-        )}
-        {showDeleteClosetModal && (
-            <DeleteClosetModal
-                closetToDelete={closetToDelete}
-                closets={closets}
-                handleDeleteCloset={handleDeleteCloset}
-                setShowDeleteClosetModal={setShowDeleteClosetModal}
-            />
-        )}
-        {showDeleteLocationModal && (
-            <DeleteLocationModal
-                locationToDelete={locationToDelete}
-                locations={locations}
-                handleDeleteLocation={handleDeleteLocation}
-                setShowDeleteLocationModal={setShowDeleteLocationModal}
-            />
-        )}
         {isArticleModalOpen && selectedArticle && (
-            <ArticleModal
-                article={selectedArticle}
-                onClose={handleCloseArticleModal}
-                onDelete={handleDeleteArticle}
-            />
+          <ArticleModal
+            article={selectedArticle}
+            onClose={handleCloseArticleModal}
+          />
         )}
       </div>
-      );
-      }
+      {showArticleModal && (
+        <AddArticleModal
+          newArticle={newArticle}
+          setNewArticle={setNewArticle}
+          handleAddArticle={handleAddArticle}
+          setShowArticleModal={setShowArticleModal}
+          categories={categories}
+          seasons={seasons}
+          opennessOptions={opennessOptions}
+          casualnessOptions={casualnessOptions}
+          colors={colors}
+        />
+      )}
+      {showDeleteClosetModal && (
+        <DeleteClosetModal
+          closetToDelete={closetToDelete}
+          closets={closets}
+          handleDeleteCloset={handleDeleteCloset}
+          setShowDeleteClosetModal={setShowDeleteClosetModal}
+        />
+      )}
+      {showDeleteLocationModal && (
+        <DeleteLocationModal
+          locationToDelete={locationToDelete}
+          locations={locations}
+          handleDeleteLocation={handleDeleteLocation}
+          setShowDeleteLocationModal={setShowDeleteLocationModal}
+        />
+      )}
+      {isArticleModalOpen && selectedArticle && (
+        <ArticleModal
+          article={selectedArticle}
+          onClose={handleCloseArticleModal}
+          onDelete={handleDeleteArticle}
+        />
+      )}
+    </div>
+  );
+}

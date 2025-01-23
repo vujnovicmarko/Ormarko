@@ -31,34 +31,27 @@
 
 .welcome-text {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.5rem; /* Adjust font size for text */
+    font-size: 1.5rem;
     font-weight: 700;
     color: #4B5563;
-    margin-left: 1rem; /* Add space between the button and the text */
-    white-space: nowrap; /* Prevent wrapping of the text */
-}
-.itemdisplay {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
-    padding: 1rem;
-    margin-top: 1rem;
+    margin-left: 1rem;
+    white-space: nowrap;
 }
 
 @media (max-width: 768px) {
     .top-container {
-        margin-top: 13rem; /* Add extra margin for smaller screens */
-        justify-content: center; /* Center items on smaller screens */
+        margin-top: 13rem;
+        justify-content: center;
         text-align: center;
     }
 
     .advertisers-button {
-        font-size: 1.2rem; /* Adjust button size for smaller screens */
-        padding: 15px 40px; /* Adjust padding for smaller screens */
+        font-size: 1.2rem;
+        padding: 15px 40px;
     }
 
     .welcome-text {
-        font-size: 2rem; /* Adjust font size for smaller screens */
-        margin-left: 0; /* Remove left margin for centered alignment */
+        font-size: 2rem;
+        margin-left: 0;
     }
 }

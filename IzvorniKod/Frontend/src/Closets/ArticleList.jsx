@@ -1,5 +1,5 @@
 import React from "react";
-import "./ArticleList.css"; // Ensure to create or update the CSS file
+import "./ArticleList.css";
 
 export default function ArticleList({
   articles,

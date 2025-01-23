@@ -10,7 +10,6 @@ export default function MinimalHeaderReg() {
         </Link>
       </div>
       <div className="headerbtndiv">
-        {/* Ovdje je uklonjen gumb za registraciju */}
         <Link to="/login">
           <button className="headerbtn">Prijava</button>
         </Link>

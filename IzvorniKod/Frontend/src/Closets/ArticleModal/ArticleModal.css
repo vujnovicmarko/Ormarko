@@ -23,18 +23,16 @@
 }
 
 .close-button {
-
-        position: fixed; /* Position relative to the viewport */
-        top: 1rem; /* Distance from the top of the viewport */
-        right: 3rem; /* Distance from the right of the viewport */
+        position: fixed;
+        top: 1rem;
+        right: 3rem;
         background: none;
         border: none;
         font-size: 5rem;
         color: black;
         cursor: pointer;
         transition: color 0.3s;
-        z-index: 2002; /* Ensure it appears above modal content */
-
+        z-index: 2002;
 }
 
 .modal-img {
@@ -42,6 +40,7 @@
     height: auto;
     margin-bottom: 20px;
 }
+
 .delete-btn {
     display: block;
     background-color: #ef4444;
@@ -78,12 +77,12 @@
     transition: background-color 0.3s ease;
     font-family: 'Poppins', sans-serif;
 }
+
 .toggle-visibility-btn:hover {
     background: linear-gradient(135deg, #b97e69, #a06754);
     box-shadow: 0 3px 8px rgba(185, 126, 105, 0.3);
     transform: translateY(-2px);
 }
-
 
 .toggle-visibility-btn.visible {
     background: linear-gradient(135deg, #d9a48f, #b97e69); /* Green */

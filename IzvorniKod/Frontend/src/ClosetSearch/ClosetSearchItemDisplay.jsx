@@ -42,7 +42,7 @@ export default function ClosetSearchItemDisplay({
           return (
             <div
               key={product.articleId}
-              className="item"
+              className="item-search"
               onClick={() => handleItemClick(product)}
             >
               <img
@@ -58,7 +58,7 @@ export default function ClosetSearchItemDisplay({
               <button
                 className="jump-button"
                 onClick={(e) => {
-                  e.stopPropagation(); // Prevent triggering the modal
+                  e.stopPropagation();
                   onJumpToLocation(
                     closetIndex,
                     locationIndex,

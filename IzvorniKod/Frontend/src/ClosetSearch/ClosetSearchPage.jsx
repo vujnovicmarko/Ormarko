@@ -31,7 +31,6 @@ export default function ClosetSearchPage() {
 
         const data = await response.json();
 
-        // Combine `first` and `second` into a single `products` array
         const combinedData = data.first.map((article, index) => ({
           ...article,
           closetPosition: data.second[index]?.first ?? null,

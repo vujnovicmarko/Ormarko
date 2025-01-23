@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SearchBar.css";
 
-export default function SearchBar({isLoggedIn}) {
+export default function SearchBar({ isLoggedIn }) {
   const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(false);
   const [useGeolocation, setUseGeolocation] = useState(false);
@@ -87,50 +87,48 @@ export default function SearchBar({isLoggedIn}) {
     console.log("Filters applied:", filters);
     try {
       if (isLoggedIn) {
-      const endpoint = useGeolocation
-        ? "/api/user/searchUsingGeolocation"
-        : "/api/user/search";
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(filters),
-        credentials: "include",
-      });
-      if (!response.ok) {
-        throw new Error("Search request failed");
+        const endpoint = useGeolocation
+          ? "/api/user/searchUsingGeolocation"
+          : "/api/user/search";
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(filters),
+          credentials: "include",
+        });
+        if (!response.ok) {
+          throw new Error("Search request failed");
+        }
+
+        const data = await response.json();
+        const targetPage = useGeolocation ? "/search-geolocation" : "/search";
+        navigate(targetPage, { state: { filters, products: data.first } });
+      } else {
+        let userCoordinates = null;
+        let location = null;
+        if (useGeolocation) {
+          userCoordinates = await fetchUserLocationCoordinates();
+          const { latitude, longitude } = userCoordinates;
+          location = await fetchLocation(latitude, longitude);
+        }
+        const endpoint = useGeolocation
+          ? `/api/default/searchUnregisteredUserwithGeolocation?location=Zagreb`
+          : "/api/user/search";
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(filters),
+          credentials: "include",
+        });
+
+        if (!response.ok) {
+          throw new Error("Search request failed");
+        }
+
+        const data = await response.json();
+        const targetPage = useGeolocation ? "/search-geolocation" : "/search";
+        navigate(targetPage, { state: { filters, products: data.first } });
       }
-
-      const data = await response.json();
-      const targetPage = useGeolocation ? "/search-geolocation" : "/search";
-      navigate(targetPage, { state: { filters, products: data.first } });
-
-    } else {
-      let userCoordinates = null;
-      let location = null;
-      if (useGeolocation) {
-        userCoordinates = await fetchUserLocationCoordinates();
-        const { latitude, longitude } = userCoordinates;
-        location = await fetchLocation(latitude, longitude);
-      }
-      const endpoint = useGeolocation
-        ? `/api/default/searchUnregisteredUserwithGeolocation?location=Zagreb`
-        : "/api/user/search";
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(filters),
-        credentials: "include",
-      });
-
-      if (!response.ok) {
-        throw new Error("Search request failed");
-      }
-
-      const data = await response.json();
-      const targetPage = useGeolocation ? "/search-geolocation" : "/search";
-      navigate(targetPage, { state: { filters, products: data.first } });
-    }
-      
     } catch (error) {
       console.error("Error during search:", error);
     }
@@ -194,7 +192,7 @@ export default function SearchBar({isLoggedIn}) {
       const data = await response.json();
       return {
         latitude: data.location.lat,
-        longitude: data.location.lng
+        longitude: data.location.lng,
       };
     } catch (error) {
       console.error("Error fetching geolocation from Google API:", error);

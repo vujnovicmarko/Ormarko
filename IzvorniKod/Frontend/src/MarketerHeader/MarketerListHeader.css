@@ -1,8 +1,7 @@
-/* Header Styling */
 .advertisers-header {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Poravnava sadržaj ulijevo */
+    justify-content: flex-start;
     padding: 1rem 2rem;
     background-color: #FFFFFF;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -18,14 +17,14 @@
 }
 
 .advertisers-logo {
-    height: 40px; /* Smanjena visina logotipa */
-    margin-right: 1rem; /* Razmak između logotipa i naslova */
+    height: 40px;
+    margin-right: 1rem;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
 
 .advertisers-logo:hover {
-    transform: scale(1.1); /* Lagani hover efekt za logotip */
+    transform: scale(1.1);
 }
 
 .advertisers-title {
@@ -35,7 +34,6 @@
     margin: 0;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .advertisers-header {
         padding: 1rem;
@@ -49,6 +47,6 @@
     }
 
     .advertisers-logo {
-        height: 10px; /* Manji logo na manjim zaslonima */
+        height: 10px;
     }
 }

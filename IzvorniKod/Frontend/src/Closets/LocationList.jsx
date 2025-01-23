@@ -1,5 +1,6 @@
 import React from "react";
 import "./ClosetsPage.css";
+
 export default function LocationList({
   locations,
   selectedLocation,
@@ -8,7 +9,6 @@ export default function LocationList({
   setLocationToDelete,
   setShowDeleteLocationModal,
 }) {
-  // Helper function to count locations of the same type
   const getLocationLabel = (location) => {
     const count =
       locations

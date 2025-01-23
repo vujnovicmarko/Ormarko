@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./ArticleModal.css";
 
 export default function ArticleModal({ article, onClose, onDelete }) {
@@ -13,7 +13,7 @@ export default function ArticleModal({ article, onClose, onDelete }) {
     sideColor,
     descript,
     openness,
-      sharing
+    sharing,
   } = article || {};
 
   const [isVisible, setIsVisible] = useState(sharing);
@@ -21,17 +21,22 @@ export default function ArticleModal({ article, onClose, onDelete }) {
     const newVisibility = !isVisible;
 
     try {
-      const response = await fetch(`/api/user/profile/updateArticle${articleId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ visibility: newVisibility }),
-      });
+      const response = await fetch(
+        `/api/user/profile/updateArticle${articleId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ visibility: newVisibility }),
+        }
+      );
 
       if (response.ok) {
         setIsVisible(newVisibility);
-        console.log(`Article ${articleId} visibility updated to ${newVisibility}`);
+        console.log(
+          `Article ${articleId} visibility updated to ${newVisibility}`
+        );
       } else {
         console.error("Failed to update visibility:", response.statusText);
       }
@@ -45,17 +50,14 @@ export default function ArticleModal({ article, onClose, onDelete }) {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div
-          className="modal-content"
-          onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
-      >
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="close-button" onClick={onClose}>
           &times;
         </button>
         <img
-            src={`data:image/png;base64,${img}`}
-            alt={title}
-            className="modal-img"
+          src={`data:image/png;base64,${img}`}
+          alt={title}
+          className="modal-img"
         />
         <h2>{title}</h2>
         <p>
@@ -68,9 +70,9 @@ export default function ArticleModal({ article, onClose, onDelete }) {
           <strong>Ležernost:</strong> {howCasual}
         </p>
         {openness && (
-            <p>
-              <strong>Otvorenost:</strong> {openness}
-            </p>
+          <p>
+            <strong>Otvorenost:</strong> {openness}
+          </p>
         )}
         <p>
           <strong>Glavna boja:</strong> {mainColor}
@@ -82,8 +84,10 @@ export default function ArticleModal({ article, onClose, onDelete }) {
           <strong>Opis stanja:</strong> {descript}
         </p>
         <button
-            className={`toggle-visibility-btn ${isVisible ? "visible" : "hidden"}`}
-            onClick={toggleVisibility}
+          className={`toggle-visibility-btn ${
+            isVisible ? "visible" : "hidden"
+          }`}
+          onClick={toggleVisibility}
         >
           {isVisible ? "Prestani dijeliti artikl" : "Dijeli artikl"}
         </button>

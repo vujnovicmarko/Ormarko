@@ -1,4 +1,3 @@
-/* General Styling */
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
@@ -6,7 +5,6 @@ body {
     background-color: #F9FAFB;
 }
 
-/* Header Styling */
 .header {
     position: fixed;
     top: 0;
@@ -45,7 +43,6 @@ body {
     margin: 0 auto;
 }
 
-/* Header Button Styling */
 .headerbtn, .get-weather {
     padding: 0.5rem 1rem;
     background: linear-gradient(135deg, #d9a48f, #b97e69);
@@ -71,7 +68,6 @@ body {
     box-shadow: 0 2px 5px rgba(185, 126, 105, 0.2);
 }
 
-/* Button Container */
 .headerbtndiv {
     display: flex;
     gap: 1rem;
@@ -81,9 +77,6 @@ body {
     align-items: center;
 }
 
-
-
-/* Navigation Styling */
 .navbar {
     display: flex;
     align-items: center;
@@ -102,13 +95,11 @@ body {
     color: #b97e69;
 }
 
-/* Sticky Header Shadow */
 .sticky-header {
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
     transition: box-shadow 0.3s;
 }
 
-/* Dropdown Menu */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -150,12 +141,12 @@ body {
     gap: 1rem;
 }
 .search-results {
-    margin-top: 7rem; /* Add extra margin for smaller screens */
+    margin-top: 7rem;
 }
 
 @media (max-width: 768px) {
     .search-results {
-        margin-top: 13rem; /* Add extra margin for smaller screens */
+        margin-top: 13rem;
     }
 }
 
