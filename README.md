@@ -46,6 +46,8 @@ Više detalja o ovom projektu možete naći na [Wikiju](https://github.com/vujno
 >     
 > cd Ormarko
 
+ili posjeti web stranicu online: https://ormarkodeploy-c46f4289b2cf.herokuapp.com/
+
 # Članovi tima i kontribucije
 - Andrija Andročec - razvoj poslužiteljske strane
 - Lana Benički - razvoj poslužiteljske strane
