@@ -223,7 +223,6 @@ public class UserController {
         }
 
         String userCity = userService.findByUsername(username).get().getCity();
-        System.out.println("MIDN 343 " + userCity);
         List<ArticleUser> articles = articleService.findAllArticlesBySharing(true);
         articles = userService.filter(articles, body).stream().sorted(Comparator.comparing(ArticleUser::getArticleId)).toList();
 
@@ -253,7 +252,7 @@ public class UserController {
 
     @PostMapping("/searchUUG")
     public Pair<List<ArticleUser>, List<User>> geoSearchForUnregisteredUsers(@RequestBody Map<String, String[]> body, @RequestParam String UUlocation){
-
+        System.out.println("body"+ body);
         List<ArticleUser> articles = articleService.findAllArticlesBySharing(true);
         articles = userService.filter(articles, body).stream().sorted(Comparator.comparing(ArticleUser::getArticleId)).toList();
 
