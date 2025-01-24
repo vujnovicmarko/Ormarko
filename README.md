@@ -41,6 +41,10 @@ Više detalja o ovom projektu možete naći na [Wikiju](https://github.com/vujno
 
 ### Cloud platforma
 - AWS-RDS
+# Instalacija 
+> git clone https://github.com/vujnovicmarko/Ormarko
+>     
+> cd Ormarko
 
 # Članovi tima i kontribucije
 - Andrija Andročec - razvoj poslužiteljske strane
