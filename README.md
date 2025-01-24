@@ -1,6 +1,6 @@
 # Ormarko: Virtualni Ormar i Aplikacija za Dijeljenje Odjeće
 
-## Opis projekta
+# Opis projekta
 
 Ovaj projekt rezultat je timskog rada razvijenog u sklopu projektnog zadatka kolegija [Programsko inženjerstvo](https://www.fer.unizg.hr/predmet/proinz) na Fakultetu elektrotehnike i računarstva Sveučilišta u Zagrebu.
 
@@ -10,18 +10,17 @@ Projekt je idealan za ljubitelje mode, organizatore ormara i oglašivače koji t
 
 Više detalja o ovom projektu možete naći na [Wikiju](https://github.com/vujnovicmarko/Ormarko/wiki) ovog repozitorija.
 
-## Funkcijski zahtjevi
+# Funkcijski zahtjevi
 - **Kreiranje Virtualnog Ormara**: Organizacija odjevnih predmeta prema raznim karakteristikama i stvaranje različitih ormara za specifične potrebe (npr. sezonska odjeća, poslovna odjeća).
 - **Preporuke za Odjevne Kombinacije**: Generiranje prijedloga na temelju odabranih kriterija i vremenske prognoze putem geolokacije.
 - **Društvene Značajke**: Dijeljenje odjevnih artikala i pretraživanje oglasa za popunjavanje ormara.
 - **Integracija Oglašivača**: Mogućnost oglašavanja proizvoda modnih brendova prema ciljanoj publici.
 
-## Tehnologije
+# Tehnologije
 ### Programski jezici
 - Javascript 16.13
 - CSS
 - Java 21
-- 
 
 ### Radni okviri i biblioteke
 - Spring Boot 3.4.2
@@ -43,7 +42,7 @@ Više detalja o ovom projektu možete naći na [Wikiju](https://github.com/vujno
 ### Cloud platforma
 - AWS-RDS
 
-## Članovi tima i kontribucije
+# Članovi tima i kontribucije
 - Andrija Andročec - razvoj poslužiteljske strane
 - Lana Benički - razvoj poslužiteljske strane
 - Tanja Bertalanić - voditelj tima/razvoj korisničkog sučelja/dizajner
