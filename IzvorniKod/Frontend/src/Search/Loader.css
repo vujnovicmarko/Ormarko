@@ -1,0 +1,30 @@
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 5px solid rgba(217, 164, 143, 0.2);
+    border-top-color: #d9a48f;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-container p {
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    color: #4B5563;
+    margin: 0;
+}

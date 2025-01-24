@@ -1,0 +1,104 @@
+.weather-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 20px;
+    width: 300px;
+    max-height: 600px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    font-size: 0.9rem;
+    padding: 10px;
+}
+
+.clothing-item img {
+    width: 200px;
+    height: 200px;
+}
+
+.clothing-item {
+    margin-bottom: 8px;
+    padding: 5px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.clothing-item:last-child {
+    border-bottom: none;
+}
+
+.loading {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+}
+
+.weather-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.clothing-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+@media (max-width: 768px) {
+    .weather-dropdown {
+        width: 15rem;
+        top: 10px;
+        max-height: 400px;
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .loading {
+        font-size: 1rem;
+    }
+
+    .clothing-item img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .clothing-list {
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    .clothing-item {
+        flex-direction: row;
+        padding: 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .weather-dropdown {
+        width: 15rem;
+        top: 5px;
+        max-height: 300px;
+        font-size: 1rem;
+        padding: 6px;
+    }
+    .loading {
+        font-size: 1rem;
+    }
+    .clothing-item img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .clothing-list {
+        gap: 8px;
+        flex-direction: column;
+    }
+
+    .clothing-item {
+        margin-bottom: 6px;
+        padding: 3px;
+    }
+}

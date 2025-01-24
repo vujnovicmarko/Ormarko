@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface LocationRepository extends JpaRepository<Location, Integer> {
 
-    @Query("SELECT DISTINCT l FROM Location l WHERE l.locationId = :closetId")
+    @Query("SELECT DISTINCT l FROM Location l WHERE l.closetId = :closetId")
     List<Location> findAllLocationsForCloset(Integer closetId);
 
     Location findByLocationId(Integer locationId);

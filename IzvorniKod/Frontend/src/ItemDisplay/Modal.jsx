@@ -1,6 +1,6 @@
 import "./Modal.css";
 
-export default function Modal({ item, onClose }) {
+export default function Modal({ item, onClose, showContact = true }) {
   const {
     title,
     img,
@@ -10,14 +10,13 @@ export default function Modal({ item, onClose }) {
     mainColor,
     sideColor,
     descript,
+    email,
+    openness,
   } = item || {};
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div
-        className="modal-content"
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
-      >
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="close-button" onClick={onClose}>
           &times;
         </button>
@@ -27,23 +26,33 @@ export default function Modal({ item, onClose }) {
           className="modal-img"
         />
         <h2>{title}</h2>
+        {showContact && (
+          <p>
+            <strong>Kontakt:</strong> {email}
+          </p>
+        )}
         <p>
-          <strong>Category:</strong> {category}
+          <strong>Kategorija:</strong> {category}
         </p>
         <p>
-          <strong>Season:</strong> {season}
+          <strong>Godišnje doba:</strong> {season}
         </p>
         <p>
-          <strong>Style:</strong> {howCasual}
+          <strong>Ležernost:</strong> {howCasual}
+        </p>
+        {openness && (
+          <p>
+            <strong>Otvorenost:</strong> {openness}
+          </p>
+        )}
+        <p>
+          <strong>Glavna boja:</strong> {mainColor}
         </p>
         <p>
-          <strong>Main Color:</strong> {mainColor}
+          <strong>Sporedna boja:</strong> {sideColor}
         </p>
         <p>
-          <strong>Accent Color:</strong> {sideColor}
-        </p>
-        <p>
-          <strong>Description:</strong> {descript}
+          <strong>Opis stanja:</strong> {descript}
         </p>
       </div>
     </div>

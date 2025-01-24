@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; //redirectanje nakon logina
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
-import Header from "../Header/Header";
+import Header from "../Header/MinimalHeaderLog";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 export default function Login({ setIsLoggedIn }) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+  const [passwordRevealed, setPasswordRevealed] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -21,13 +23,6 @@ export default function Login({ setIsLoggedIn }) {
     e.preventDefault();
 
     try {
-      /*const response = await fetch('http://localhost:8080/login', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(formData),
-              credentials: 'include'
-          });
-            */
       const response = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -49,6 +44,7 @@ export default function Login({ setIsLoggedIn }) {
       alert("Unexpected error during login.");
     }
   };
+
   const handleGoogleLogin = () => {
     window.location.href = "/oauth2/authorization/google";
     setIsLoggedIn(true);
@@ -56,7 +52,7 @@ export default function Login({ setIsLoggedIn }) {
 
   return (
     <>
-      <Header></Header>
+      <Header />
       <div className="main-container">
         <div className="form-container">
           <h2>Prijava</h2>
@@ -73,24 +69,43 @@ export default function Login({ setIsLoggedIn }) {
                 />
               </label>
             </div>
-            <div>
+            <div className="password-container">
               <label>
                 Lozinka:
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                />
+                <div className="input-container">
+                  <input
+                    type={passwordRevealed ? "text" : "password"}
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
+                  <div
+                    className="eye-icon"
+                    onClick={() => setPasswordRevealed(!passwordRevealed)}
+                    title={
+                      passwordRevealed ? "Sakrij lozinku" : "Prikaži lozinku"
+                    }
+                  >
+                    {passwordRevealed ? <AiFillEye /> : <AiFillEyeInvisible />}
+                  </div>
+                </div>
               </label>
             </div>
             <button type="submit">Prijavi se</button>
           </form>
-          <div className="google-login-container">
-            <button className="googleBtn" onClick={handleGoogleLogin}>
-              Prijavi se s Google računom
-            </button>
+          <div className="additional-login-container">
+            <div className="additional-buttons">
+              <button
+                className="marketer-login-btn"
+                onClick={() => navigate("/login-marketer")}
+              >
+                Prijavi se kao oglašivač
+              </button>
+              <button className="googleBtn" onClick={handleGoogleLogin}>
+                Prijavi se s Google računom
+              </button>
+            </div>
           </div>
         </div>
       </div>

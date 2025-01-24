@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Register.css";
-import Header from "../Header/Header";
+import Header from "../Header/MinimalHeaderReg";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 export default function Register({ setIsLoggedIn }) {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ export default function Register({ setIsLoggedIn }) {
     password: "",
     email: "",
   });
+  const [passwordRevealed, setPasswordRevealed] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,17 +25,20 @@ export default function Register({ setIsLoggedIn }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const dataToSend = {
+      username: formData.username,
+      e_mail: formData.email,
+      pass: formData.password,
+      city: formData.city,
+      country: formData.country,
+    };
+
     try {
       const response = await fetch("/api/signup/user", {
         method: "POST",
 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-
-        /*
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData),
-        */
         credentials: "include",
       });
 
@@ -42,10 +47,13 @@ export default function Register({ setIsLoggedIn }) {
         navigate("/profile");
         const result = await response.json();
         console.log("Registration successful:", result);
-
       } else {
         console.error("Registration failed:", response.statusText);
-        alert("Registration failed. Please try again.");
+
+        const errorData = await response.json();
+        const errorMessage =
+          errorData.error || "Registration failed. Please try again.";
+        alert(errorMessage);
       }
     } catch (error) {
       console.error("Error during registration:", error);
@@ -106,19 +114,38 @@ export default function Register({ setIsLoggedIn }) {
               />
             </label>
           </div>
-          <div>
+          <div className="password-container">
             <label>
               Lozinka:
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
+              <div className="input-container">
+                <input
+                  type={passwordRevealed ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  required
+                />
+                <div
+                  className="eye-icon"
+                  onClick={() => setPasswordRevealed(!passwordRevealed)}
+                  title={
+                    passwordRevealed ? "Sakrij lozinku" : "Prikaži lozinku"
+                  }
+                >
+                  {passwordRevealed ? <AiFillEye /> : <AiFillEyeInvisible />}
+                </div>
+              </div>
             </label>
           </div>
           <button type="submit">Registriraj se</button>
+          <div className="additional-buttons">
+            <button
+              className="marketer-register-btn"
+              onClick={() => navigate("/register-marketer")}
+            >
+              Registriraj se kao oglašivač
+            </button>
+          </div>
         </form>
       </div>
     </>

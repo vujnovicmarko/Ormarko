@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public class Closet {
 
         @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int closetId;
 
         private String closetOwner;

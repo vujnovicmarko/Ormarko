@@ -1,12 +1,17 @@
+
 package com.example.ormarko.ormarko.Security;
 
+import com.example.ormarko.ormarko.Service.MarketerService;
 import com.example.ormarko.ormarko.Service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,6 +31,7 @@ import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +41,13 @@ import java.util.List;
 public class SecurityConfig {
 
     private final UserService userService;
+    private final MarketerService marketerService;
     private final CustomSuccesHandler succesHandler;
 
     @Autowired
-    public SecurityConfig(UserService userService, CustomSuccesHandler succesHandler) {
+    public SecurityConfig(UserService userService, MarketerService marketerService, CustomSuccesHandler succesHandler) {
         this.userService = userService;
+        this.marketerService = marketerService;
         this.succesHandler = succesHandler;
     }
 
@@ -49,16 +57,40 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public UserDetailsService marketerDetailsService(){
+        return marketerService;
+    }
+
+
+
+    @Bean
+    public AuthenticationProvider userAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userService);
         provider.setPasswordEncoder(passwordEncoder());
         return provider;
     }
 
+    //treba implementirati da se ovo koristi kad se radio o oglašivaču - kad se stavi @bean error
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    public AuthenticationProvider marketerAuthenticationProvider(){
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(marketerService);
+        provider.setPasswordEncoder(passwordEncoder());
+        provider.setPreAuthenticationChecks(user -> {
+            System.out.println("Retrieved Marketer: " + user.getUsername());
+        });
+        return provider;
+    }
+
+    @Bean
+    @Primary
+    public AuthenticationManager authenticationManager() throws Exception {
+        return new ProviderManager(List.of(userAuthenticationProvider()));
+    }
+    @Bean
+    public AuthenticationManager marketerAuthenticationManager() {
+        return new ProviderManager(List.of(marketerAuthenticationProvider()));
     }
 
     @Bean
@@ -73,9 +105,16 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
-                .formLogin(l -> l
-                        .loginPage("/login").permitAll()
-                        .defaultSuccessUrl("/profile", true)
+                .formLogin(login -> login
+                        .loginPage("/login")
+                        .loginProcessingUrl("/api/login").permitAll()
+                        .successHandler((request, response, authentication) -> {
+                            // Return JSON to the front-end
+                            response.setContentType("application/json");
+                            response.getWriter().write("{\"success\":true}");
+                            response.getWriter().flush();
+                        })
+                        //.defaultSuccessUrl("/profile", true)
                         .failureHandler((request, response, exception) -> {
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                             response.setContentType("application/json");
@@ -84,7 +123,22 @@ public class SecurityConfig {
                         })
                 )
                 .authorizeHttpRequests(registry -> {
-                    registry.requestMatchers("/", "/home", "/advertiser/**", "/signup/**", "api/signup/user", "/login", "/api/default/getAll").permitAll();
+                    registry.requestMatchers("/api/user/searchUUG/**").permitAll();
+                    registry.requestMatchers("/SearchIcon.png", "/OrmarkoLogo.png").permitAll();
+                    registry.requestMatchers("/login", "/register").permitAll();
+                    registry.requestMatchers("/api/login").permitAll();
+                    registry.requestMatchers("/api/signup/**","api/login/**").permitAll();
+                    registry.requestMatchers("/", "/home", "/api/marketers/**", "/api/default/getAll").permitAll();
+                    registry.requestMatchers( "/api/default/**").permitAll();
+                    registry.requestMatchers("/assets/**", "/static/**", "/index.html").permitAll();
+                    registry.requestMatchers("/api/user/search").permitAll();
+                    registry.requestMatchers("/api/user/profile/**").permitAll();
+                    registry.requestMatchers("/api/user/profile").hasRole("USER");
+                    registry.requestMatchers("/api/marketer/**").hasRole("MARKETER");
+
+                    //registry.requestMatchers("/**/*.css").permitAll();
+                    //registry.requestMatchers("/**/*.js").permitAll();
+                    //registry.requestMatchers("/**").permitAll();
                     registry.requestMatchers("/user/**", "/profile", "/api/user/profile").authenticated();
                     registry.anyRequest().authenticated();
                 })
@@ -95,7 +149,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/")
                 )
                 .oauth2Login(o -> o
-                        .loginPage("/login")
+                        .loginPage("/api/login")
                         .successHandler(succesHandler)
                 )
                 .build();

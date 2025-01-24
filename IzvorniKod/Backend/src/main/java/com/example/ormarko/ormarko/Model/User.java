@@ -22,18 +22,20 @@ public class User {
     @Email(message = "Please provide a valid email address")
     @JsonProperty("email")
     private String e_mail;
-
+    private Boolean googleoauth;
     // Default constructor
     public User() {
     }
 
     // Parameterized constructor
-    public User(String username, String pass, String city, String country, String eMail) {
+    public User(String username, String pass, String city, String country, String eMail, Boolean googleoauth) {
         this.username = username;
         this.pass = pass;
         this.city = city;
         this.country = country;
         this.e_mail = eMail;
+        this.googleoauth = googleoauth;
+
     }
 
     // Getters
@@ -57,6 +59,8 @@ public class User {
         return e_mail;
     }
 
+    public Boolean getGoogleoauth(){return googleoauth;}
+
     // Setters
     public void setUsername(String username) {
         this.username = username;
@@ -78,6 +82,8 @@ public class User {
         this.e_mail = eMail;
     }
 
+    public void setGoogleoauth(Boolean googleoauth) {this.googleoauth = googleoauth;}
+
     // Optionally, override toString() for better readability
     @Override
     public String toString() {
@@ -87,6 +93,7 @@ public class User {
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
                 ", eMail='" + e_mail + '\'' +
+                ", googleoauth='" + googleoauth + '\'' +
                 '}';
     }
 }

@@ -5,28 +5,32 @@
       "password": "$2a$12$Q93TzeQw.HAmHu00AUfxIuz6euTGpVgQEe9bSPS4NPgMdTA/9s0PC",
       "city": "Zagreb",
       "country": "Croatia",
-      "email": "john.doe@example.com"
+      "email": "john.doe@example.com",
+      "googleoauth": false
     },
     {
       "username": "jane_smith",
       "password": "$2a$12$z78bnTmB.3qwxFl7Qk8T3.JwS.XL2Iv3nuHXB6CU4BwA3JFODRz6a",
       "city": "Split",
       "country": "Croatia",
-      "email": "js@example.com"
+      "email": "js@example.com",
+      "googleoauth": false
     },
     {
       "username": "marko_polo",
       "password": "$2a$12$i7ljuYTJFHjqxPm/RFGBKOqtkY04lmIQ7wDkniM7KBleimO.RK4sm",
       "city": "Dubrovnik",
       "country": "Croatia",
-      "email": "mp@example.com"
+      "email": "mp@example.com",
+      "googleoauth": false
     },
     {
       "username": "ana_kovac",
       "password": "$2a$12$LgXiFeXXQZ.i6Ik1Mr2ezuTt5wqwCxmxUpyS78Xf0orjdNi8L6rRa",
       "city": "Rijeka",
       "country": "Croatia",
-      "email": "ana.kovac@gmail.com"
+      "email": "ana.kovac@gmail.com",
+      "googleoauth": false
     }
   ]
 }

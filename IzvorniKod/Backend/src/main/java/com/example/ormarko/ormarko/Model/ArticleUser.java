@@ -7,7 +7,8 @@ import jakarta.persistence.*;
 public class ArticleUser {
 
         @Id
-        private int articleId;
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Integer articleId;
 
         private int locationId;
 
@@ -66,7 +67,7 @@ public class ArticleUser {
                 return articleId;
         }
 
-        public void setArticleId(int articleId) {
+        public void setArticleId(Integer articleId) {
                 this.articleId = articleId;
         }
 
@@ -156,6 +157,15 @@ public class ArticleUser {
 
         public void setdescript(String descript) {
                 this.descript = descript;
+        }
+
+        @Override
+        public String toString() {
+                return "ArticleUser{" +
+                        "articleId=" + articleId +
+                        ", title='" + title + '\'' +
+                        ", descript='" + descript + '\'' +
+                        '}';
         }
 }
 

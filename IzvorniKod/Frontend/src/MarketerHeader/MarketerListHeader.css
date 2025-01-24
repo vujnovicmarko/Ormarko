@@ -1,0 +1,52 @@
+.advertisers-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem 2rem;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.advertisers-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.advertisers-logo {
+    height: 40px;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.advertisers-logo:hover {
+    transform: scale(1.1);
+}
+
+.advertisers-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .advertisers-header {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .advertisers-title {
+        font-size: 1.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .advertisers-logo {
+        height: 10px;
+    }
+}

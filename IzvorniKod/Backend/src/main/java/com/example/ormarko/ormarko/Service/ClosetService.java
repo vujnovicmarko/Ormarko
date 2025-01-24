@@ -21,4 +21,12 @@ public class ClosetService {
     public Closet findClosetById(Integer id) {
         return closetRepository.findClosetByClosetId(id);
     }
+
+    public Closet saveCloset(Closet closet) {
+        return closetRepository.save(closet);
+    }
+
+    public void deleteCloset(Closet closet) {
+        closetRepository.delete(closet);
+    }
 }

@@ -17,10 +17,10 @@ public class ContentController {
         model.addAttribute("password", password.toString());
         return "profile";
     }
-    @GetMapping("/login")
-    public String login(){
-        return "login";
-    }
+    //@GetMapping("/login")
+   // public String login(){
+   //     return "login";
+   // }
     @GetMapping("/home")
     public String home(){
         return "home";

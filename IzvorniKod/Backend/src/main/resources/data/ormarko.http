@@ -1,0 +1,56 @@
+### Create new Run
+POST http://localhost:8080/api/user/search
+Content-Type: application/json
+
+{
+  "kategorija": ["MAJICA"],
+  "godisnjeDoba": ["LJETO"],
+  "otvorenost": [],
+  "lezernost": [],
+  "boja": []
+}
+
+### Create new Run
+POST http://localhost:8080/api/user/profile/addCloset
+Content-Type: application/json
+
+{
+"kategorija": [],
+"godisnjeDoba": [],
+"otvorenost": [],
+"lezernost": [],
+"boja": []
+}
+
+### Create new Location
+POST http://localhost:8080/api/user/profile/closet1/addLocation
+Content-Type: application/json
+
+{
+  "tipLokacije": "POLICA"
+}
+
+### Create new Article
+POST http://localhost:8080/api/user/profile/location1/addArticle
+Content-Type: application/json
+
+{
+  "articleId": 3,
+  "locationId": 2,
+  "sharing": false,
+  "title": "Casual Spring Shirt",
+  "img": "AQIDBAU=",
+  "category": "KOŠULJA",
+  "season": "PROLJEĆE",
+  "openness": null,
+  "howCasual": "LEŽERNO",
+  "mainColor": "PLAVA",
+  "sideColor": "BIJELA",
+  "descript": "A light blue shirt perfect for spring."
+}
+
+### Delete closet 1
+DELETE http://localhost:8080/api/user/profile/deleteCloset1
+
+###d
+GET http://localhost:8080/api/default/getAll

@@ -1,0 +1,57 @@
+.top-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 6.7rem;
+    margin-left: 1rem;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.advertisers-button {
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #d9a48f, #b97e69);
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    z-index: 1;
+}
+
+.advertisers-button:hover {
+    background: linear-gradient(135deg, #b97e69, #a06754);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.welcome-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #4B5563;
+    margin-left: 1rem;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .top-container {
+        margin-top: 13rem;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .advertisers-button {
+        font-size: 1.2rem;
+        padding: 15px 40px;
+    }
+
+    .welcome-text {
+        font-size: 2rem;
+        margin-left: 0;
+    }
+}
