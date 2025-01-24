@@ -223,7 +223,7 @@ public class UserController {
         }
 
         String userCity = userService.findByUsername(username).get().getCity();
-
+        System.out.println("MIDN 343 " + userCity);
         List<ArticleUser> articles = articleService.findAllArticlesBySharing(true);
         articles = userService.filter(articles, body).stream().sorted(Comparator.comparing(ArticleUser::getArticleId)).toList();
 
@@ -249,6 +249,37 @@ public class UserController {
                 .map(Optional::get)
                 .toList());
     }
+
+
+    @PostMapping("/searchUUG")
+    public Pair<List<ArticleUser>, List<User>> geoSearchForUnregisteredUsers(@RequestBody Map<String, String[]> body, @RequestParam String UUlocation){
+
+        List<ArticleUser> articles = articleService.findAllArticlesBySharing(true);
+        articles = userService.filter(articles, body).stream().sorted(Comparator.comparing(ArticleUser::getArticleId)).toList();
+
+
+        articles = articles.stream().filter(article -> {                        //filtriranje po lokaciji korisnika i vlasnika artikla
+                    Optional<User> ou = userService.findByUsername(
+                            closetService.findClosetById(
+                                    locationService.findLocationById(
+                                            article.getLocationId()
+                                    ).getClosetId()
+                            ).getClosetOwner()
+                    );
+                    if (ou.isEmpty()) return false;
+
+                    return ou.get().getCity().equals(UUlocation);
+                })
+                .toList();
+
+        return Pair.of(articles, articles.stream()
+                .map(article -> locationService.findLocationById(article.getLocationId()))
+                .map(location -> closetService.findClosetById(location.getClosetId()))
+                .map(closet -> userService.findByUsername(closet.getClosetOwner()))
+                .map(Optional::get)
+                .toList());
+    }
+
 
 
 

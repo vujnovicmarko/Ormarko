@@ -110,23 +110,25 @@ export default function SearchBar({ isLoggedIn }) {
           userCoordinates = await fetchUserLocationCoordinates();
           const { latitude, longitude } = userCoordinates;
           location = await fetchLocation(latitude, longitude);
+          
         }
+        console.log("User coordinates:", location);
         const endpoint = useGeolocation
-          ? `/api/default/searchUnregisteredUserwithGeolocation?location=Zagreb`
+          ? `/api/user/searchUUG?UUlocation=${encodeURIComponent(location)}`
           : "/api/user/search";
         const response = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(filters),
-          credentials: "include",
         });
-
+        
         if (!response.ok) {
+          
           throw new Error("Search request failed");
         }
-
+        
         const data = await response.json();
-        const targetPage = useGeolocation ? "/search-geolocation" : "/search";
+        const targetPage = "/search";
         navigate(targetPage, { state: { filters, products: data.first } });
       }
     } catch (error) {

@@ -123,6 +123,7 @@ public class SecurityConfig {
                         })
                 )
                 .authorizeHttpRequests(registry -> {
+                    registry.requestMatchers("/api/user/searchUUG/**").permitAll();
                     registry.requestMatchers("/SearchIcon.png", "/OrmarkoLogo.png").permitAll();
                     registry.requestMatchers("/login", "/register").permitAll();
                     registry.requestMatchers("/api/login").permitAll();
