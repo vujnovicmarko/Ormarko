@@ -38,6 +38,7 @@ Više detalja o ovom projektu možete naći na [Wikiju](https://github.com/vujno
 
 # Instalacija
 > git clone https://github.com/vujnovicmarko/Ormarko/
+>  
 > cd Ormarko
 
 ili posjetite web stranicu https://ormarkodeploy-c46f4289b2cf.herokuapp.com/
