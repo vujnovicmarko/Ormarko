@@ -79,8 +79,10 @@ public class UserService implements UserDetailsService {
         if (body.containsKey("otvorenost") && body.get("otvorenost").length > 0) {
             isEmpty = false;
             articles = articles.stream().filter(a -> {
-                for(String s : body.get("otvorenost")){
-                    if (a.getOpenness().toString().equals(s)) return true;
+                if (a.getOpenness() != null) {
+                    for (String s : body.get("otvorenost")) {
+                        if (a.getOpenness().toString().equals(s)) return true;
+                    }
                 }
                 return false;
             }).toList();

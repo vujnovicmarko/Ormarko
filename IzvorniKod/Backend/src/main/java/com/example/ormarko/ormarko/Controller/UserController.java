@@ -414,67 +414,74 @@ public class UserController {
         List<ArticleUser> articleSet = new ArrayList<>();
 
         String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
-        List<Closet> userClosets = closetService.findAllClosetsForUser(currentUsername);
-        ArticleOpen articleOpen = ArticleOpen.valueOf(weatherFilters.toUpperCase());
 
-        Set<ArticleUser> ArticleBootsSet = userClosets.stream()
-                .flatMap(closet -> articleService.findAllArticlesByOpenness(articleOpen).stream())
-                .filter(article -> article.getCategory() == ArticleCategory.CIPELE || article.getCategory() == ArticleCategory.TENISICE
-                        || article.getCategory() == ArticleCategory.ČIZME || article.getCategory() == ArticleCategory.ŠTIKLE)
-                .collect(Collectors.toSet());
+        if (authentication.getPrincipal() instanceof OAuth2User) {
+            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+            String email = oAuth2User.getAttribute("email");
+            currentUsername = userService.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found")).getUsername();
+        }
 
-        Set<ArticleUser> ArticleTopSet = userClosets.stream()
-                .flatMap(closet -> articleService.findAllArticlesByOpenness(null).stream())
+        Map<String, String[]> customFilter = new HashMap<>();
+        customFilter.put("kategorija", new String[]{});
+        customFilter.put("godisnjeDoba", new String[]{});
+        customFilter.put("otvorenost", new String[]{weatherFilters.toUpperCase()});
+        customFilter.put("lezernost", new String[]{});
+        customFilter.put("boja", new String[]{});
+
+        List<ArticleUser> articles = closetService.findAllClosetsForUser(currentUsername).stream()
+                .map(closet -> locationService.findAllLocationsForCloset(closet.getClosetId()))
+                .flatMap(List::stream)
+                .map(location -> articleService.findAllArticlesForLocation(location.getLocationId()))
+                .flatMap(List::stream)
+                .sorted(Comparator.comparing(ArticleUser::getArticleId))
+                .toList();
+
+        List<ArticleUser> articleBot;
+        List<ArticleUser> articleJacket;
+        boolean postoji_haljina = false;
+        List<ArticleUser> articleDress = null;
+
+        Set<ArticleUser> ArticleTopSet = articles.stream()
                 .filter(article -> article.getCategory() == ArticleCategory.MAJICA || article.getCategory() == ArticleCategory.KOŠULJA)
                 .collect(Collectors.toSet());
 
-        List<ArticleUser> articleTop = new ArrayList<>(ArticleTopSet);
-        List<ArticleUser> articleBot;
-        List<ArticleUser> articleJacket;
-        List<ArticleUser> articleBoots = new ArrayList<>(ArticleBootsSet);
-        List<ArticleUser> articleDress = null;
-        boolean postoji_haljina = false;
-
         switch (weatherFilters) {
             case "KIŠA_SNIJEG" -> {
-                Set<ArticleUser> ArticleJacketSet = userClosets.stream()
-                        .flatMap(closet -> articleService.findAllArticlesByCategory(ArticleCategory.KAPUT).stream())
+                Set<ArticleUser> ArticleJacketSet = articles.stream()
+                        .filter(article -> article.getCategory() == ArticleCategory.KAPUT)
                         .collect(Collectors.toSet());
                 articleJacket = new ArrayList<>(ArticleJacketSet);
 
-                Set<ArticleUser> ArticleBotSet = userClosets.stream()
-                        .flatMap(closet -> articleService.findAllArticlesByOpenness(null).stream())
+                Set<ArticleUser> ArticleBotSet = articles.stream()
                         .filter(article -> article.getCategory() == ArticleCategory.TRENIRKA_DONJI_DIO || article.getCategory() == ArticleCategory.TRAPERICE)
                         .collect(Collectors.toSet());
                 articleBot = new ArrayList<>(ArticleBotSet);
             }
             case "ZATVORENO" -> {
-                Set<ArticleUser> ArticleJacketSet = userClosets.stream()
-                        .flatMap(closet -> articleService.findAllArticlesByCategory(ArticleCategory.JAKNA).stream())
+                Set<ArticleUser> ArticleJacketSet = articles.stream()
+                        .filter(article -> article.getCategory() == ArticleCategory.JAKNA)
                         .collect(Collectors.toSet());
                 articleJacket = new ArrayList<>(ArticleJacketSet);
 
-                Set<ArticleUser> ArticleBotSet = userClosets.stream()
-                        .flatMap(closet -> articleService.findAllArticlesByOpenness(null).stream())
+                Set<ArticleUser> ArticleBotSet = articles.stream()
                         .filter(article -> article.getCategory() == ArticleCategory.SUKNJA
                                 || article.getCategory() == ArticleCategory.TRENIRKA_DONJI_DIO || article.getCategory() == ArticleCategory.TRAPERICE)
                         .collect(Collectors.toSet());
                 articleBot = new ArrayList<>(ArticleBotSet);
             }
             case "OTVORENO" -> {
-                Set<ArticleUser> ArticleJacketSet = userClosets.stream()
-                        .flatMap(closet -> articleService.findAllArticlesByCategory(ArticleCategory.TRENIRKA_GORNJI_DIO).stream())
+                Set<ArticleUser> ArticleJacketSet = articles.stream()
+                        .filter(article -> article.getCategory() == ArticleCategory.TRENIRKA_GORNJI_DIO)
                         .collect(Collectors.toSet());
                 articleJacket = new ArrayList<>(ArticleJacketSet);
 
-                Set<ArticleUser> ArticleDressSet = userClosets.stream()
-                        .flatMap(closet -> articleService.findAllArticlesByCategory(ArticleCategory.HALJINA).stream())
+                Set<ArticleUser> ArticleDressSet = articles.stream()
+                        .filter(article -> article.getCategory() == ArticleCategory.HALJINA)
                         .collect(Collectors.toSet());
                 articleDress = new ArrayList<>(ArticleDressSet);
                 postoji_haljina = true;
 
-                Set<ArticleUser> ArticleBotSet = userClosets.stream()
-                        .flatMap(closet -> articleService.findAllArticlesByOpenness(null).stream())
+                Set<ArticleUser> ArticleBotSet = articles.stream()
                         .filter(article -> article.getCategory() == ArticleCategory.SUKNJA
                                 || article.getCategory() == ArticleCategory.TRENIRKA_DONJI_DIO)
                         .collect(Collectors.toSet());
@@ -482,6 +489,17 @@ public class UserController {
             }
             default -> throw new IllegalStateException("Unexpected value: " + weatherFilters);
         }
+
+
+        articles = userService.filter(articles, customFilter);
+
+        Set<ArticleUser> ArticleBootsSet = articles.stream()
+                .filter(article -> article.getCategory() == ArticleCategory.CIPELE || article.getCategory() == ArticleCategory.TENISICE
+                        || article.getCategory() == ArticleCategory.ČIZME || article.getCategory() == ArticleCategory.ŠTIKLE)
+                .collect(Collectors.toSet());
+
+        List<ArticleUser> articleTop = new ArrayList<>(ArticleTopSet);
+        List<ArticleUser> articleBoots = new ArrayList<>(ArticleBootsSet);
 
         Random random = new Random();
         if (!articleBoots.isEmpty()){
