@@ -48,12 +48,15 @@
 
 @media (max-width: 768px) {
     .weather-dropdown {
-        width: 90%;
+        width: 15rem;
         top: 10px;
-        right: 5%;
         max-height: 400px;
         padding: 8px;
         font-size: 0.9rem;
+    }
+
+    .loading {
+        font-size: 1rem;
     }
 
     .clothing-item img {
@@ -74,14 +77,15 @@
 
 @media (max-width: 480px) {
     .weather-dropdown {
-        width: 90%;
+        width: 15rem;
         top: 5px;
-        right: 2.5%;
         max-height: 300px;
         font-size: 1rem;
         padding: 6px;
     }
-
+    .loading {
+        font-size: 1rem;
+    }
     .clothing-item img {
         width: 100px;
         height: 100px;
