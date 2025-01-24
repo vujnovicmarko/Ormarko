@@ -28,6 +28,7 @@ public class UnregisteredUserController {
     private final ArticleService articleService;
     private final UserService userService;
 
+
     public UnregisteredUserController(ClosetService closetService, LocationService locationService, ArticleService articleService, UserService userService) {
         this.closetService = closetService;
         this.locationService = locationService;

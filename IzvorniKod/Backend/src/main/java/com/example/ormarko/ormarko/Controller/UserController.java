@@ -104,6 +104,7 @@ public class UserController {
         return closetService.findAllClosetsForUser(username).stream().sorted(Comparator.comparing(Closet::getClosetId)).toList();
     }
 
+    //dodaje novi ormar za trenutnog korisnika
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/profile/addCloset")
     void addCloset(Authentication authentication) {
@@ -122,13 +123,14 @@ public class UserController {
 
     }
 
+    //briše ormar s poslanim indexom
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/profile/deleteCloset{id}")
     void deleteCloset(@PathVariable Integer id) {
         closetService.deleteCloset(closetService.findClosetById(id));
     }
 
-
+    //dohvaća sve lokacije za dani ormar
     @GetMapping("/profile/closet{id}/allLocations")
     public List<Location> getCloset(Authentication authentication, @PathVariable Integer id){
 
@@ -145,11 +147,11 @@ public class UserController {
         return locationService.findAllLocationsForCloset(id).stream().sorted(Comparator.comparing(Location::getLocationId)).toList();
     }
 
-
+    //dodaje novu lokaciju u dani ormar
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/profile/closet{id}/addLocation")
     void addLocation(Authentication authentication, @PathVariable Integer id, @RequestBody Map<String, String> body) {
-        //String username = authentication.getName();
+
         LocationType locationType = LocationType.valueOf(body.get("tipLokacije"));
         Location location = new Location();
         location.setClosetId(id);
@@ -159,6 +161,8 @@ public class UserController {
 
     }
 
+
+    //briše lokaciju sa danim id-em
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/profile/deleteLocation{id}")
     void deleteLocation(@PathVariable Integer id) {
@@ -166,6 +170,7 @@ public class UserController {
     }
 
 
+    //dohvaća sve artikle za danu lokaciju
     @GetMapping("/profile/location{id}/allArticles")
     public List<ArticleUser> getLocation(Authentication authentication, @PathVariable Integer id){
 
@@ -183,6 +188,7 @@ public class UserController {
     }
 
 
+    //dodaje novi artikl na danu lokaciju
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/profile/location{id}/addArticle")
     void addArticle(Authentication authentication, @PathVariable Integer id, @RequestBody /*@Valid*/ ArticleUser article) {
@@ -194,6 +200,8 @@ public class UserController {
 
     }
 
+
+    //briše artikl sa zadanim id-em
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/profile/deleteArticle{id}")
     void deleteArticle(@PathVariable Integer id) {
@@ -201,6 +209,7 @@ public class UserController {
     }
 
 
+    //osvježava vidljivost za artikl sa zadanim id-em
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("/profile/updateArticle{id}")
     void updateArticleVisibility(@PathVariable Integer id, @RequestBody Map<String, String> body) {
@@ -211,7 +220,7 @@ public class UserController {
     }
 
 
-
+    //kao i običan search, ali dodatno filtrira podatka na temelju grada u kojem se nalazi trenutno ulogirani korisnik
     @PostMapping("/searchUsingGeolocation")
     public Pair<List<ArticleUser>, List<User>> geoSearch(Authentication authentication, @RequestBody Map<String, String[]> body){
 
@@ -281,7 +290,7 @@ public class UserController {
 
 
 
-
+    // vraća sve vidljive podatke filtrirane na temelju predanog kriterija
     @PostMapping("/search")
     public Pair<List<ArticleUser>, List<User>> search(@RequestBody Map<String, String[]> body){
 
@@ -300,7 +309,7 @@ public class UserController {
                 .toList());
     }
 
-
+    // vraća sve podatke koji se nalaze u ormaru trenutnog korisnika, filtrirane na temelju predanog kriterija
     @PostMapping("/profile/localSearch")
     public Pair<List<ArticleUser>, List<Pair<Integer, LocationReturnData>>> localSearch(Authentication authentication, @RequestBody Map<String, String[]> body){
 
@@ -385,8 +394,6 @@ public class UserController {
         for(int i = 0; i < rLoc.size(); i++){
             pairs.add(Pair.of(closetIds.get(i), rLoc.get(i)));
         }
-
-        //articles = userService.filter(articles, body);
 
         return Pair.of(articles, pairs);
     }

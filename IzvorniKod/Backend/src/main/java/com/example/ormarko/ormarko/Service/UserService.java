@@ -18,7 +18,6 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository repository;
 
-    // Constructor Injection
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
@@ -53,7 +52,7 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public List<ArticleUser> filter(List<ArticleUser> articles, Map<String, String[]> body) {
+    public List<ArticleUser> filter(List<ArticleUser> articles, Map<String, String[]> body) { //filtrira listu artikala, ovisno o zadanoj mapi uvjeta
         boolean isEmpty = true;
 
         if(body.containsKey("kategorija") && body.get("kategorija").length > 0){
