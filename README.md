@@ -21,38 +21,33 @@ Više detalja o ovom projektu možete naći na [Wikiju](https://github.com/vujno
 - Javascript 16.13
 - CSS
 - Java 21
-
 ### Radni okviri i biblioteke
 - Spring Boot 3.4.2
 - React 18.3.1
 - Node.js 22.12.0
-
 ### Baza podataka
-- PostgreSQL
-- pgAdmin 4 18.3
-
+- PostgreSQL i pgAdmin 4 8.13
 ### Razvojni alati
 - Git
 - IntelliJ IDEA 2024.3.2
-
 ### Alati za ispitivanje
 - JUnit 5.1
 - SeleniumIDE 3.17.2
-
 ### Cloud platforma
 - AWS-RDS
-# Instalacija 
-> git clone https://github.com/vujnovicmarko/Ormarko
->     
+
+# Instalacija
+> git clone https://github.com/vujnovicmarko/Ormarko/
+>  
 > cd Ormarko
 
-ili posjeti web stranicu online: https://ormarkodeploy-c46f4289b2cf.herokuapp.com/
+ili posjetite web stranicu https://ormarkodeploy-c46f4289b2cf.herokuapp.com/
 
 # Članovi tima i kontribucije
-- Andrija Andročec - razvoj poslužiteljske strane
-- Lana Benički - razvoj poslužiteljske strane
-- Tanja Bertalanić - voditelj tima/razvoj korisničkog sučelja/dizajner
-- Luka Bulić - baza podataka/ispitivanje
-- Lovro Đuranec - razvoj poslužiteljske strane
-- Marko Vujnović - dokumentacija
-- Iva Zubčić - razvoj korisničkog sučelja
+- Andrija Andročec - razvoj poslužiteljske strane  
+- Lana Benički - razvoj poslužiteljske strane  
+- Tanja Bertalanić - voditelj tima/razvoj korisničkog sučelja/dizajner  
+- Luka Bulić - baza podataka/ispitivanje  
+- Lovro Đuranec - razvoj poslužiteljske strane  
+- Marko Vujnović - dokumentacija  
+- Iva Zubčić - razvoj korisničkog sučelja  
