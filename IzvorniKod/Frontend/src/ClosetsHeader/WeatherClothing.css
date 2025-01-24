@@ -3,7 +3,7 @@
     top: 50px;
     right: 20px;
     width: 300px;
-    max-height: 500px;
+    max-height: 600px;
     overflow-y: auto;
     background-color: #fff;
     border: 1px solid #ccc;
@@ -14,8 +14,9 @@
     padding: 10px;
 }
 
-.weather-info {
-    margin-bottom: 10px;
+.clothing-item img {
+    width: 200px;
+    height: 200px;
 }
 
 .clothing-item {

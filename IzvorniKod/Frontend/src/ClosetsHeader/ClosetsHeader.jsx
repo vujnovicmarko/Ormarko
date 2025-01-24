@@ -191,8 +191,8 @@ export default function ClosetsHeader() {
             <div className="weather-content">
               {weatherData && (
                 <div className="weather-info">
-                  <p>Vrijeme: {weatherData.weather[0].description}</p>
-                  <p>Temperatura: {weatherData.main.temp}°C</p>
+                  <p><strong>Vrijeme:</strong> {weatherData.weather[0].description}</p>
+                  <p><strong>Temperatura:</strong> {weatherData.main.temp}°C</p>
                 </div>
               )}
               <div className="clothing-list">
@@ -203,14 +203,14 @@ export default function ClosetsHeader() {
                       alt={item.title}
                       className="modal-img"
                     />
-                    <p>Naslov: {item.title}</p>
-                    <p>Kategorija: {item.category}</p>
-                    <p>Godišnje doba: {item.season}</p>
-                    <p>Otvorenost: {item.openness}</p>
-                    <p>Ležernost: {item.howCasual}</p>
-                    <p>Glavna boja: {item.mainColor}</p>
-                    <p>Sporedna boja: {item.sideColor}</p>
-                    <p>Opis: {item.descript}</p>
+                    <p><strong>Naslov:</strong> {item.title}</p>
+                    <p><strong>Kategorija:</strong> {item.category}</p>
+                    <p><strong>Godišnje doba:</strong> {item.season}</p>
+                    <p><strong>Otvorenost:</strong> {item.openness}</p>
+                    <p><strong>Ležernost:</strong> {item.howCasual}</p>
+                    <p><strong>Glavna boja:</strong> {item.mainColor}</p>
+                    <p><strong>Sporedna boja:</strong> {item.sideColor}</p>
+                    <p><strong>Opis:</strong> {item.descript}</p>
                   </div>
                 ))}
               </div>
