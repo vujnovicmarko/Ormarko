@@ -1,0 +1,95 @@
+{
+  "id": "aa314bd2-f254-4abc-a259-fb2c6faded72",
+  "version": "2.0",
+  "name": "Ormarko",
+  "url": "https://ormarkodeploy-c46f4289b2cf.herokuapp.com",
+  "tests": [{
+    "id": "5426ab00-e7c8-430a-8e23-e476424eab63",
+    "name": "TS-13",
+    "commands": [{
+      "id": "c88c9082-67b2-4b45-9d65-04759b4ebb7e",
+      "comment": "",
+      "command": "open",
+      "target": "/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "9d1013d0-757f-4f5d-acb9-265378ae402c",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "784x864",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "62c18213-7f5f-4c7a-8892-c7b650b01fc8",
+      "comment": "",
+      "command": "click",
+      "target": "css=a:nth-child(1) > .headerbtn",
+      "targets": [
+        ["css=a:nth-child(1) > .headerbtn", "css:finder"],
+        ["xpath=//div[@id='root']/div/div/div[3]/a/button", "xpath:idRelative"],
+        ["xpath=//a/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Moji Ormari')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "4d7ce2a5-98cb-4928-98b7-ae7e397c5424",
+      "comment": "",
+      "command": "click",
+      "target": "css=.closet-btn",
+      "targets": [
+        ["css=.closet-btn", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Ormar #1')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "cdb19f11-4d72-47d6-a516-9e71928fdb27",
+      "comment": "",
+      "command": "mouseOver",
+      "target": "css=.closet-btn",
+      "targets": [
+        ["css=.closet-btn", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Ormar #1')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "b0c0a957-63fe-4ac1-8e0e-4f78e6ddef2d",
+      "comment": "",
+      "command": "mouseOut",
+      "target": "css=.closet-btn",
+      "targets": [
+        ["css=.closet-btn", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div/div/button", "xpath:idRelative"],
+        ["xpath=//div/button", "xpath:position"],
+        ["xpath=//button[contains(.,'Ormar #1')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "de9a924c-0fa8-4f99-b543-596cd7cbd93a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.location-select-btn:nth-child(3)",
+      "targets": [
+        ["css=.location-select-btn:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='root']/div/div[2]/div[2]/button[2]", "xpath:idRelative"],
+        ["xpath=//div[2]/button[2]", "xpath:position"],
+        ["xpath=//button[contains(.,'Dodaj Ladicu')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "99cabc24-0f4a-4d31-90fe-c90f31d206ca",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["5426ab00-e7c8-430a-8e23-e476424eab63"]
+  }],
+  "urls": ["https://ormarkodeploy-c46f4289b2cf.herokuapp.com/"],
+  "plugins": []
+}
