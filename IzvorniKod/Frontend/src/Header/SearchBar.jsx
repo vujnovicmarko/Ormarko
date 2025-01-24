@@ -112,7 +112,6 @@ export default function SearchBar({ isLoggedIn }) {
           location = await fetchLocation(latitude, longitude);
           
         }
-        console.log("User coordinates:", location);
         const endpoint = useGeolocation
           ? `/api/user/searchUUG?UUlocation=${encodeURIComponent(location)}`
           : "/api/user/search";
@@ -128,7 +127,7 @@ export default function SearchBar({ isLoggedIn }) {
         }
         
         const data = await response.json();
-        const targetPage = "/search";
+        const targetPage = useGeolocation ? "/search-geolocation-unregistered-user" : "/search";
         navigate(targetPage, { state: { filters, products: data.first } });
       }
     } catch (error) {
